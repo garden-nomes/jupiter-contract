@@ -8,25 +8,24 @@ public class MovementController : MonoBehaviour
     public float pushOffSpeed = 1f;
     public LayerMask groundMask;
     public Transform groundCheckMarker;
-    public bool canLand = false;
-    public PhysicsMaterial2D wallMaterial;
+    public bool isMagBootsOn = false;
+    public float magBootForce = 500f;
+    public float magBootSpeed = .75f;
 
     const float GroundedRadius = .2f;
-    private bool grounded;
+    private bool isGrounded;
+    private bool isOverLadder;
     private Rigidbody2D rb;
     private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
     private PhysicsMaterial2D bouncyMaterial;
     private PhysicsMaterial2D nonBouncyMaterial;
 
-    public UnityEvent OnLandEvent;
+    bool CanStayOnGround => Mathf.Abs(Physics2D.gravity.y) >.1f || isMagBootsOn;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        if (OnLandEvent == null)
-            OnLandEvent = new UnityEvent();
 
         bouncyMaterial = new PhysicsMaterial2D();
         bouncyMaterial.bounciness = 1f;
@@ -39,24 +38,23 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool wasGrounded = grounded;
-        grounded = false;
+        isGrounded = false;
+        isOverLadder = false;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckMarker.position, GroundedRadius, groundMask);
+        var colliders = Physics2D.OverlapCircleAll(groundCheckMarker.position, GroundedRadius, groundMask);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject != gameObject)
+            if (!colliders[i].isTrigger && colliders[i].gameObject != gameObject)
             {
-                grounded = true;
-
-                if (!wasGrounded)
-                {
-                    OnLandEvent.Invoke();
-                }
+                isGrounded = true;
+            }
+            else if (colliders[i].CompareTag("ladder"))
+            {
+                isOverLadder = true;
             }
         }
 
-        if (grounded && canLand)
+        if (isGrounded && CanStayOnGround)
         {
             rb.sharedMaterial = nonBouncyMaterial;
         }
@@ -66,29 +64,51 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    public void Move(float move)
+    public void Move(float horizontal, float vertical)
     {
-
-        if (grounded)
+        if (isGrounded || isOverLadder)
         {
-            Vector3 targetVelocity = new Vector2(move * moveSpeed, rb.velocity.y);
+            var speed = isMagBootsOn ? moveSpeed * magBootSpeed : moveSpeed;
+
+            Vector3 targetVelocity = new Vector2(horizontal * speed, rb.velocity.y);
+
+            if (isOverLadder)
+            {
+                targetVelocity.y = vertical * speed;
+            }
+
             rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
 
-            if (!canLand)
+            if (!CanStayOnGround)
             {
                 var velocity = rb.velocity;
                 velocity.y += velocity.x * pushOffSpeed * Time.deltaTime;
                 rb.velocity = velocity;
             }
 
-            if (move > 0 && !facingRight)
+            if (horizontal > 0 && !facingRight)
             {
                 Flip();
             }
-            else if (move < 0 && facingRight)
+            else if (horizontal < 0 && facingRight)
             {
                 Flip();
             }
+        }
+        else if (isMagBootsOn)
+        {
+            float minDistance = float.PositiveInfinity;
+
+            var hits = Physics2D.RaycastAll(transform.position, Vector2.down, 100);
+            foreach (var hit in hits)
+            {
+                if (hit.collider.gameObject != gameObject && hit.distance < minDistance)
+                {
+                    minDistance = hit.distance;
+                }
+            }
+
+            rb.velocity += Vector2.down * (magBootForce / minDistance);
         }
     }
 
