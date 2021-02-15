@@ -4,29 +4,45 @@ public class PlayerController : MonoBehaviour
 {
     public bool isMagBootsOn = false;
     public Sprite[] frames;
+    public bool hasControl = true;
+    public PlayerInput input => _input;
 
     private MovementController movementController;
     private SpriteRenderer spriteRenderer;
-    private PlayerInput input;
+    private PlayerInput _input;
 
     void Start()
     {
         movementController = GetComponent<MovementController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        input = GetComponent<PlayerInput>();
+        _input = GetComponent<PlayerInput>();
     }
 
     void Update()
     {
-        movementController.isMagBootsOn = isMagBootsOn;
-        movementController.Move(input.horizontal, input.vertical);
-
-        if (input.GetBtnDown(0))
+        if (hasControl)
         {
-            isMagBootsOn = !isMagBootsOn;
-        }
+            movementController.isMagBootsOn = isMagBootsOn;
+            movementController.Move(input.horizontal, input.vertical);
 
+            if (input.GetBtnDown(0))
+            {
+                isMagBootsOn = !isMagBootsOn;
+            }
+
+            if (input.GetBtnDown(2))
+            {
+                foreach (var collider in Physics2D.OverlapCircleAll(transform.position, .1f))
+                {
+                    var interactible = collider.GetComponent<IInteractible>();
+
+                    if (interactible != null)
+                        interactible.Interact(this);
+                }
+            }
+        }
         UpdateAnimation();
+
     }
 
     void UpdateAnimation()
