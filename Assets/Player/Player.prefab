@@ -182,7 +182,7 @@ MonoBehaviour:
   pushOffSpeed: 1
   groundMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 256
   groundCheckMarker: {fileID: 7220488927326618366}
   isMagBootsOn: 0
   magBootForce: 0.5

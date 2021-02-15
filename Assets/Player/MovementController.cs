@@ -41,10 +41,12 @@ public class MovementController : MonoBehaviour
         isGrounded = false;
         isOverLadder = false;
 
-        var colliders = Physics2D.OverlapCircleAll(groundCheckMarker.position, GroundedRadius, groundMask);
+        var colliders = Physics2D.OverlapCircleAll(groundCheckMarker.position, GroundedRadius);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (!colliders[i].isTrigger && colliders[i].gameObject != gameObject)
+            bool isWall = ((1 << colliders[i].gameObject.layer) & groundMask) != 0;
+
+            if (!colliders[i].isTrigger && isWall && colliders[i].gameObject != gameObject)
             {
                 isGrounded = true;
             }

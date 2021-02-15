@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GravityController : MonoBehaviour
 {
+    public ShipController ship;
+    public float gravityScale = 3f;
+
     void Start()
     {
         Physics2D.gravity = Vector2.zero;
@@ -11,13 +14,6 @@ public class GravityController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.G))
-        {
-            Physics2D.gravity = Vector2.down * 2f;
-        }
-        else
-        {
-            Physics2D.gravity = Vector2.zero;
-        }
+        Physics2D.gravity = Vector2.down * ship.throttle * gravityScale;
     }
 }
