@@ -73,7 +73,7 @@ public class BoxEdit : MonoBehaviour
         var height = Mathf.Abs(a.y - b.y) + 1 / 8f;
         var width = Mathf.Abs(a.x - b.x) + 1 / 8f;
 
-        transform.position = (a + b) / 2f;
+        transform.position = new Vector3(0f, 0f, transform.position.z) + (Vector3) (a + b) / 2f;
         transform.localScale = new Vector3(width, height, 1f);
     }
 }
