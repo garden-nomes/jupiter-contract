@@ -7,22 +7,21 @@ public class PlayerController : MonoBehaviour
 
     private MovementController movementController;
     private SpriteRenderer spriteRenderer;
+    private PlayerInput input;
 
     void Start()
     {
         movementController = GetComponent<MovementController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        input = GetComponent<PlayerInput>();
     }
 
     void Update()
     {
-        var horizontal = Input.GetAxisRaw("Horizontal");
-        var vertical = Input.GetAxisRaw("Vertical");
-
         movementController.isMagBootsOn = isMagBootsOn;
-        movementController.Move(horizontal, vertical);
+        movementController.Move(input.horizontal, input.vertical);
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (input.GetBtnDown(0))
         {
             isMagBootsOn = !isMagBootsOn;
         }

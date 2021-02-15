@@ -5,26 +5,28 @@ using UnityEngine;
 public class InteriorCameraController : MonoBehaviour
 {
     public BoxCollider2D[] compartments;
-    public Transform target;
+    public Transform[] targets;
 
     void Update()
     {
-        BoxCollider2D currentCompartment = null;
 
+        var center = Vector2.zero;
         foreach (var compartment in compartments)
         {
             compartment.GetComponent<SpriteRenderer>().enabled = true;
-            if (compartment.bounds.Contains(target.position))
+
+            foreach (var target in targets)
             {
-                currentCompartment = compartment;
+                if (compartment.bounds.Contains(target.position))
+                {
+                    compartment.GetComponent<SpriteRenderer>().enabled = false;
+                    center += (Vector2) compartment.bounds.center;
+                    break;
+                }
             }
         }
 
-        if (currentCompartment)
-        {
-            currentCompartment.GetComponent<SpriteRenderer>().enabled = false;
-            CenterCamera((Vector2) currentCompartment.bounds.center);
-        }
+        CenterCamera(center);
     }
 
     void CenterCamera(Vector2 position)
