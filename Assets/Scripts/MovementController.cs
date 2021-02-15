@@ -82,7 +82,7 @@ public class MovementController : MonoBehaviour
             if (!CanStayOnGround)
             {
                 var velocity = rb.velocity;
-                velocity.y += velocity.x * pushOffSpeed * Time.deltaTime;
+                velocity.y += Mathf.Abs(velocity.x) * pushOffSpeed * Time.deltaTime;
                 rb.velocity = velocity;
             }
 
@@ -102,7 +102,9 @@ public class MovementController : MonoBehaviour
             var hits = Physics2D.RaycastAll(transform.position, Vector2.down, 100);
             foreach (var hit in hits)
             {
-                if (hit.collider.gameObject != gameObject && hit.distance < minDistance)
+                if (!hit.collider.isTrigger &&
+                    hit.collider.gameObject != gameObject &&
+                    hit.distance < minDistance)
                 {
                     minDistance = hit.distance;
                 }
