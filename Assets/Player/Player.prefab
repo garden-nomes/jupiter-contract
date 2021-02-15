@@ -179,6 +179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSmoothing: 0.01
   moveSpeed: 6
+  floatingMoveSpeed: 2
+  floatingMoveSmoothing: 0.9
   pushOffSpeed: 1
   groundMask:
     serializedVersion: 2
@@ -199,11 +201,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e453c0dae3fe4b30b8fa02284a44eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMagBootsOn: 0
+  isMagBootsOn: 1
   frames:
   - {fileID: 1620872261708521079, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
   - {fileID: -1520331889683971644, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
   hasControl: 1
+  instructionText: {fileID: 0}
+  instructionTextOverride: 
 --- !u!114 &7220488927478576527
 MonoBehaviour:
   m_ObjectHideFlags: 0

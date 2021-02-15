@@ -3,8 +3,10 @@ using UnityEngine.Events;
 
 public class MovementController : MonoBehaviour
 {
-    [Range(0, .3f)] public float movementSmoothing = .05f;
+    public float movementSmoothing = .05f;
     public float moveSpeed = 8f;
+    public float floatingMoveSpeed = 2f;
+    public float floatingMoveSmoothing = .75f;
     public float pushOffSpeed = 1f;
     public LayerMask groundMask;
     public Transform groundCheckMarker;
@@ -99,23 +101,30 @@ public class MovementController : MonoBehaviour
                 Flip();
             }
         }
-        else if (isMagBootsOn)
+        else
         {
-            float minDistance = float.PositiveInfinity;
+            var targetVelocity = new Vector2(horizontal, vertical) * floatingMoveSpeed;
+            rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, floatingMoveSmoothing);
 
-            var hits = Physics2D.RaycastAll(transform.position, Vector2.down, 100);
-            foreach (var hit in hits)
+            if (isMagBootsOn)
             {
-                if (!hit.collider.isTrigger &&
-                    hit.collider.gameObject != gameObject &&
-                    hit.distance < minDistance)
-                {
-                    minDistance = hit.distance;
-                }
-            }
+                float minDistance = float.PositiveInfinity;
 
-            rb.velocity += Vector2.down * (magBootForce / minDistance);
+                var hits = Physics2D.RaycastAll(transform.position, Vector2.down, 100);
+                foreach (var hit in hits)
+                {
+                    if (!hit.collider.isTrigger &&
+                        hit.collider.gameObject != gameObject &&
+                        hit.distance < minDistance)
+                    {
+                        minDistance = hit.distance;
+                    }
+                }
+
+                rb.velocity += Vector2.down * (magBootForce / minDistance);
+            }
         }
+
     }
 
     private void Flip()
