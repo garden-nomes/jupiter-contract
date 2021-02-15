@@ -36,13 +36,16 @@ public class PlayerController : MonoBehaviour
                 {
                     var interactible = collider.GetComponent<IInteractible>();
 
-                    if (interactible != null)
+                    if (interactible != null && interactible.CanInteract())
+                    {
                         interactible.Interact(this);
+                        break;
+                    }
                 }
             }
         }
-        UpdateAnimation();
 
+        UpdateAnimation();
     }
 
     void UpdateAnimation()

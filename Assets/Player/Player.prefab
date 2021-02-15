@@ -59,7 +59,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7220488927478576520}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.03, y: 1.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -203,6 +203,7 @@ MonoBehaviour:
   frames:
   - {fileID: 1620872261708521079, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
   - {fileID: -1520331889683971644, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
+  hasControl: 1
 --- !u!114 &7220488927478576527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +221,6 @@ MonoBehaviour:
     down: 115
     left: 97
     right: 100
-    btn0: 49
-    btn1: 50
-    btn2: 51
+    btn0: 122
+    btn1: 120
+    btn2: 99
