@@ -44,7 +44,12 @@ public class PlayerInput : MonoBehaviour
 
     public string GetInstructionText()
     {
-        return $"{Icons.HorizontalAxis(inputScheme)} move\n" + $"{Icons.IconText(inputScheme.btn0)} toggle mag boots";
+        var isOverLadder = GetComponent<MovementController>().IsOverLadder;
+        var isGrounded = GetComponent<MovementController>().IsGrounded;
+
+        return (isGrounded || isOverLadder ? $"{Icons.HorizontalAxis(inputScheme)} move\n" : "") +
+            (isOverLadder ? $"{Icons.VerticalAxis(inputScheme)} climb ladder\n" : "") +
+            $"{Icons.IconText(inputScheme.btn0)} toggle mag boots";
     }
 
     public bool GetBtn(int button) => Input.GetKey(GetButtonKeyCode(button));

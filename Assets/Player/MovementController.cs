@@ -11,6 +11,8 @@ public class MovementController : MonoBehaviour
     public bool isMagBootsOn = false;
     public float magBootForce = 500f;
     public float magBootSpeed = .75f;
+    public bool IsOverLadder => isOverLadder;
+    public bool IsGrounded => isGrounded;
 
     const float GroundedRadius = .2f;
     private bool isGrounded;
