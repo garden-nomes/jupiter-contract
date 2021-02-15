@@ -21,13 +21,13 @@ public class InteriorCameraController : MonoBehaviour
         var center = Vector2.zero;
         foreach (var compartment in compartments)
         {
-            compartment.GetComponent<SpriteRenderer>().enabled = true;
+            compartment.GetComponent<SpriteMask>().enabled = false;
 
             foreach (var target in targets)
             {
                 if (compartment.bounds.Contains(target.position))
                 {
-                    compartment.GetComponent<SpriteRenderer>().enabled = false;
+                    compartment.GetComponent<SpriteMask>().enabled = true;
                     center += (Vector2) compartment.bounds.center;
                     break;
                 }

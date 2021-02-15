@@ -59,18 +59,21 @@ public class BoxEdit : MonoBehaviour
 
     void Awake()
     {
-        var boxCollider = GetComponent<BoxCollider2D>();
-        a = boxCollider.bounds.min + Vector3.one / (2f * pixelsPerUnit);
-        b = boxCollider.bounds.max - Vector3.one / (2f * pixelsPerUnit);
+        var extent = new Vector2(
+            (transform.localScale.x - 1f / 8f) / 2f,
+            (transform.localScale.y - 1f / 8f) / 2f
+        );
+
+        a = (Vector2) transform.position - extent;
+        b = (Vector2) transform.position + extent;
     }
 
     public virtual void Update()
     {
-        transform.position = (a + b) / 2f;
-
         var height = Mathf.Abs(a.y - b.y) + 1 / 8f;
         var width = Mathf.Abs(a.x - b.x) + 1 / 8f;
 
+        transform.position = (a + b) / 2f;
         transform.localScale = new Vector3(width, height, 1f);
     }
 }
