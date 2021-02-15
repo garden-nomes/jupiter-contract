@@ -42,6 +42,11 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public string GetInstructionText()
+    {
+        return $"{Icons.HorizontalAxis(inputScheme)} move\n" + $"{Icons.IconText(inputScheme.btn0)} toggle mag boots";
+    }
+
     public bool GetBtn(int button) => Input.GetKey(GetButtonKeyCode(button));
     public bool GetBtnDown(int button) => Input.GetKeyDown(GetButtonKeyCode(button));
     public bool GetBtnUp(int button) => Input.GetKeyUp(GetButtonKeyCode(button));

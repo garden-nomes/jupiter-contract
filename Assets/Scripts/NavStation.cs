@@ -41,10 +41,24 @@ public class NavStation : MonoBehaviour, IInteractible
         return controllingPlayer == null;
     }
 
+    public string GetActionText(PlayerController player)
+    {
+        return "check nav array";
+    }
+    private string GetInstructionText()
+    {
+        if (controllingPlayer == null) return "";
+
+        var scheme = controllingPlayer.input.inputScheme;
+        return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate array\n" +
+            $"{Icons.IconText(scheme.btn2)} cancel";
+    }
+
     private void LockPlayer(PlayerController player)
     {
         controllingPlayer = player;
         controllingPlayer.hasControl = false;
+        controllingPlayer.instructionTextOverride = GetInstructionText();
     }
 
     private void ReleasePlayer()
@@ -56,6 +70,7 @@ public class NavStation : MonoBehaviour, IInteractible
             player.hasControl = true;
         }));
 
+        controllingPlayer.instructionTextOverride = null;
         controllingPlayer = null;
     }
 }

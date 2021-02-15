@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public Sprite[] frames;
     public bool hasControl = true;
     public PlayerInput input => _input;
+    public TextMeshProUGUI instructionText;
+    public string instructionTextOverride;
 
     private MovementController movementController;
     private SpriteRenderer spriteRenderer;
@@ -20,8 +23,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        instructionText.text = "";
+
+        if (instructionTextOverride != null)
+        {
+            instructionText.text = instructionTextOverride;
+        }
+
         if (hasControl)
         {
+            instructionText.text = input.GetInstructionText();
+
             movementController.isMagBootsOn = isMagBootsOn;
             movementController.Move(input.horizontal, input.vertical);
 
@@ -30,13 +42,16 @@ public class PlayerController : MonoBehaviour
                 isMagBootsOn = !isMagBootsOn;
             }
 
-            if (input.GetBtnDown(2))
+            foreach (var collider in Physics2D.OverlapCircleAll(transform.position, .1f))
             {
-                foreach (var collider in Physics2D.OverlapCircleAll(transform.position, .1f))
-                {
-                    var interactible = collider.GetComponent<IInteractible>();
+                var interactible = collider.GetComponent<IInteractible>();
 
-                    if (interactible != null && interactible.CanInteract())
+                if (interactible != null && interactible.CanInteract())
+                {
+                    string actionText = interactible.GetActionText(this);
+                    instructionText.text = $"{Icons.IconText(input.inputScheme.btn2)} {actionText}";
+
+                    if (input.GetBtnDown(2))
                     {
                         interactible.Interact(this);
                         break;

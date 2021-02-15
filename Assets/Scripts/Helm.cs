@@ -1,11 +1,5 @@
 ﻿using UnityEngine;
 
-public interface IInteractible
-{
-    bool CanInteract();
-    void Interact(PlayerController player);
-}
-
 public class Helm : MonoBehaviour, IInteractible
 {
     public ShipController ship;
@@ -23,6 +17,8 @@ public class Helm : MonoBehaviour, IInteractible
             ReleasePlayer();
             return;
         }
+
+        controllingPlayer.instructionTextOverride = GetInstructionText();
 
         var horizontal = controllingPlayer.input.horizontal;
         ship.transform.rotation *=
@@ -49,15 +45,32 @@ public class Helm : MonoBehaviour, IInteractible
         LockPlayer(player);
     }
 
+    public string GetActionText(PlayerController player)
+    {
+        return "take helm";
+    }
+
     public bool CanInteract()
     {
         return controllingPlayer == null;
+    }
+
+    private string GetInstructionText()
+    {
+        if (controllingPlayer == null) return "";
+
+        var scheme = controllingPlayer.input.inputScheme;
+        return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate ship\n" +
+            (ship.throttle > 0 ? $"{Icons.IconText(scheme.btn0)} throttle down\n" : "") +
+            (ship.throttle < 1 ? $"{Icons.IconText(scheme.btn1)} throttle up\n" : "") +
+            $"{Icons.IconText(scheme.btn2)} cancel";
     }
 
     private void LockPlayer(PlayerController player)
     {
         controllingPlayer = player;
         controllingPlayer.hasControl = false;
+        controllingPlayer.instructionTextOverride = GetInstructionText();
     }
 
     private void ReleasePlayer()
@@ -69,6 +82,7 @@ public class Helm : MonoBehaviour, IInteractible
             player.hasControl = true;
         }));
 
+        controllingPlayer.instructionTextOverride = null;
         controllingPlayer = null;
     }
 }
