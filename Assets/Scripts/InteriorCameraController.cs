@@ -17,22 +17,31 @@ public class InteriorCameraController : MonoBehaviour
 
     void Update()
     {
-
-        var center = Vector2.zero;
         foreach (var compartment in compartments)
         {
             compartment.GetComponent<SpriteMask>().enabled = false;
+        }
 
-            foreach (var target in targets)
+        var center = Vector2.zero;
+
+        foreach (var target in targets)
+        {
+            var activeCompartment = compartments[0];
+
+            foreach (var compartment in compartments)
             {
                 if (compartment.bounds.Contains(target.position))
                 {
-                    compartment.GetComponent<SpriteMask>().enabled = true;
-                    center += (Vector2) compartment.bounds.center;
+                    activeCompartment = compartment;
                     break;
                 }
             }
+
+            activeCompartment.GetComponent<SpriteMask>().enabled = true;
+            center += (Vector2) activeCompartment.bounds.center;
         }
+
+        center /= targets.Length;
 
         CenterCamera(center);
     }
