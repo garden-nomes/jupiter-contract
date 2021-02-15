@@ -26,7 +26,7 @@ public class Helm : MonoBehaviour, IInteractible
 
         var horizontal = controllingPlayer.input.horizontal;
         ship.transform.rotation *=
-            Quaternion.AngleAxis(horizontal * Time.deltaTime * rotationSpeed, Vector3.up);
+            Quaternion.AngleAxis(horizontal * Time.deltaTime * rotationSpeed, Vector3.back);
         var vertical = controllingPlayer.input.vertical;
         ship.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
