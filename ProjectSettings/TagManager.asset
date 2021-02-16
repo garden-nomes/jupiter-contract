@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ladder
   - compartment
+  - nav target
   layers:
   - Default
   - TransparentFX

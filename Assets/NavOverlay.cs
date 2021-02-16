@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using TMPro;
 using UnityEngine;
 
 public class NavOverlay : MonoBehaviour
@@ -12,6 +10,7 @@ public class NavOverlay : MonoBehaviour
     public RectTransform progradeMarker;
     public RectTransform retrogradeMarker;
     public RectTransform targetMarker;
+    public TextMeshProUGUI readoutText;
 
     private Canvas canvas;
 
@@ -34,15 +33,25 @@ public class NavOverlay : MonoBehaviour
         if (targetCanvasPosition == null)
         {
             targetMarker.gameObject.SetActive(false);
+            readoutText.text = "";
         }
         else
         {
             targetMarker.gameObject.SetActive(true);
             targetMarker.anchoredPosition = targetCanvasPosition.Value;
-        }
 
-        // flicker
-        canvas.enabled = Time.frameCount % 2 == 0;
+            var distance = (ship.transform.position - navTarget.position).magnitude;
+            string distanceText;
+            if (distance > 1000)
+            {
+                distanceText = $"{(distance/ 1000f).ToString("#.#")}km";
+            }
+            else
+            {
+                distanceText = $"{(distance).ToString("#")}m";
+            }
+            readoutText.text = distanceText;
+        }
     }
 
     void MarkHeading(Vector3 heading, RectTransform marker)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class NavStation : MonoBehaviour, IInteractible
 {
@@ -8,6 +9,11 @@ public class NavStation : MonoBehaviour, IInteractible
 
     private PlayerController controllingPlayer;
     private Quaternion initialRotation;
+    private Transform lockedTarget;
+    private Transform hoveredTarget;
+
+    public Vector3? Target => lockedTarget == null ? ((Vector3?) null) : lockedTarget.position;
+    public Vector3? HoveredTarget => hoveredTarget == null ? (Vector3?) null : hoveredTarget.position;
 
     private void Start()
     {
@@ -16,7 +22,11 @@ public class NavStation : MonoBehaviour, IInteractible
 
     private void Update()
     {
-        if (controllingPlayer == null) return;
+        if (controllingPlayer == null)
+        {
+            overlay.navTarget = lockedTarget == null ? null : lockedTarget;
+            return;
+        }
 
         if (controllingPlayer.input.GetBtnDown(2))
         {
@@ -31,7 +41,20 @@ public class NavStation : MonoBehaviour, IInteractible
         scopesCamera.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
-        overlay.navTarget = FindHoveredNavTarget();
+        hoveredTarget = FindHoveredNavTarget();
+
+        if (lockedTarget && controllingPlayer.input.GetBtnDown(0))
+        {
+            lockedTarget = null;
+        }
+        else if (hoveredTarget && controllingPlayer.input.GetBtnDown(0))
+        {
+            lockedTarget = hoveredTarget;
+        }
+
+        overlay.navTarget = lockedTarget == null ? hoveredTarget : lockedTarget;
+
+        controllingPlayer.instructionTextOverride = GetInstructionText();
     }
 
     public void Interact(PlayerController player)
@@ -83,7 +106,19 @@ public class NavStation : MonoBehaviour, IInteractible
         if (controllingPlayer == null) return "";
 
         var scheme = controllingPlayer.input.inputScheme;
+
+        var lockInstructions = "";
+        if (lockedTarget == null && hoveredTarget != null)
+        {
+            lockInstructions += $"{Icons.IconText(scheme.btn0)} lock target\n";
+        }
+        else if (lockedTarget != null)
+        {
+            lockInstructions += $"{Icons.IconText(scheme.btn0)} release target\n";
+        }
+
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate array\n" +
+            lockInstructions +
             $"{Icons.IconText(scheme.btn2)} cancel";
     }
 

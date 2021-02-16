@@ -7,7 +7,7 @@ public class ShipController : MonoBehaviour
     public float throttle = 0;
     public float moveSpeed;
 
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
 
     void Start()
     {
@@ -16,7 +16,6 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 forward = transform.rotation * Vector3.up;
-        rigidbody.velocity += forward * throttle * Time.deltaTime;
+        rigidbody.velocity += transform.up * throttle * moveSpeed * Time.deltaTime;
     }
 }
