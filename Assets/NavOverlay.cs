@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NavOverlay : MonoBehaviour
 {
     public ShipController ship;
+    public Transform navTarget;
 
     public RectTransform attitudeMarker;
     public RectTransform progradeMarker;
@@ -25,6 +27,19 @@ public class NavOverlay : MonoBehaviour
         var velocity = ship.GetComponent<Rigidbody>().velocity;
         MarkHeading(velocity, progradeMarker);
         MarkHeading(velocity * -1, retrogradeMarker);
+
+        var targetCanvasPosition = navTarget == null ? null :
+            WorldToCanvasPosition(navTarget.position);
+
+        if (targetCanvasPosition == null)
+        {
+            targetMarker.gameObject.SetActive(false);
+        }
+        else
+        {
+            targetMarker.gameObject.SetActive(true);
+            targetMarker.anchoredPosition = targetCanvasPosition.Value;
+        }
 
         // flicker
         canvas.enabled = Time.frameCount % 2 == 0;

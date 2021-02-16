@@ -4,6 +4,7 @@ public class NavStation : MonoBehaviour, IInteractible
 {
     public float rotationSpeed = 90f;
     public Camera scopesCamera;
+    public NavOverlay overlay;
 
     private PlayerController controllingPlayer;
     private Quaternion initialRotation;
@@ -29,6 +30,8 @@ public class NavStation : MonoBehaviour, IInteractible
         var vertical = controllingPlayer.input.vertical;
         scopesCamera.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
+
+        overlay.navTarget = FindHoveredNavTarget();
     }
 
     public void Interact(PlayerController player)
@@ -45,6 +48,36 @@ public class NavStation : MonoBehaviour, IInteractible
     {
         return "check nav array";
     }
+
+    Transform FindHoveredNavTarget()
+    {
+        var targets = GameObject.FindGameObjectsWithTag("nav target");
+
+        var forward = scopesCamera.transform.forward;
+        var from = scopesCamera.transform.position;
+
+        GameObject currentTarget = null;
+
+        foreach (var target in targets)
+        {
+            if (currentTarget == null)
+            {
+                currentTarget = target;
+                continue;
+            }
+
+            var currentDot = Vector3.Dot(forward, (currentTarget.transform.position - from).normalized);
+            var targetDot = Vector3.Dot(forward, (target.transform.position - from).normalized);
+
+            if (targetDot > currentDot)
+            {
+                currentTarget = target;
+            }
+        }
+
+        return currentTarget == null ? null : currentTarget.transform;
+    }
+
     private string GetInstructionText()
     {
         if (controllingPlayer == null) return "";

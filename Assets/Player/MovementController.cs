@@ -16,7 +16,7 @@ public class MovementController : MonoBehaviour
     public bool IsOverLadder => isOverLadder;
     public bool IsGrounded => isGrounded;
 
-    const float GroundedRadius = .2f;
+    const float GroundedRadius = 1f / 16f;
     private bool isGrounded;
     private bool isOverLadder;
     private Rigidbody2D rb;
