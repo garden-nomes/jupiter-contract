@@ -10,11 +10,17 @@ public class ShipController : MonoBehaviour
     public float miningDistance;
     public float miningSpeed;
 
+    public float stabilizerMaxSpeed = 1f;
+    public float stabilizerForce = 1f;
+
     public Vector3 Heading => transform.up;
     public Vector3 Position => transform.position;
     public Vector3 Velocity => rigidbody.velocity;
 
     private new Rigidbody rigidbody;
+
+    private bool isStabilizing = false;
+    public bool IsStabilizing => isStabilizing;
 
     void Start()
     {
@@ -23,13 +29,27 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // apply throttle
         rigidbody.velocity += transform.up * throttle * moveSpeed * Time.deltaTime;
+
+        // apply stabilizers
+        var speed = Velocity.magnitude;
+        isStabilizing = throttle == 0f && speed > 0f && speed <= stabilizerMaxSpeed;
+        if (isStabilizing)
+        {
+            var force = stabilizerForce * Time.deltaTime;
+
+            if (force >= speed)
+                rigidbody.velocity = Vector3.zero;
+            else
+                rigidbody.velocity -= rigidbody.velocity.normalized * force;
+        }
     }
 
     void Update()
     {
+        // mine asteroids
         var asteroids = GameObject.FindObjectsOfType<Asteroid>();
-
         foreach (var asteroid in asteroids)
         {
             var distance = (asteroid.transform.position - transform.position).magnitude;

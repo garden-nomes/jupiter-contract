@@ -5,9 +5,9 @@ public class Starfield : MonoBehaviour
 {
     public float distance = 10_000;
     public int count = 100;
+    public Transform follow;
 
-    [ContextMenu("Generate Mesh")]
-    private void GenerateMesh()
+    private void Start()
     {
 
         var points = GenerateStars(distance, count);
@@ -15,6 +15,11 @@ public class Starfield : MonoBehaviour
 
         var meshFilter = GetComponent<MeshFilter>();
         meshFilter.mesh = mesh;
+    }
+
+    private void LateUpdate()
+    {
+        transform.position = follow.position;
     }
 
     private Vector3[] GenerateStars(float distance, int count)
