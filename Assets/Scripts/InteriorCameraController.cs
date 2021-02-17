@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class InteriorCameraController : MonoBehaviour
 {
-    public Transform[] targets;
+    public Transform target;
+    public int maskLayer;
 
     private BoxCollider2D[] compartments;
 
@@ -21,29 +22,21 @@ public class InteriorCameraController : MonoBehaviour
         {
             compartment.GetComponent<SpriteMask>().enabled = false;
         }
+    }
 
-        var center = Vector2.zero;
-
-        foreach (var target in targets)
+    void LateUpdate()
+    {
+        foreach (var compartment in compartments)
         {
-            var activeCompartment = compartments[0];
-
-            foreach (var compartment in compartments)
+            if (compartment.bounds.Contains(target.position))
             {
-                if (compartment.bounds.Contains(target.position))
-                {
-                    activeCompartment = compartment;
-                    break;
-                }
+                compartment.GetComponent<SpriteMask>().enabled = true;
+                compartment.gameObject.layer = maskLayer;
+                CenterCamera(compartment.bounds.center);
+                break;
+
             }
-
-            activeCompartment.GetComponent<SpriteMask>().enabled = true;
-            center += (Vector2) activeCompartment.bounds.center;
         }
-
-        center /= targets.Length;
-
-        CenterCamera(center);
     }
 
     void CenterCamera(Vector2 position)
