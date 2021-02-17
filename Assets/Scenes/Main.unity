@@ -543,6 +543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throttle: 0
   moveSpeed: 1
+  miningDistance: 30
+  miningSpeed: 100
 --- !u!1 &199477961
 GameObject:
   m_ObjectHideFlags: 0
@@ -3273,8 +3275,9 @@ GameObject:
   - component: {fileID: 799370749}
   - component: {fileID: 799370748}
   - component: {fileID: 799370747}
+  - component: {fileID: 799370751}
   m_Layer: 10
-  m_Name: Test Nav Target
+  m_Name: Asteroid
   m_TagString: nav target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3350,12 +3353,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799370746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.794, y: 120.6, z: -34.339}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalScale: {x: 28.794123, y: 28.794123, z: 28.794123}
   m_Children: []
   m_Father: {fileID: 471742664}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &799370751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799370746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7180a4ddc1b964431b07e73c383fe88a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ore: 1000
+  scaleRatio: 100
 --- !u!1 &800800764
 GameObject:
   m_ObjectHideFlags: 0
@@ -3549,7 +3566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &840634439
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4479,15 +4496,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576527, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: inputScheme.btn0
-      value: 44
+      value: 108
       objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576527, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: inputScheme.btn1
-      value: 46
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576527, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: inputScheme.btn2
-      value: 47
+      value: 39
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
@@ -6070,7 +6087,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1e+9
-  field of view: 60
+  field of view: 100
   orthographic: 0
   orthographic size: 12.375
   m_Depth: -10
@@ -6312,7 +6329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1547548088
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7176,7 +7193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1899195333
 SphereCollider:
   m_ObjectHideFlags: 0
