@@ -126,6 +126,7 @@ public class NavStation : MonoBehaviour, IInteractible
     {
         controllingPlayer = player;
         controllingPlayer.hasControl = false;
+        controllingPlayer.isUsingNavStation = true;
         controllingPlayer.instructionTextOverride = GetInstructionText();
     }
 
@@ -139,6 +140,7 @@ public class NavStation : MonoBehaviour, IInteractible
         }));
 
         controllingPlayer.instructionTextOverride = null;
+        controllingPlayer.isUsingNavStation = false;
         controllingPlayer = null;
     }
 }

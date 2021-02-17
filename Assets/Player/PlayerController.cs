@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInput input => _input;
     public TextMeshProUGUI instructionText;
     public string instructionTextOverride;
+    public bool isUsingNavStation;
 
     private MovementController movementController;
     private SpriteRenderer spriteRenderer;
