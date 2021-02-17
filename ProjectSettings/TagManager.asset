@@ -35,11 +35,11 @@ TagManager:
   - 
   - 
   - 
+  - Camera 1 Sprite Mask
+  - Camera 2 Sprite Mask
   - 
   - 
-  - 
-  - 
-  - 
+  - Composed
   m_SortingLayers:
   - name: Default
     uniqueID: 0
