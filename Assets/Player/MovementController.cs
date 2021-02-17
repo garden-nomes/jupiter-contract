@@ -121,7 +121,10 @@ public class MovementController : MonoBehaviour
                     }
                 }
 
-                rb.velocity += Vector2.down * (magBootForce / minDistance);
+                if (minDistance > 0f)
+                {
+                    rb.velocity += Vector2.down * (magBootForce / minDistance);
+                }
             }
         }
 
