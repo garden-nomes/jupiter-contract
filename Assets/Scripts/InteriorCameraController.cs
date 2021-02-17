@@ -8,6 +8,7 @@ public class InteriorCameraController : MonoBehaviour
     public PlayerController target;
     public Transform navStationScreen;
     public int maskLayer;
+    public bool isVisible = true;
 
     private BoxCollider2D[] compartments;
 
@@ -38,7 +39,12 @@ public class InteriorCameraController : MonoBehaviour
                 if (compartment.bounds.Contains(target.transform.position))
                 {
                     compartment.GetComponent<SpriteMask>().enabled = true;
-                    compartment.gameObject.layer = maskLayer;
+
+                    if (isVisible)
+                    {
+                        compartment.gameObject.layer = maskLayer;
+                    }
+
                     CenterCamera(compartment.bounds.center);
                     break;
 

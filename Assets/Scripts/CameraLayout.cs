@@ -17,6 +17,7 @@ public class CameraLayout : MonoBehaviour
         if (player1Camera.position == player2Camera.position)
         {
             player2CameraDisplay.gameObject.SetActive(false);
+            player2Camera.GetComponent<InteriorCameraController>().isVisible = false;
 
             player1CameraDisplay.anchorMin = Vector2.zero;
             player1CameraDisplay.anchorMax = Vector2.one;
@@ -30,6 +31,7 @@ public class CameraLayout : MonoBehaviour
         else
         {
             player2CameraDisplay.gameObject.SetActive(true);
+            player2Camera.GetComponent<InteriorCameraController>().isVisible = true;
 
             player1CameraDisplay.anchorMin = new Vector2(1f / 3f, 0.5f);
             player1CameraDisplay.anchorMax = new Vector2(1f, 1f);
