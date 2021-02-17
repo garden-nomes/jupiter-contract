@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: 2440890890359211017
     second: Ship1
+  - first:
+      213: -2615288299646757479
+    second: Ship2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
