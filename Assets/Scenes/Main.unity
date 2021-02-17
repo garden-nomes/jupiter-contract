@@ -4496,15 +4496,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576527, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: inputScheme.btn0
-      value: 108
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576527, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: inputScheme.btn1
-      value: 59
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576527, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: inputScheme.btn2
-      value: 39
+      value: 47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
@@ -8227,10 +8227,6 @@ PrefabInstance:
     - target: {fileID: 7220488927478576520, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: m_Name
       value: Player 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220488927478576524, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
-      propertyPath: m_MaskInteraction
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576525, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: m_LocalPosition.x

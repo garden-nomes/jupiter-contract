@@ -68,15 +68,21 @@ public class Helm : MonoBehaviour, IInteractible
 
     private void LockPlayer(PlayerController player)
     {
-        controllingPlayer = player;
-        controllingPlayer.hasControl = false;
-        controllingPlayer.instructionTextOverride = GetInstructionText();
+        player.hasControl = false;
+        player.instructionTextOverride = GetInstructionText();
+
+        // delay a frame to avoid releasing control if this Update() happens afterwards in same frame
+        StartCoroutine(Helpers.DelayedAction(() =>
+        {
+            controllingPlayer = player;
+        }));
     }
 
     private void ReleasePlayer()
     {
         var player = controllingPlayer;
 
+        // delay a frame to avoid taking control back if this Update() happens afterwards in same frame
         StartCoroutine(Helpers.DelayedAction(() =>
         {
             player.hasControl = true;

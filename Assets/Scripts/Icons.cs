@@ -22,6 +22,11 @@ public static class Icons
 
     public static string IconText(KeyCode key)
     {
+        if (!KeyIconMappings.ContainsKey(key))
+        {
+            return "";
+        }
+
         int index = KeyIconMappings[key];
         return $"<sprite index={index}>";
     }
