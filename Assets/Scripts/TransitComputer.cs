@@ -93,7 +93,6 @@ public class TransitComputer : MonoBehaviour
     }
 
     public Transform ship;
-    public NavStation navStation;
     public Helm helm;
     public TextMeshProUGUI uiText;
     public Rigidbody shipRigidbody;
@@ -107,7 +106,6 @@ public class TransitComputer : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(State);
         UpdateText();
     }
 
@@ -116,12 +114,12 @@ public class TransitComputer : MonoBehaviour
         get
         {
 
-            if (navStation.Target == null)
+            if (shipController.target == null)
             {
                 return TransitState.NoTarget;
             }
 
-            var target = navStation.Target.Value;
+            var target = shipController.target.Value;
             var isMoving = shipRigidbody.velocity.sqrMagnitude > 0f;
 
             if (isMoving)
@@ -205,18 +203,6 @@ public class TransitComputer : MonoBehaviour
 
     private string NoTargetText()
     {
-        var hovered = navStation.HoveredTarget;
-
-        if (hovered != null)
-        {
-            var distance = (ship.position - hovered.Value).magnitude;
-            var flipTime = 180f / helm.rotationSpeed;
-            var acceleration = shipController.moveSpeed;
-            var time = TransitCalculations.TimeFromAccelerating(
-                distance, acceleration, acceleration, 0f, flipTime).totalTime;
-            return $"min time: {FormatDuration(time)}";
-        }
-
         return "";
     }
 
@@ -232,7 +218,7 @@ public class TransitComputer : MonoBehaviour
 
         var deceleration = shipController.moveSpeed;
         var velocity = shipRigidbody.velocity.magnitude;
-        var distance = (ship.position - navStation.Target.Value).magnitude;
+        var distance = (ship.position - shipController.target.Value).magnitude;
         var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, velocity);
         return FormatDuration(-calculation.timeToBeginDeceleration);
     }
@@ -240,14 +226,14 @@ public class TransitComputer : MonoBehaviour
     {
         var deceleration = shipController.moveSpeed;
         var velocity = shipRigidbody.velocity.magnitude;
-        var distance = (ship.position - navStation.Target.Value).magnitude;
+        var distance = (ship.position - shipController.target.Value).magnitude;
         var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, velocity);
         return FormatDuration(-calculation.timeToBeginDeceleration);
     }
 
     private string DecelerationText()
     {
-        Vector3 target = navStation.Target.Value;
+        Vector3 target = shipController.target.Value;
         Vector3 position = ship.position;
         Vector3 direction = shipRigidbody.velocity.normalized;
         float velocity = shipRigidbody.velocity.magnitude;
@@ -281,24 +267,24 @@ public class TransitComputer : MonoBehaviour
 
     private bool CheckCourse()
     {
-        if (navStation.Target == null)
+        if (shipController.target == null)
         {
             return false;
         }
 
         var ray = new Ray(ship.position, shipRigidbody.velocity.normalized);
-        return RayDistanceFromPoint(ray, navStation.Target.Value) <= fudgeDistance;
+        return RayDistanceFromPoint(ray, shipController.target.Value) <= fudgeDistance;
     }
 
     private bool CheckHeading()
     {
-        if (navStation.Target == null)
+        if (shipController.target == null)
         {
             return false;
         }
 
         var ray = new Ray(ship.position, ship.up);
-        return RayDistanceFromPoint(ray, navStation.Target.Value) <= fudgeDistance;
+        return RayDistanceFromPoint(ray, shipController.target.Value) <= fudgeDistance;
     }
 
     private float RayDistanceFromPoint(Ray ray, Vector3 point)

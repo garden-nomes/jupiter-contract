@@ -5,15 +5,11 @@ public class NavStation : MonoBehaviour, IInteractible
 {
     public float rotationSpeed = 90f;
     public Camera scopesCamera;
-    public NavOverlay overlay;
+    public NavigationMarkers overlay;
+    public ShipController ship;
 
     private PlayerController controllingPlayer;
     private Quaternion initialRotation;
-    private Transform lockedTarget;
-    private Transform hoveredTarget;
-
-    public Vector3? Target => lockedTarget == null ? ((Vector3?) null) : lockedTarget.position;
-    public Vector3? HoveredTarget => hoveredTarget == null ? (Vector3?) null : hoveredTarget.position;
 
     private void Start()
     {
@@ -24,7 +20,6 @@ public class NavStation : MonoBehaviour, IInteractible
     {
         if (controllingPlayer == null)
         {
-            overlay.navTarget = lockedTarget == null ? null : lockedTarget;
             return;
         }
 
@@ -41,18 +36,14 @@ public class NavStation : MonoBehaviour, IInteractible
         scopesCamera.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
-        hoveredTarget = FindHoveredNavTarget();
-
-        if (lockedTarget && controllingPlayer.input.GetBtnDown(0))
+        if (ship.target != null && controllingPlayer.input.GetBtnDown(0))
         {
-            lockedTarget = null;
+            ship.target = null;
         }
-        else if (hoveredTarget && controllingPlayer.input.GetBtnDown(0))
+        else if (overlay.Target != null && controllingPlayer.input.GetBtnDown(0))
         {
-            lockedTarget = hoveredTarget;
+            ship.target = overlay.Target;
         }
-
-        overlay.navTarget = lockedTarget == null ? hoveredTarget : lockedTarget;
 
         controllingPlayer.instructionTextOverride = GetInstructionText();
     }
@@ -72,7 +63,7 @@ public class NavStation : MonoBehaviour, IInteractible
         return "check nav array";
     }
 
-    Transform FindHoveredNavTarget()
+    Vector3? FindHoveredNavTarget()
     {
         var targets = GameObject.FindGameObjectsWithTag("nav target");
 
@@ -98,7 +89,7 @@ public class NavStation : MonoBehaviour, IInteractible
             }
         }
 
-        return currentTarget == null ? null : currentTarget.transform;
+        return currentTarget == null ? (Vector3?) null : currentTarget.transform.position;
     }
 
     private string GetInstructionText()
@@ -108,11 +99,11 @@ public class NavStation : MonoBehaviour, IInteractible
         var scheme = controllingPlayer.input.inputScheme;
 
         var lockInstructions = "";
-        if (lockedTarget == null && hoveredTarget != null)
+        if (ship.target == null && overlay.Target != null)
         {
             lockInstructions += $"{Icons.IconText(scheme.btn0)} lock target\n";
         }
-        else if (lockedTarget != null)
+        else if (ship.target != null)
         {
             lockInstructions += $"{Icons.IconText(scheme.btn0)} release target\n";
         }

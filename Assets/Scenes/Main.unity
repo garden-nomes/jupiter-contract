@@ -397,7 +397,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 186628061}
-  navStation: {fileID: 1273657620}
   helm: {fileID: 745094465}
   uiText: {fileID: 365954506}
   shipRigidbody: {fileID: 186628062}
@@ -1041,16 +1040,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 369619442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c687f39294a4e63bb40eaa76d99775, type: 3}
+  m_Script: {fileID: 11500000, guid: 9496bd377233047adb1a055d37e59501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNavCamera: 1
   ship: {fileID: 186628063}
-  navTarget: {fileID: 0}
+  camera: {fileID: 1482169476}
   attitudeMarker: {fileID: 442597234}
   progradeMarker: {fileID: 359564331}
   retrogradeMarker: {fileID: 536063412}
   targetMarker: {fileID: 613550734}
-  readoutText: {fileID: 1528213978}
 --- !u!4 &374871490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4595639127207914695, guid: a996c5abf480b45bfbb26050cadce135, type: 3}
@@ -1561,7 +1560,6 @@ GameObject:
   m_Component:
   - component: {fileID: 496664074}
   - component: {fileID: 496664073}
-  - component: {fileID: 496664071}
   - component: {fileID: 496664072}
   m_Layer: 0
   m_Name: Player 1 Camera
@@ -1570,26 +1568,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &496664071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496664070}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AssetsPPU: 8
-  m_RefResolutionX: 320
-  m_RefResolutionY: 180
-  m_UpscaleRT: 1
-  m_PixelSnapping: 1
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!114 &496664072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,6 +1583,7 @@ MonoBehaviour:
   target: {fileID: 2001721678}
   navStationScreen: {fileID: 406995996}
   maskLayer: 27
+  isVisible: 1
 --- !u!20 &496664073
 Camera:
   m_ObjectHideFlags: 0
@@ -3134,8 +3113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 496664073}
   pixelsPerUnit: 8
-  pixelScale: 3
   renderTexture: {fileID: 8600000, guid: 9f92d4b7d5b404feea71b4484d3f6e86, type: 2}
+  pixelPerfectCamera: {fileID: 519420030}
 --- !u!1 &745094463
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,7 +3784,6 @@ GameObject:
   m_Component:
   - component: {fileID: 854279896}
   - component: {fileID: 854279893}
-  - component: {fileID: 854279895}
   - component: {fileID: 854279894}
   m_Layer: 0
   m_Name: Player 2 Camera
@@ -3872,26 +3850,7 @@ MonoBehaviour:
   target: {fileID: 7711021}
   navStationScreen: {fileID: 406995996}
   maskLayer: 28
---- !u!114 &854279895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854279892}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AssetsPPU: 8
-  m_RefResolutionX: 320
-  m_RefResolutionY: 180
-  m_UpscaleRT: 1
-  m_PixelSnapping: 1
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
+  isVisible: 1
 --- !u!4 &854279896
 Transform:
   m_ObjectHideFlags: 0
@@ -5181,8 +5140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 854279893}
   pixelsPerUnit: 8
-  pixelScale: 3
   renderTexture: {fileID: 8600000, guid: 3fd9022d1ec674990ae74b81cad10701, type: 2}
+  pixelPerfectCamera: {fileID: 519420030}
 --- !u!114 &1264937114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5396,6 +5355,7 @@ MonoBehaviour:
   rotationSpeed: 90
   scopesCamera: {fileID: 1482169476}
   overlay: {fileID: 369619447}
+  ship: {fileID: 186628063}
 --- !u!61 &1273657621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5988,7 +5948,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1482169473}
   - component: {fileID: 1482169476}
-  - component: {fileID: 1482169475}
   m_Layer: 0
   m_Name: Nav Camera
   m_TagString: MainCamera
@@ -6011,14 +5970,6 @@ Transform:
   m_Father: {fileID: 186628061}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!81 &1482169475
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482169472}
-  m_Enabled: 1
 --- !u!20 &1482169476
 Camera:
   m_ObjectHideFlags: 0
@@ -6072,7 +6023,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1489004869}
   - component: {fileID: 1489004870}
-  - component: {fileID: 1489004871}
   m_Layer: 0
   m_Name: Forward Camera
   m_TagString: MainCamera
@@ -6138,14 +6088,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1489004871
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489004868}
-  m_Enabled: 1
 --- !u!1001 &1519462347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6214,6 +6156,7 @@ GameObject:
   - component: {fileID: 1528213977}
   - component: {fileID: 1528213979}
   - component: {fileID: 1528213978}
+  - component: {fileID: 1528213980}
   m_Layer: 12
   m_Name: Distance Text
   m_TagString: Untagged
@@ -6337,6 +6280,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528213976}
   m_CullTransparentMesh: 0
+--- !u!114 &1528213980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528213976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3a4b4b017c04a59919179fa63b8891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overlay: {fileID: 369619447}
+  ship: {fileID: 186628063}
 --- !u!1 &1547548087
 GameObject:
   m_ObjectHideFlags: 0
@@ -7721,18 +7678,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002054535}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c687f39294a4e63bb40eaa76d99775, type: 3}
+  m_Script: {fileID: 11500000, guid: 9496bd377233047adb1a055d37e59501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNavCamera: 0
   ship: {fileID: 186628063}
-  navTarget: {fileID: 0}
+  camera: {fileID: 1489004870}
   attitudeMarker: {fileID: 438443405}
   progradeMarker: {fileID: 2035044587}
   retrogradeMarker: {fileID: 1887613151}
   targetMarker: {fileID: 93187900}
-  readoutText: {fileID: 0}
 --- !u!114 &2002054538
 MonoBehaviour:
   m_ObjectHideFlags: 0

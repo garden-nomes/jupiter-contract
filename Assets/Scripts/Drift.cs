@@ -6,7 +6,7 @@ public class Drift : MonoBehaviour
 {
     public float driftSpeed = 2f;
 
-    private Rigidbody2D rigidbody;
+    private new Rigidbody2D rigidbody;
 
     void Start()
     {
