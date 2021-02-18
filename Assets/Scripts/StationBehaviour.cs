@@ -18,7 +18,7 @@ public abstract class StationBehaviour : MonoBehaviour, IInteractible
     protected virtual void OnRelease(PlayerController player) { }
     protected virtual void UseStation(PlayerController player) { }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (controllingPlayer != null)
         {

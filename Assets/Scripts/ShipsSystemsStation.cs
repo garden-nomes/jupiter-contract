@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShipsSystemsStation : StationBehaviour
 {
+    public Blink bridgeLightBlinker;
+
     public StatusIndicator portEngineIndicator;
     public StatusIndicator stbdEngineIndicator;
 
@@ -14,9 +16,11 @@ public class ShipsSystemsStation : StationBehaviour
         return "check systems";
     }
 
-    protected override void UseStation(PlayerController player)
+    protected override void Update()
     {
         portEngineIndicator.isOk = !ship.portEngine.IsBroken;
         stbdEngineIndicator.isOk = !ship.stbdEngine.IsBroken;
+        bridgeLightBlinker.enabled = !portEngineIndicator.isOk || !stbdEngineIndicator.isOk;
+        base.Update();
     }
 }
