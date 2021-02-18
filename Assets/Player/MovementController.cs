@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class MovementController : MonoBehaviour
 {
+    public float exhaustedMultiplier = .5f;
     public float movementSmoothing = .05f;
     public float moveSpeed = 8f;
     public float floatingMoveSpeed = 2f;
@@ -24,6 +25,7 @@ public class MovementController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private PhysicsMaterial2D bouncyMaterial;
     private PhysicsMaterial2D nonBouncyMaterial;
+    private PlayerController controller;
 
     bool CanStayOnGround => Mathf.Abs(Physics2D.gravity.y) >.1f || isMagBootsOn;
 
@@ -38,6 +40,8 @@ public class MovementController : MonoBehaviour
         nonBouncyMaterial = new PhysicsMaterial2D();
         nonBouncyMaterial.bounciness = 0f;
         nonBouncyMaterial.friction = 0f;
+
+        controller = GetComponent<PlayerController>();
     }
 
     private void FixedUpdate()
@@ -75,6 +79,7 @@ public class MovementController : MonoBehaviour
         if (isGrounded || isOverLadder)
         {
             var speed = isMagBootsOn ? moveSpeed * magBootSpeed : moveSpeed;
+            if (controller.IsExhausted) speed *= exhaustedMultiplier;
 
             Vector3 targetVelocity = new Vector2(horizontal * speed, rb.velocity.y);
 
