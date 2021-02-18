@@ -10,6 +10,9 @@ public class ShipController : MonoBehaviour
     public float miningDistance;
     public float miningSpeed;
 
+    public EngineController portEngine;
+    public EngineController stbdEngine;
+
     public float stabilizerMaxSpeed = 1f;
     public float stabilizerForce = 1f;
 
@@ -25,6 +28,9 @@ public class ShipController : MonoBehaviour
     private bool isMining = false;
     public bool IsMining => isMining;
 
+    private float acceleration = 0f;
+    public float Acceleration => acceleration;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -33,11 +39,15 @@ public class ShipController : MonoBehaviour
     void FixedUpdate()
     {
         // apply throttle
-        rigidbody.velocity += transform.up * throttle * moveSpeed * Time.deltaTime;
+        var portThrottle = portEngine.IsBroken ? 0f : throttle;
+        var stbdThrottle = stbdEngine.IsBroken ? 0f : throttle;
+        var avgThrottle = (portThrottle + stbdThrottle) / 2f;
+        acceleration = avgThrottle * moveSpeed;
+        rigidbody.velocity += transform.up * acceleration * Time.deltaTime;
 
         // apply stabilizers
         var speed = Velocity.magnitude;
-        isStabilizing = throttle == 0f && speed > 0f && speed <= stabilizerMaxSpeed;
+        isStabilizing = Acceleration == 0f && speed > 0f && speed <= stabilizerMaxSpeed;
         if (isStabilizing)
         {
             var force = stabilizerForce * Time.deltaTime;

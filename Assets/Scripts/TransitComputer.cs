@@ -237,7 +237,7 @@ public class TransitComputer : MonoBehaviour
         Vector3 position = ship.position;
         Vector3 direction = shipRigidbody.velocity.normalized;
         float velocity = shipRigidbody.velocity.magnitude;
-        float deceleration = shipController.moveSpeed * shipController.throttle;
+        float deceleration = shipController.Acceleration;
 
         float decelerationTime = velocity / deceleration;
         float projectedDistance = velocity * decelerationTime / 2f;

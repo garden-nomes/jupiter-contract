@@ -14,6 +14,6 @@ public class GravityController : MonoBehaviour
 
     void Update()
     {
-        Physics2D.gravity = Vector2.down * ship.throttle * gravityScale;
+        Physics2D.gravity = Vector2.down * ship.Acceleration * gravityScale;
     }
 }
