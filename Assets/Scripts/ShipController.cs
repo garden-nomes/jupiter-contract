@@ -39,10 +39,10 @@ public class ShipController : MonoBehaviour
     void FixedUpdate()
     {
         // apply throttle
-        portEngine.throttle = portEngine.IsBroken ? 0f : throttle;
-        stbdEngine.throttle = stbdEngine.IsBroken ? 0f : throttle;
-        var avgThrottle = (portEngine.throttle + stbdEngine.throttle) / 2f;
-        acceleration = avgThrottle * moveSpeed;
+        portEngine.throttle = throttle;
+        stbdEngine.throttle = throttle;
+        var thrust = (portEngine.Thrust + stbdEngine.Thrust) / 2f;
+        acceleration = thrust * moveSpeed;
         rigidbody.velocity += transform.up * acceleration * Time.deltaTime;
 
         // apply stabilizers

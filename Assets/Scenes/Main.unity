@@ -4383,6 +4383,8 @@ MonoBehaviour:
   - {fileID: 10469646}
   - {fileID: 2029573568}
   throttle: 0
+  minBreakTime: 30
+  maxBreakTime: 60
 --- !u!1 &799370746
 GameObject:
   m_ObjectHideFlags: 0
@@ -6525,6 +6527,8 @@ MonoBehaviour:
   - {fileID: 814211155}
   - {fileID: 1559078645}
   throttle: 0
+  minBreakTime: 30
+  maxBreakTime: 60
 --- !u!1 &1272790788
 GameObject:
   m_ObjectHideFlags: 0
