@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: -783963982201621563
     second: NeedIcons0
+  - first:
+      213: -4326667623715880515
+    second: NeedIcons1
+  - first:
+      213: -7410001855005227555
+    second: NeedIcons2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -96,6 +102,48 @@ TextureImporter:
       bones: []
       spriteID: 5c3fb2c69ecce15f0800000000000000
       internalID: -783963982201621563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeedIcons1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db14b3b48b694f3c0800000000000000
+      internalID: -4326667623715880515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeedIcons2
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 1
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd58d6f92926a2990800000000000000
+      internalID: -7410001855005227555
       vertices: []
       indices: 
       edges: []
