@@ -7,9 +7,13 @@ public class PlayerController : MonoBehaviour
     public Sprite[] frames;
     public bool hasControl = true;
     public PlayerInput input => _input;
-    public TextMeshProUGUI instructionText;
     public ProgressBar progressBar;
     public StationBehaviour station;
+
+    public float tiredness = 0f;
+    public float tirednessTime = 60f;
+
+    [HideInInspector] public string instructionText = "";
 
     public float? Progress
     {
@@ -41,16 +45,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        instructionText.text = "";
+        instructionText = "";
 
-        if (station != null)
-        {
-            instructionText.text = station.GetInstructionText(this);
-        }
+        tiredness += Time.deltaTime / tirednessTime;
+        tiredness = Mathf.Clamp01(tiredness);
 
         if (hasControl)
         {
-            instructionText.text = input.GetInstructionText();
+            instructionText = input.GetInstructionText();
 
             movementController.isMagBootsOn = isMagBootsOn;
             movementController.Move(input.horizontal, input.vertical);
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
                 if (interactible != null && interactible.CanInteract())
                 {
                     string actionText = interactible.GetActionText(this);
-                    instructionText.text = $"{Icons.IconText(input.inputScheme.btn2)} {actionText}";
+                    instructionText = $"{Icons.IconText(input.inputScheme.btn2)} {actionText}";
 
                     if (input.GetBtnDown(2))
                     {

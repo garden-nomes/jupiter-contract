@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BunksController : MonoBehaviour, IInteractible
 {
+    public float restingTime = 10f;
+
     public PlayerController topBunkOwner;
     public PlayerController bottomBunkOwner;
 
@@ -28,7 +30,7 @@ public class BunksController : MonoBehaviour, IInteractible
             isBottomBunkOccupied = true;
         }
 
-        player.instructionText.text = $"{Icons.IconText(player.input.inputScheme.btn2)} cancel";
+        player.instructionText = $"{Icons.IconText(player.input.inputScheme.btn2)} cancel";
         player.gameObject.SetActive(false);
     }
 
@@ -36,6 +38,18 @@ public class BunksController : MonoBehaviour, IInteractible
     {
         topBunk.isOpen = !isTopBunkOccupied;
         bottomBunk.isOpen = !isBottomBunkOccupied;
+
+        if (isTopBunkOccupied)
+        {
+            topBunkOwner.tiredness -= Time.deltaTime / restingTime;
+            topBunkOwner.tiredness = Mathf.Clamp01(topBunkOwner.tiredness);
+        }
+
+        if (isBottomBunkOccupied)
+        {
+            bottomBunkOwner.tiredness -= Time.deltaTime / restingTime;
+            bottomBunkOwner.tiredness = Mathf.Clamp01(bottomBunkOwner.tiredness);
+        }
 
         if (isTopBunkOccupied && topBunkOwner.input.GetBtnDown(2))
         {
