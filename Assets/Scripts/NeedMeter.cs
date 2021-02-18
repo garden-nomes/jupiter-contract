@@ -9,6 +9,7 @@ public class NeedMeter : MonoBehaviour
     [Range(0f, 1f)] public float value = 0f;
     [Range(0f, 1f)] public float startBlinking = 0.25f;
     public Image icon;
+    public TMPro.TextMeshProUGUI emptyText;
 
     private RectTransform rect;
     private Image image;
@@ -38,5 +39,6 @@ public class NeedMeter : MonoBehaviour
 
         image.enabled = value > startBlinking || (Time.time % 0.5f < 2f / 6f);
         icon.enabled = value > startBlinking || (Time.time % 0.5f < 2f / 6f);
+        emptyText.enabled = value == 0f && (Time.time % 0.5f < 2f / 6f);
     }
 }
