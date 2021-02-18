@@ -16,16 +16,19 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
         if (fixingPlayer != null)
         {
             fixedTimer += Time.deltaTime;
+            fixingPlayer.Progress = fixedTimer / timeToFix;
 
             if (fixedTimer >= timeToFix)
             {
                 fixingPlayer.hasControl = true;
+                fixingPlayer.Progress = null;
                 fixingPlayer = null;
                 gameObject.SetActive(false);
             }
             else if (fixingPlayer.input.GetBtnUp(2))
             {
                 fixingPlayer.hasControl = true;
+                fixingPlayer.Progress = null;
                 fixingPlayer = null;
             }
         }

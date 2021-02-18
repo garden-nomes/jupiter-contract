@@ -10,6 +10,24 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI instructionText;
     public string instructionTextOverride;
     public bool isUsingNavStation;
+    public ProgressBar progressBar;
+
+    public float? Progress
+    {
+        get => progressBar.gameObject.activeSelf ? progressBar.progress : (float?) null;
+        set
+        {
+            if (value == null)
+            {
+                progressBar.gameObject.SetActive(false);
+            }
+            else
+            {
+                progressBar.gameObject.SetActive(true);
+                progressBar.progress = value.Value;
+            }
+        }
+    }
 
     private MovementController movementController;
     private SpriteRenderer spriteRenderer;

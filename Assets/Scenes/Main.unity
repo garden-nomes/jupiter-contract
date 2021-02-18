@@ -3808,10 +3808,10 @@ MonoBehaviour:
   m_Texture: {fileID: 8600000, guid: 9f92d4b7d5b404feea71b4484d3f6e86, type: 2}
   m_UVRect:
     serializedVersion: 2
-    x: 0.14739582
-    y: 0.22037038
-    width: 0.70520836
-    height: 0.55925924
+    x: 0.2359375
+    y: 0.30555555
+    width: 0.528125
+    height: 0.3888889
 --- !u!222 &731533275
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5146,6 +5146,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130690328}
     m_Modifications:
+    - target: {fileID: 2680009351901823819, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680009351901823819, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576520, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: m_Name
       value: Player 2
@@ -6005,10 +6013,10 @@ MonoBehaviour:
   m_Texture: {fileID: 8600000, guid: 3fd9022d1ec674990ae74b81cad10701, type: 2}
   m_UVRect:
     serializedVersion: 2
-    x: 0.14739582
-    y: 0.21944445
-    width: 0.70520836
-    height: 0.5611111
+    x: 0.2359375
+    y: 0.30555555
+    width: 0.528125
+    height: 0.3888889
 --- !u!222 &1264937115
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10263,6 +10271,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130690328}
     m_Modifications:
+    - target: {fileID: 2680009351901823819, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680009351901823819, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7220488927478576520, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -10315,5 +10331,29 @@ PrefabInstance:
       propertyPath: instructionText
       value: 
       objectReference: {fileID: 1589265790}
+    - target: {fileID: 7828210232494838385, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.79215693
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828210232494838385, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.8588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828210232494838385, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.98823535
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828210232494838385, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 0.79215693
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828210232494838385, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 0.8588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 7828210232494838385, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.98823535
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
