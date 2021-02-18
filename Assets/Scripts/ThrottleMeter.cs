@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ThrottleMeter : MonoBehaviour
 {
-    public ShipController ship;
+    public EngineController engine;
 
     void Update()
     {
         var scale = transform.localScale;
-        scale.y = ship.throttle;
+        scale.y = engine.IsBroken ? 0f : engine.throttle;
         transform.localScale = scale;
     }
 }

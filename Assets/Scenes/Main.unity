@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373d9634e89b74959ae9b4c8ef0e50f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 186628063}
+  engine: {fileID: 769373687}
 --- !u!120 &100649741
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3320,7 +3320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373d9634e89b74959ae9b4c8ef0e50f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 186628063}
+  engine: {fileID: 1265160016}
 --- !u!120 &616412139
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -4381,6 +4381,7 @@ MonoBehaviour:
   - {fileID: 580077785}
   - {fileID: 10469646}
   - {fileID: 2029573568}
+  throttle: 0
 --- !u!1 &799370746
 GameObject:
   m_ObjectHideFlags: 0
@@ -6521,6 +6522,7 @@ MonoBehaviour:
   - {fileID: 161471460}
   - {fileID: 814211155}
   - {fileID: 1559078645}
+  throttle: 0
 --- !u!1 &1272790788
 GameObject:
   m_ObjectHideFlags: 0

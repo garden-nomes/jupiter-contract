@@ -6,6 +6,8 @@ public class EngineController : MonoBehaviour
 {
     public EngineBreakPoint[] breakPoints;
 
+    public float throttle = 0f;
+
     private bool isBroken;
     public bool IsBroken => isBroken;
 
