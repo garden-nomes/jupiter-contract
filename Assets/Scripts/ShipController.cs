@@ -22,6 +22,9 @@ public class ShipController : MonoBehaviour
     private bool isStabilizing = false;
     public bool IsStabilizing => isStabilizing;
 
+    private bool isMining = false;
+    public bool IsMining => isMining;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -49,17 +52,22 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         // mine asteroids
-        var asteroids = GameObject.FindObjectsOfType<Asteroid>();
-        foreach (var asteroid in asteroids)
+        isMining = false;
+        if (rigidbody.velocity.sqrMagnitude == 0f)
         {
-            var distance = (asteroid.transform.position - transform.position).magnitude;
-            if (distance <= miningDistance)
+            var asteroids = GameObject.FindObjectsOfType<Asteroid>();
+            foreach (var asteroid in asteroids)
             {
-                asteroid.ore -= miningSpeed * Time.deltaTime;
-
-                if (asteroid.ore <= 0f)
+                var distance = (asteroid.transform.position - transform.position).magnitude;
+                if (distance <= miningDistance)
                 {
-                    GameObject.Destroy(asteroid.gameObject);
+                    isMining = true;
+                    asteroid.ore -= miningSpeed * Time.deltaTime;
+
+                    if (asteroid.ore <= 0f)
+                    {
+                        GameObject.Destroy(asteroid.gameObject);
+                    }
                 }
             }
         }
