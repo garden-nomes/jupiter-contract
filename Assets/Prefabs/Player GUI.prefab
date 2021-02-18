@@ -448,6 +448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pixelSize: 3
   value: 1
+  startBlinking: 0.25
+  icon: {fileID: 4071880626886629194}
 --- !u!1 &4071880628002487478
 GameObject:
   m_ObjectHideFlags: 0
