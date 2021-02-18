@@ -1,14 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class NavStation : MonoBehaviour, IInteractible
+public class NavStation : StationBehaviour
 {
     public float rotationSpeed = 90f;
     public Camera scopesCamera;
     public NavigationMarkers overlay;
     public ShipController ship;
 
-    private PlayerController controllingPlayer;
     private Quaternion initialRotation;
 
     private void Start()
@@ -16,49 +14,26 @@ public class NavStation : MonoBehaviour, IInteractible
         initialRotation = scopesCamera.transform.rotation;
     }
 
-    private void Update()
+    protected override void UseStation(PlayerController player)
     {
-        if (controllingPlayer == null)
-        {
-            return;
-        }
-
-        if (controllingPlayer.input.GetBtnDown(2))
-        {
-            ReleasePlayer();
-            return;
-        }
-
-        var horizontal = controllingPlayer.input.horizontal;
+        var horizontal = player.input.horizontal;
         scopesCamera.transform.rotation *=
             Quaternion.AngleAxis(horizontal * Time.deltaTime * rotationSpeed, Vector3.up);
-        var vertical = controllingPlayer.input.vertical;
+        var vertical = player.input.vertical;
         scopesCamera.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
-        if (ship.target != null && controllingPlayer.input.GetBtnDown(0))
+        if (ship.target != null && player.input.GetBtnDown(0))
         {
             ship.target = null;
         }
-        else if (overlay.Target != null && controllingPlayer.input.GetBtnDown(0))
+        else if (overlay.Target != null && player.input.GetBtnDown(0))
         {
             ship.target = overlay.Target;
         }
-
-        controllingPlayer.instructionTextOverride = GetInstructionText();
     }
 
-    public void Interact(PlayerController player)
-    {
-        LockPlayer(player);
-    }
-
-    public bool CanInteract()
-    {
-        return controllingPlayer == null;
-    }
-
-    public string GetActionText(PlayerController player)
+    public override string GetActionText(PlayerController player)
     {
         return "check nav array";
     }
@@ -92,11 +67,9 @@ public class NavStation : MonoBehaviour, IInteractible
         return currentTarget == null ? (Vector3?) null : currentTarget.transform.position;
     }
 
-    private string GetInstructionText()
+    public override string GetInstructionText(PlayerController player)
     {
-        if (controllingPlayer == null) return "";
-
-        var scheme = controllingPlayer.input.inputScheme;
+        var scheme = player.input.inputScheme;
 
         var lockInstructions = "";
         if (ship.target == null && overlay.Target != null)
@@ -111,33 +84,5 @@ public class NavStation : MonoBehaviour, IInteractible
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate array\n" +
             lockInstructions +
             $"{Icons.IconText(scheme.btn2)} cancel";
-    }
-
-    private void LockPlayer(PlayerController player)
-    {
-        player.hasControl = false;
-        player.isUsingNavStation = true;
-        player.instructionTextOverride = GetInstructionText();
-
-        // delay a frame to avoid releasing control if this Update() happens afterwards in same frame
-        StartCoroutine(Helpers.DelayedAction(() =>
-        {
-            controllingPlayer = player;
-        }));
-    }
-
-    private void ReleasePlayer()
-    {
-        var player = controllingPlayer;
-
-        // delay a frame to avoid taking control back if this Update() happens afterwards in same frame
-        StartCoroutine(Helpers.DelayedAction(() =>
-        {
-            player.hasControl = true;
-        }));
-
-        controllingPlayer.instructionTextOverride = null;
-        controllingPlayer.isUsingNavStation = false;
-        controllingPlayer = null;
     }
 }

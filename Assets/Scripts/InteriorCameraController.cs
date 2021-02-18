@@ -6,7 +6,6 @@ using UnityEngine;
 public class InteriorCameraController : MonoBehaviour
 {
     public PlayerController target;
-    public Transform navStationScreen;
     public int maskLayer;
     public bool isVisible = true;
 
@@ -28,9 +27,9 @@ public class InteriorCameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (target.isUsingNavStation)
+        if (target.station != null && target.station.cameraPositionOverride != null)
         {
-            CenterCamera(navStationScreen.position);
+            CenterCamera(target.station.cameraPositionOverride.position);
         }
         else
         {

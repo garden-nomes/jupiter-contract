@@ -5,11 +5,19 @@ using UnityEngine;
 public class EngineBreakPoint : MonoBehaviour, IInteractible
 {
     public PlayerController fixingPlayer;
-    public float fixedTimer = 0f;
     public float timeToFix = 3f;
+    public float timeUntilCritical = 60f;
+    public float nonCriticalParticleRate = 5f;
+    public float criticalParticleRate = 20f;
+    public new ParticleSystem particleSystem;
 
     public bool CanInteract() => true;
     public string GetActionText(PlayerController player) => "(hold) fix engine";
+
+    public bool IsCritical => criticalTimer > timeUntilCritical;
+
+    private float criticalTimer = 0f;
+    private float fixedTimer = 0f;
 
     void Update()
     {
@@ -32,6 +40,15 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
                 fixingPlayer = null;
             }
         }
+
+        criticalTimer += Time.deltaTime;
+        var emission = particleSystem.emission;
+        emission.rateOverTime = IsCritical ? criticalParticleRate : nonCriticalParticleRate;
+    }
+
+    public void Reset()
+    {
+        criticalTimer = 0f;
     }
 
     public void Interact(PlayerController player)

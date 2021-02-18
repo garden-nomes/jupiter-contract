@@ -8,9 +8,8 @@ public class PlayerController : MonoBehaviour
     public bool hasControl = true;
     public PlayerInput input => _input;
     public TextMeshProUGUI instructionText;
-    public string instructionTextOverride;
-    public bool isUsingNavStation;
     public ProgressBar progressBar;
+    public StationBehaviour station;
 
     public float? Progress
     {
@@ -44,9 +43,9 @@ public class PlayerController : MonoBehaviour
     {
         instructionText.text = "";
 
-        if (instructionTextOverride != null)
+        if (station != null)
         {
-            instructionText.text = instructionTextOverride;
+            instructionText.text = station.GetInstructionText(this);
         }
 
         if (hasControl)

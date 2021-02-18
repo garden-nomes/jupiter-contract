@@ -1,94 +1,44 @@
 ﻿using UnityEngine;
 
-public class Helm : MonoBehaviour, IInteractible
+public class Helm : StationBehaviour
 {
     public ShipController ship;
     public float rotationSpeed = 90f;
     public float throttleSpeed = .5f;
 
-    private PlayerController controllingPlayer;
-
-    private void Update()
+    protected override void UseStation(PlayerController player)
     {
-        if (controllingPlayer == null) return;
-
-        if (controllingPlayer.input.GetBtnDown(2))
-        {
-            ReleasePlayer();
-            return;
-        }
-
-        controllingPlayer.instructionTextOverride = GetInstructionText();
-
-        var horizontal = controllingPlayer.input.horizontal;
+        var horizontal = player.input.horizontal;
         ship.transform.rotation *=
             Quaternion.AngleAxis(horizontal * Time.deltaTime * rotationSpeed, Vector3.back);
-        var vertical = controllingPlayer.input.vertical;
+        var vertical = player.input.vertical;
         ship.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
-        if (controllingPlayer.input.GetBtn(0))
+        if (player.input.GetBtn(0))
         {
             ship.throttle -= throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
         }
 
-        if (controllingPlayer.input.GetBtn(1))
+        if (player.input.GetBtn(1))
         {
             ship.throttle += throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
         }
     }
 
-    public void Interact(PlayerController player)
-    {
-        LockPlayer(player);
-    }
-
-    public string GetActionText(PlayerController player)
+    public override string GetActionText(PlayerController player)
     {
         return "take helm";
     }
 
-    public bool CanInteract()
+    public override string GetInstructionText(PlayerController player)
     {
-        return controllingPlayer == null;
-    }
-
-    private string GetInstructionText()
-    {
-        if (controllingPlayer == null) return "";
-
-        var scheme = controllingPlayer.input.inputScheme;
+        var scheme = player.input.inputScheme;
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate ship\n" +
             (ship.throttle > 0 ? $"{Icons.IconText(scheme.btn0)} throttle down\n" : "") +
             (ship.throttle < 1 ? $"{Icons.IconText(scheme.btn1)} throttle up\n" : "") +
             $"{Icons.IconText(scheme.btn2)} cancel";
-    }
-
-    private void LockPlayer(PlayerController player)
-    {
-        player.hasControl = false;
-        player.instructionTextOverride = GetInstructionText();
-
-        // delay a frame to avoid releasing control if this Update() happens afterwards in same frame
-        StartCoroutine(Helpers.DelayedAction(() =>
-        {
-            controllingPlayer = player;
-        }));
-    }
-
-    private void ReleasePlayer()
-    {
-        var player = controllingPlayer;
-
-        // delay a frame to avoid taking control back if this Update() happens afterwards in same frame
-        StartCoroutine(Helpers.DelayedAction(() =>
-        {
-            player.hasControl = true;
-        }));
-
-        controllingPlayer.instructionTextOverride = null;
-        controllingPlayer = null;
     }
 }

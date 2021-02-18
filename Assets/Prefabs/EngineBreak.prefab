@@ -46,6 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee3e6cb4053a45259b7596d9d54c965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fixingPlayer: {fileID: 0}
+  timeToFix: 3
+  timeUntilCritical: 60
+  nonCriticalParticleRate: 5
+  criticalParticleRate: 50
+  particleSystem: {fileID: 3214072592018249488}
 --- !u!114 &8624298017244665593
 MonoBehaviour:
   m_ObjectHideFlags: 0

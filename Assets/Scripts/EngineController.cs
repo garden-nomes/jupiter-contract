@@ -25,7 +25,7 @@ public class EngineController : MonoBehaviour
 
         foreach (var breakPoint in breakPoints)
         {
-            if (breakPoint.gameObject.activeSelf)
+            if (breakPoint.gameObject.activeSelf && breakPoint.IsCritical)
             {
                 isBroken = true;
             }
@@ -36,6 +36,7 @@ public class EngineController : MonoBehaviour
     {
         var breakPoint = breakPoints[Random.Range(0, breakPoints.Length)];
         breakPoint.gameObject.SetActive(true);
+        breakPoint.Reset();
     }
 
 }
