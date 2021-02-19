@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public abstract class StationBehaviour : MonoBehaviour, IInteractible
+public class StationBehaviour : MonoBehaviour, IInteractible
 {
     public Transform cameraPositionOverride;
+    public string actionText;
 
     private PlayerController controllingPlayer;
     public PlayerController ControllingPlayer => controllingPlayer;
     public bool HasControl => controllingPlayer != null;
 
     public bool CanInteract() => controllingPlayer == null && CanUseStation();
-    public abstract string GetActionText(PlayerController player);
+    public virtual string GetActionText(PlayerController player) => actionText;
     public virtual string GetInstructionText(PlayerController player)
     {
         return $"{Icons.IconText(player.input.inputScheme.btn2)} cancel";

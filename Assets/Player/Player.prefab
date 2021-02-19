@@ -588,7 +588,7 @@ MonoBehaviour:
   progressBar: {fileID: 6348452150294671120}
   station: {fileID: 0}
   tiredness: 0
-  tirednessTime: 240
+  tirednessTime: 300
   instructionText: 
 --- !u!114 &7220488927478576527
 MonoBehaviour:
