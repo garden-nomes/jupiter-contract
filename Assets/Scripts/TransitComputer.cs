@@ -87,12 +87,10 @@ public class TransitComputer : MonoBehaviour
         Stage1
     }
 
-    public Transform ship;
-    public Helm helm;
-    public Rigidbody shipRigidbody;
-    public ShipController shipController;
+    public ShipController ship;
 
     public float fudgeDistance = 10f;
+    public float targetRadius = 30f;
 
     [Header("UI Elements")]
     public Text alignText;
@@ -117,7 +115,7 @@ public class TransitComputer : MonoBehaviour
 
         stage0Light.SetActive(State == TransitState.Stage0);
         stage1Light.SetActive(State == TransitState.Stage1);
-        targetLockLight.SetActive(shipController.target != null);
+        targetLockLight.SetActive(ship.target != null);
 
         throttleUpLight.SetActive(false);
         throttleDownLight.SetActive(false);
@@ -140,18 +138,18 @@ public class TransitComputer : MonoBehaviour
         get
         {
 
-            if (shipController.target == null)
+            if (ship.target == null)
             {
                 return TransitState.Idle;
             }
 
-            var target = shipController.target.Value;
-            var isMoving = shipRigidbody.velocity.sqrMagnitude > 0f;
+            var target = ship.target.Value;
+            var isMoving = ship.Velocity.sqrMagnitude > 0f;
 
             if (isMoving)
             {
-                if (shipController.throttle > 0f &&
-                    Vector3.Dot(shipController.Heading, shipRigidbody.velocity) < 0f)
+                if (ship.throttle > 0f &&
+                    Vector3.Dot(ship.Heading, ship.Velocity) < 0f)
                 {
                     return TransitState.Stage1;
                 }
@@ -169,32 +167,32 @@ public class TransitComputer : MonoBehaviour
 
     private void UpdateDist()
     {
-        if (shipController.target == null)
+        if (ship.target == null)
         {
             distText.text = "";
             return;
         }
 
-        var distance = (shipController.Position - shipController.target.Value).magnitude;
+        var distance = (ship.Position - ship.target.Value).magnitude;
         distText.text = FormatDistance(distance);
     }
 
     private void UpdateAlignment()
     {
-        if (shipController.target == null)
+        if (ship.target == null)
         {
             alignText.text = "";
             return;
         }
 
-        var toTarget = shipController.Position - shipController.target.Value;
-        var degrees = Vector3.Angle(shipController.Heading, toTarget);
+        var toTarget = ship.target.Value - ship.Position;
+        var degrees = Vector3.Angle(ship.Heading, toTarget);
         alignText.text = degrees.ToString("0.0");
     }
 
     private void UpdateSpeed()
     {
-        var speed = shipRigidbody.velocity.magnitude;
+        var speed = ship.Velocity.magnitude;
 
         if (speed == 0f)
         {
@@ -208,7 +206,7 @@ public class TransitComputer : MonoBehaviour
 
     private void UpdateAcc()
     {
-        var acc = shipController.Acceleration;
+        var acc = ship.Acceleration;
 
         if (acc == 0f)
         {
@@ -227,36 +225,38 @@ public class TransitComputer : MonoBehaviour
             tBrkText.text = "";
         }
 
-        var deceleration = shipController.moveSpeed;
-        var velocity = shipRigidbody.velocity.magnitude;
-        var distance = (ship.position - shipController.target.Value).magnitude;
+        var deceleration = ship.moveSpeed;
+        var velocity = ship.Velocity.magnitude;
+        var distance = (ship.Position - ship.target.Value).magnitude;
         var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, velocity);
         tBrkText.text = FormatDuration(-calculation.timeToBeginDeceleration);
     }
 
     private void UpdateStage0Text()
     {
-        float deceleration = shipController.moveSpeed * 0.8f;
-        float speed = shipRigidbody.velocity.magnitude;
-        float distance = DistanceToClosestPoint(
-            shipController.Position,
-            shipRigidbody.velocity.normalized,
-            shipController.target.Value);
+        float deceleration = ship.moveSpeed * 0.8f;
+        float speed = ship.Velocity.magnitude;
+        float distance = DistanceToSphereOrClosestPoint(
+            ship.Position,
+            ship.Velocity.normalized,
+            ship.target.Value,
+            targetRadius);
         var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, speed);
         tBrkText.text = FormatDuration(-calculation.timeToBeginDeceleration);
     }
 
     private void UpdateStage1Lights()
     {
-        Vector3 target = shipController.target.Value;
-        Vector3 position = ship.position;
-        Vector3 direction = shipRigidbody.velocity.normalized;
-        float velocity = shipRigidbody.velocity.magnitude;
-        float deceleration = shipController.Acceleration;
+        Vector3 target = ship.target.Value;
+        Vector3 position = ship.Position;
+        Vector3 direction = ship.Velocity.normalized;
+        float velocity = ship.Velocity.magnitude;
+        float deceleration = ship.Acceleration;
 
         float decelerationTime = velocity / deceleration;
         float projectedDistance = velocity * decelerationTime / 2f;
-        float idealDistance = DistanceToClosestPoint(position, direction, target);
+        float idealDistance =
+            DistanceToSphereOrClosestPoint(position, direction, target, targetRadius);
 
         if (projectedDistance < idealDistance - fudgeDistance)
         {
@@ -294,21 +294,35 @@ public class TransitComputer : MonoBehaviour
         }
     }
 
-    private float RayDistanceFromPoint(Ray ray, Vector3 point)
+    // this is important because we want to navigate the player close, but not TOO close, to their target
+    private float DistanceToSphereOrClosestPoint(
+        Vector3 origin, Vector3 direction, Vector3 point, float radius)
     {
-        var toPoint = point - ray.origin;
-        var tc = Vector3.Dot(toPoint, ray.direction);
+        var sphereDistance = DistanceToSphereIntersection(origin, direction, point, radius);
 
-        if (tc <= 0f)
+        if (sphereDistance == null)
         {
-            return toPoint.magnitude;
+            return DistanceToClosestPoint(origin, direction, point);
         }
 
-        return Mathf.Sqrt(toPoint.sqrMagnitude - tc * tc);
+        return sphereDistance.Value;
     }
 
     private float DistanceToClosestPoint(Vector3 origin, Vector3 direction, Vector3 point)
     {
         return Vector3.Dot(point - origin, direction);
+    }
+
+    private float? DistanceToSphereIntersection(
+        Vector3 origin, Vector3 direction, Vector3 point, float radius)
+    {
+        var tc = DistanceToClosestPoint(origin, direction, point);
+        var d = Mathf.Sqrt((point - origin).sqrMagnitude - tc * tc);
+
+        if (d > radius)
+            return null;
+
+        var t1c = Mathf.Sqrt(radius * radius);
+        return tc - t1c;
     }
 }
