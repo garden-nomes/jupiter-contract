@@ -85,4 +85,9 @@ public class NavStation : StationBehaviour
             lockInstructions +
             $"{Icons.IconText(scheme.btn2)} cancel";
     }
+
+    protected override void OnRelease(PlayerController player)
+    {
+        scopesCamera.transform.rotation = initialRotation;
+    }
 }
