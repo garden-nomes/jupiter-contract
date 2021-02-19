@@ -1,5 +1,5 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class TransitCalculations
 {
@@ -82,31 +82,57 @@ public class TransitComputer : MonoBehaviour
 {
     public enum TransitState
     {
-        NoTarget,
-        AdjustHeading,
-        OffCourse,
-        Ready,
-        Accelerating,
-        Drifting,
-        Decelerating,
-        Arrived
+        Idle,
+        Stage0,
+        Stage1
     }
 
     public Transform ship;
     public Helm helm;
-    public TextMeshProUGUI uiText;
     public Rigidbody shipRigidbody;
     public ShipController shipController;
 
     public float fudgeDistance = 10f;
 
-    private float targetDeceleration;
-
-    private void Start() { }
+    [Header("UI Elements")]
+    public Text alignText;
+    public Text distText;
+    public Text speedText;
+    public Text accText;
+    public Text tBrkText;
+    public Text estDistText;
+    public GameObject stage0Light;
+    public GameObject stage1Light;
+    public GameObject throttleUpLight;
+    public GameObject throttleOkLight;
+    public GameObject throttleDownLight;
+    public GameObject targetLockLight;
 
     private void Update()
     {
-        UpdateText();
+        UpdateDist();
+        UpdateAlignment();
+        UpdateAcc();
+        UpdateSpeed();
+
+        stage0Light.SetActive(State == TransitState.Stage0);
+        stage1Light.SetActive(State == TransitState.Stage1);
+        targetLockLight.SetActive(shipController.target != null);
+
+        throttleUpLight.SetActive(false);
+        throttleDownLight.SetActive(false);
+        throttleOkLight.SetActive(false);
+        tBrkText.text = "";
+
+        if (State == TransitState.Stage0)
+        {
+            UpdateStage0Text();
+        }
+        else if (State == TransitState.Stage1)
+        {
+            UpdateStage1Lights();
+        }
+
     }
 
     public TransitState State
@@ -116,7 +142,7 @@ public class TransitComputer : MonoBehaviour
 
             if (shipController.target == null)
             {
-                return TransitState.NoTarget;
+                return TransitState.Idle;
             }
 
             var target = shipController.target.Value;
@@ -124,114 +150,103 @@ public class TransitComputer : MonoBehaviour
 
             if (isMoving)
             {
-                if (CheckCourse())
+                if (shipController.throttle > 0f &&
+                    Vector3.Dot(shipController.Heading, shipRigidbody.velocity) < 0f)
                 {
-                    if (shipController.throttle > 0f)
-                    {
-                        if (Vector3.Dot(ship.up, shipRigidbody.velocity) > 0f)
-                        {
-                            return TransitState.Accelerating;
-                        }
-                        else
-                        {
-                            return TransitState.Decelerating;
-                        }
-                    }
-                    else
-                    {
-                        return TransitState.Drifting;
-                    }
+                    return TransitState.Stage1;
                 }
                 else
                 {
-                    return TransitState.OffCourse;
+                    return TransitState.Stage0;
                 }
             }
             else
             {
-                if ((ship.position - target).sqrMagnitude < fudgeDistance * fudgeDistance)
-                {
-                    return TransitState.Arrived;
-                }
-                else if (CheckHeading())
-                {
-                    return TransitState.Ready;
-                }
-                else
-                {
-                    return TransitState.AdjustHeading;
-                }
+                return TransitState.Idle;
             }
         }
     }
 
-    private void UpdateText()
+    private void UpdateDist()
     {
-        string text;
-        switch (State)
+        if (shipController.target == null)
         {
-            case TransitState.NoTarget:
-                text = NoTargetText();
-                break;
-            case TransitState.AdjustHeading:
-                text = "adjust heading";
-                break;
-            case TransitState.OffCourse:
-                text = "off course";
-                break;
-            case TransitState.Ready:
-                text = "ready";
-                break;
-            case TransitState.Accelerating:
-                text = AcceleratingText();
-                break;
-            case TransitState.Drifting:
-                text = DriftingText();
-                break;
-            case TransitState.Decelerating:
-                text = DecelerationText();
-                break;
-            case TransitState.Arrived:
-                text = "arrived";
-                break;
-            default:
-                text = "";
-                break;
+            distText.text = "";
+            return;
         }
-        uiText.text = text;
+
+        var distance = (shipController.Position - shipController.target.Value).magnitude;
+        distText.text = FormatDistance(distance);
     }
 
-    private string NoTargetText()
+    private void UpdateAlignment()
     {
-        return "";
+        if (shipController.target == null)
+        {
+            alignText.text = "";
+            return;
+        }
+
+        var toTarget = shipController.Position - shipController.target.Value;
+        var degrees = Vector3.Angle(shipController.Heading, toTarget);
+        alignText.text = degrees.ToString("0.0");
     }
 
-    private string AcceleratingText()
+    private void UpdateSpeed()
     {
-        // var acceleration = shipController.moveSpeed * shipController.throttle;
-        // var velocity = shipRigidbody.velocity.magnitude;
-        // var distance = (ship.position - navStation.Target.Value).magnitude;
-        // var flipTime = 180f / helm.rotationSpeed;
-        // var calculation = TransitCalculations.TimeFromAccelerating(
-        //     distance, acceleration, acceleration, velocity, flipTime);
-        // return FormatDuration(-calculation.accelerationTime);
+        var speed = shipRigidbody.velocity.magnitude;
+
+        if (speed == 0f)
+        {
+            speedText.text = "";
+            return;
+        }
+
+        string formatted = speed.ToString(speed < 1000f ? "0.0" : "0");
+        speedText.text = $"{formatted}m/s";
+    }
+
+    private void UpdateAcc()
+    {
+        var acc = shipController.Acceleration;
+
+        if (acc == 0f)
+        {
+            accText.text = "";
+            return;
+        }
+
+        string formatted = acc.ToString(acc < 10f ? "0.00" : "0.0");
+        accText.text = formatted;
+    }
+
+    private void UpdateTBrk()
+    {
+        if (State != TransitState.Stage0)
+        {
+            tBrkText.text = "";
+        }
 
         var deceleration = shipController.moveSpeed;
         var velocity = shipRigidbody.velocity.magnitude;
         var distance = (ship.position - shipController.target.Value).magnitude;
         var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, velocity);
-        return FormatDuration(-calculation.timeToBeginDeceleration);
-    }
-    private string DriftingText()
-    {
-        var deceleration = shipController.moveSpeed;
-        var velocity = shipRigidbody.velocity.magnitude;
-        var distance = (ship.position - shipController.target.Value).magnitude;
-        var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, velocity);
-        return FormatDuration(-calculation.timeToBeginDeceleration);
+        tBrkText.text = FormatDuration(-calculation.timeToBeginDeceleration);
     }
 
-    private string DecelerationText()
+    private void UpdateStage0Text()
+    {
+        float deceleration = shipController.moveSpeed * 0.8f;
+        float speed = shipRigidbody.velocity.magnitude;
+        float distance = DistanceToClosestPoint(
+            shipController.Position,
+            shipRigidbody.velocity.normalized,
+            shipController.target.Value);
+        var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, speed);
+        tBrkText.text = FormatDuration(-calculation.timeToBeginDeceleration);
+    }
+
+    private void UpdateStage1Lights()
     {
         Vector3 target = shipController.target.Value;
         Vector3 position = ship.position;
@@ -245,14 +260,16 @@ public class TransitComputer : MonoBehaviour
 
         if (projectedDistance < idealDistance - fudgeDistance)
         {
-            return "decrease throttle";
+            throttleDownLight.SetActive(true);
         }
         else if (projectedDistance > idealDistance + fudgeDistance)
         {
-            return "increase throttle";
+            throttleUpLight.SetActive(true);
         }
-
-        return FormatDuration(decelerationTime);
+        else
+        {
+            throttleOkLight.SetActive(true);
+        }
     }
 
     private string FormatDuration(float seconds)
@@ -265,26 +282,16 @@ public class TransitComputer : MonoBehaviour
         return $"{(isNegative ? "-" : "")}{displayMinutes}:{displaySeconds.ToString("D2")}";
     }
 
-    private bool CheckCourse()
+    private string FormatDistance(float distance)
     {
-        if (shipController.target == null)
+        if (distance < 1000)
         {
-            return false;
+            return $"{Mathf.Round(distance)}m";
         }
-
-        var ray = new Ray(ship.position, shipRigidbody.velocity.normalized);
-        return RayDistanceFromPoint(ray, shipController.target.Value) <= fudgeDistance;
-    }
-
-    private bool CheckHeading()
-    {
-        if (shipController.target == null)
+        else
         {
-            return false;
+            return $"{Mathf.Round(distance / 100f) * 0.1f}km";
         }
-
-        var ray = new Ray(ship.position, ship.up);
-        return RayDistanceFromPoint(ray, shipController.target.Value) <= fudgeDistance;
     }
 
     private float RayDistanceFromPoint(Ray ray, Vector3 point)

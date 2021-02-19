@@ -8,6 +8,7 @@ public class Blink : MonoBehaviour
     public float ratio = 2f / 3f;
 
     private new Renderer renderer;
+    private float blinkTimer = 0f;
 
     void Start()
     {
@@ -16,6 +17,12 @@ public class Blink : MonoBehaviour
 
     void Update()
     {
-        renderer.enabled = Time.time % rate < rate * ratio;
+        blinkTimer += Time.deltaTime;
+        renderer.enabled = blinkTimer % rate < rate * ratio;
+    }
+
+    private void OnEnable()
+    {
+        blinkTimer = 0f;
     }
 }

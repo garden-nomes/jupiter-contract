@@ -555,6 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e58ce3f974c4afb9f7bb3d080c9265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exhaustedMultiplier: 0.5
   movementSmoothing: 0.01
   moveSpeed: 6
   floatingMoveSpeed: 2
@@ -584,9 +585,11 @@ MonoBehaviour:
   - {fileID: 1620872261708521079, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
   - {fileID: -1520331889683971644, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
   hasControl: 1
-  instructionText: {fileID: 0}
   progressBar: {fileID: 6348452150294671120}
   station: {fileID: 0}
+  tiredness: 0
+  tirednessTime: 240
+  instructionText: 
 --- !u!114 &7220488927478576527
 MonoBehaviour:
   m_ObjectHideFlags: 0
