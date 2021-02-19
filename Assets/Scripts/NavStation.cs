@@ -9,9 +9,12 @@ public class NavStation : StationBehaviour
 
     private Quaternion initialRotation;
 
-    private void Start()
+    private Quaternion releaseRotation;
+    private float resetTimer = 0f;
+
+    void Start()
     {
-        initialRotation = scopesCamera.transform.rotation;
+        initialRotation = scopesCamera.transform.localRotation;
     }
 
     protected override void UseStation(PlayerController player)
@@ -86,8 +89,28 @@ public class NavStation : StationBehaviour
             $"{Icons.IconText(scheme.btn2)} cancel";
     }
 
-    protected override void OnRelease(PlayerController player)
+    protected override void Update()
     {
-        scopesCamera.transform.rotation = initialRotation;
+        base.Update();
+
+        if (!HasControl && scopesCamera.transform.localRotation != initialRotation)
+        {
+            ResetRotation();
+        }
+    }
+
+    private void ResetRotation()
+    {
+        var currentRotation = scopesCamera.transform.localRotation;
+
+        if (Quaternion.Angle(currentRotation, initialRotation) <= rotationSpeed * Time.deltaTime)
+        {
+            scopesCamera.transform.localRotation = initialRotation;
+        }
+        else
+        {
+            scopesCamera.transform.localRotation = Quaternion.RotateTowards(
+                currentRotation, initialRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 }

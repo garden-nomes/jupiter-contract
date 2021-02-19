@@ -5,6 +5,8 @@ public abstract class StationBehaviour : MonoBehaviour, IInteractible
     public Transform cameraPositionOverride;
 
     private PlayerController controllingPlayer;
+    public PlayerController ControllingPlayer => controllingPlayer;
+    public bool HasControl => controllingPlayer != null;
 
     public bool CanInteract() => controllingPlayer == null && CanUseStation();
     public abstract string GetActionText(PlayerController player);
