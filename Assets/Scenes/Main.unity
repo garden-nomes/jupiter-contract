@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 173520947}
   - component: {fileID: 173520946}
   m_Layer: 5
-  m_Name: Transit Computer
+  m_Name: Transit Computer Displays
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1648,7 +1648,7 @@ GameObject:
   - component: {fileID: 406995996}
   - component: {fileID: 406995997}
   m_Layer: 0
-  m_Name: Nav Station Screen
+  m_Name: Transit Computer Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5629,6 +5629,7 @@ Transform:
   - {fileID: 745094464}
   - {fileID: 1273657619}
   - {fileID: 675288229}
+  - {fileID: 1615744019}
   m_Father: {fileID: 1988618450}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6992,7 +6993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c32de3a9455847df915af7e148a8ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPositionOverride: {fileID: 406995996}
+  cameraPositionOverride: {fileID: 0}
   rotationSpeed: 90
   scopesCamera: {fileID: 1482169476}
   overlay: {fileID: 369619447}
@@ -13816,6 +13817,93 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+--- !u!1 &1615744018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1615744019}
+  - component: {fileID: 1615744022}
+  - component: {fileID: 1615744021}
+  - component: {fileID: 1615744020}
+  m_Layer: 0
+  m_Name: Transit Computer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1615744019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615744018}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.1875, y: 1.0625, z: 0}
+  m_LocalScale: {x: 1.625, y: 1.875, z: 1}
+  m_Children: []
+  m_Father: {fileID: 989848925}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1615744020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615744018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a994cf4b6d84b94a3f0c73759cdf72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPositionOverride: {fileID: 406995996}
+--- !u!114 &1615744021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615744018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ce44489854e44f78018c26fb1843f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  a: {x: 1.4375, y: 0.1875}
+  b: {x: 2.9375, y: 1.9375}
+  pixelsPerUnit: 8
+--- !u!61 &1615744022
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615744018}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1670050674
 GameObject:
   m_ObjectHideFlags: 0
