@@ -72,6 +72,11 @@ public class ShipController : MonoBehaviour
         }
     }
 
+    public void KillVelocity()
+    {
+        rigidbody.velocity = Vector3.zero;
+    }
+
     public void ActivateStabilizers()
     {
         isStabilizing = true;

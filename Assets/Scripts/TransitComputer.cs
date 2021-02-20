@@ -1,181 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public static class TransitCalculations
-{
-    public struct TimeFromAcceleratingResult
-    {
-        public float accelerationTime;
-        public float decelerationTime;
-        public float totalTime;
-    }
-
-    public static TimeFromAcceleratingResult TimeFromAccelerating(
-        float distance, float acceleration, float deceleration, float initialVelocity, float flipTime)
-    {
-        if (acceleration <= 0)
-        {
-            throw new System.ArgumentOutOfRangeException(nameof(acceleration));
-        }
-
-        if (deceleration <= 0)
-        {
-            throw new System.ArgumentOutOfRangeException(nameof(deceleration));
-        }
-
-        if (flipTime < 0)
-        {
-            throw new System.ArgumentOutOfRangeException(nameof(flipTime));
-        }
-
-        var result = new TimeFromAcceleratingResult();
-
-        // solve for acceleration time using quadratic equation
-        float a = (acceleration * acceleration) / (2f * deceleration);
-        float b = initialVelocity + acceleration / 2f +
-            initialVelocity * acceleration / deceleration + flipTime * acceleration;
-        float c = (initialVelocity * initialVelocity) / (2f * deceleration) +
-            flipTime * initialVelocity;
-        result.accelerationTime = (-b + Mathf.Sqrt(b * b - 4f * a * c)) / (2f * a);
-
-        // decceleration time
-        result.decelerationTime = initialVelocity / acceleration + result.accelerationTime;
-
-        // total time
-        result.totalTime = result.accelerationTime + result.decelerationTime + flipTime;
-
-        return result;
-    }
-
-    public struct TimeFromDeceleratingResult
-    {
-        public float timeToBeginDeceleration;
-        public float decelerationTime;
-        public float totalTime;
-    }
-
-    public static TimeFromDeceleratingResult TimeFromDeceleration(
-        float distance, float deceleration, float currentVelocity)
-    {
-        if (deceleration <= 0)
-        {
-            throw new System.ArgumentOutOfRangeException(nameof(deceleration));
-        }
-
-        float v = currentVelocity;
-        float d = distance;
-        float a = -deceleration;
-
-        float t1 = -v / a;
-        float d1 = v * t1 + a * t1 * t1 / 2f;
-        float d0 = d - d1;
-        float t0 = d0 / v;
-
-        var result = new TimeFromDeceleratingResult();
-        result.timeToBeginDeceleration = t0;
-        result.decelerationTime = t1;
-        return result;
-    }
-}
-
 public class TransitComputer : MonoBehaviour
 {
-    public enum TransitState
-    {
-        Idle,
-        Stage0,
-        Stage1
-    }
 
     public ShipController ship;
-    public Autopilot autopilot;
-
-    public float fudgeDistance = 10f;
-    public float targetRadius = 30f;
+    public Autobrake autobrake;
 
     [Header("UI Elements")]
     public Text alignText;
     public Text distText;
     public Text speedText;
     public Text accText;
-    public Text tBrkText;
-    public Text estDistText;
-    public GameObject stage0Light;
-    public GameObject stage1Light;
-    public GameObject throttleUpLight;
-    public GameObject throttleOkLight;
-    public GameObject throttleDownLight;
+    public Text brakingDistText;
     public GameObject targetLockLight;
-    public GameObject stabilizerLight;
-    public GameObject autopilotLight;
+    public GameObject autobrakeEngagedLight;
+    public GameObject engFailureLight;
 
     public ThrottleMeter portThrottleMeter;
     public ThrottleMeter stbdThrottleMeter;
 
     private void Update()
     {
-        var state = State;
-
         UpdateDist();
         UpdateAlignment();
         UpdateAcc();
         UpdateSpeed();
+        UpdateBrakingDistance();
 
-        stage0Light.SetActive(state == TransitState.Stage0);
-        stage1Light.SetActive(state == TransitState.Stage1);
         targetLockLight.SetActive(ship.target != null);
-        stabilizerLight.SetActive(ship.IsStabilizing);
-        autopilotLight.SetActive(autopilot.State != null);
+        autobrakeEngagedLight.SetActive(autobrake.IsEngaged);
+        engFailureLight.SetActive(ship.portEngine.IsBroken || ship.stbdEngine.IsBroken);
 
         portThrottleMeter.value = ship.portEngine.throttle;
         stbdThrottleMeter.value = ship.stbdEngine.throttle;
-
-        throttleUpLight.SetActive(false);
-        throttleDownLight.SetActive(false);
-        throttleOkLight.SetActive(false);
-        tBrkText.text = "";
-
-        if (state == TransitState.Stage0)
-        {
-            UpdateStage0Text();
-        }
-        else if (state == TransitState.Stage1)
-        {
-            UpdateStage1Lights();
-        }
-
-    }
-
-    public TransitState State
-    {
-        get
-        {
-
-            if (ship.target == null)
-            {
-                return TransitState.Idle;
-            }
-
-            var target = ship.target.Value;
-            var isMoving = ship.Velocity.sqrMagnitude > 0f;
-
-            if (isMoving)
-            {
-                if (ship.throttle > 0f &&
-                    Vector3.Dot(ship.Heading, ship.Velocity) < 0f)
-                {
-                    return TransitState.Stage1;
-                }
-                else
-                {
-                    return TransitState.Stage0;
-                }
-            }
-            else
-            {
-                return TransitState.Idle;
-            }
-        }
     }
 
     private void UpdateDist()
@@ -187,7 +45,7 @@ public class TransitComputer : MonoBehaviour
         }
 
         var distance = (ship.Position - ship.target.Value).magnitude;
-        distText.text = FormatDistance(distance);
+        distText.text = distance < 1000f ? distance.ToString("0.0") : distance.ToString("0");
     }
 
     private void UpdateAlignment()
@@ -200,7 +58,7 @@ public class TransitComputer : MonoBehaviour
 
         var toTarget = ship.target.Value - ship.Position;
         var degrees = Vector3.Angle(ship.Heading, toTarget);
-        alignText.text = degrees.ToString("0.0");
+        alignText.text = degrees.ToString("0.00");
     }
 
     private void UpdateSpeed()
@@ -213,7 +71,7 @@ public class TransitComputer : MonoBehaviour
             return;
         }
 
-        string formatted = speed.ToString(speed < 1000f ? "0.0" : "0");
+        string formatted = speed.ToString(speed < 10f ? "0.00" : "0.0");
         speedText.text = $"{formatted}";
     }
 
@@ -231,80 +89,10 @@ public class TransitComputer : MonoBehaviour
         accText.text = formatted;
     }
 
-    private void UpdateTBrk()
+    private void UpdateBrakingDistance()
     {
-        if (State != TransitState.Stage0)
-        {
-            tBrkText.text = "";
-        }
-
-        var deceleration = ship.moveSpeed;
-        var velocity = ship.Velocity.magnitude;
-        var distance = (ship.Position - ship.target.Value).magnitude;
-        var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, velocity);
-        tBrkText.text = FormatDuration(-calculation.timeToBeginDeceleration);
-    }
-
-    private void UpdateStage0Text()
-    {
-        float deceleration = ship.moveSpeed * 0.8f;
-        float speed = ship.Velocity.magnitude;
-        float distance = DistanceToSphereOrClosestPoint(
-            ship.Position,
-            ship.Velocity.normalized,
-            ship.target.Value,
-            targetRadius);
-        var calculation = TransitCalculations.TimeFromDeceleration(distance, deceleration, speed);
-        tBrkText.text = FormatDuration(-calculation.timeToBeginDeceleration);
-    }
-
-    private void UpdateStage1Lights()
-    {
-        Vector3 target = ship.target.Value;
-        Vector3 position = ship.Position;
-        Vector3 direction = ship.Velocity.normalized;
-        float velocity = ship.Velocity.magnitude;
-        float deceleration = ship.Acceleration;
-
-        float decelerationTime = velocity / deceleration;
-        float projectedDistance = velocity * decelerationTime / 2f;
-        float idealDistance =
-            DistanceToSphereOrClosestPoint(position, direction, target, targetRadius);
-
-        if (projectedDistance < idealDistance - fudgeDistance)
-        {
-            throttleDownLight.SetActive(true);
-        }
-        else if (projectedDistance > idealDistance + fudgeDistance)
-        {
-            throttleUpLight.SetActive(true);
-        }
-        else
-        {
-            throttleOkLight.SetActive(true);
-        }
-    }
-
-    private string FormatDuration(float seconds)
-    {
-        var isNegative = seconds < 0f;
-        seconds = Mathf.Abs(seconds);
-
-        int displayMinutes = Mathf.FloorToInt(seconds / 60);
-        int displaySeconds = Mathf.RoundToInt(seconds % 60);
-        return $"{(isNegative ? "-" : "")}{displayMinutes}:{displaySeconds.ToString("D2")}";
-    }
-
-    private string FormatDistance(float distance)
-    {
-        if (distance < 1000)
-        {
-            return $"{Mathf.Round(distance)}m";
-        }
-        else
-        {
-            return $"{Mathf.Round(distance / 100f) * 0.1f}km";
-        }
+        var dist = autobrake.BrakingDistance;
+        brakingDistText.text = dist < 100f ? dist.ToString("0.0") : dist.ToString("0");
     }
 
     // this is important because we want to navigate the player close, but not TOO close, to their target
