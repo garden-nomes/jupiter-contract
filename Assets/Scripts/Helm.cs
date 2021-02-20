@@ -3,6 +3,7 @@
 public class Helm : StationBehaviour
 {
     public ShipController ship;
+    public Autopilot autopilot;
     public float rotationSpeed = 90f;
     public float throttleSpeed = .5f;
 
@@ -15,20 +16,28 @@ public class Helm : StationBehaviour
         ship.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
+        if (horizontal != 0f || vertical != 0f)
+        {
+            autopilot.Disengage();
+        }
+
         if (player.input.GetBtn(1))
         {
             ship.throttle -= throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
+            autopilot.Disengage();
         }
 
         if (player.input.GetBtn(0))
         {
             ship.throttle += throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
+            autopilot.Disengage();
         }
 
         if (ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f && player.input.GetBtnDown(1))
         {
+            autopilot.Disengage();
             if (ship.IsStabilizing)
                 ship.DeactivateStabilizers();
             else

@@ -88,6 +88,7 @@ public class TransitComputer : MonoBehaviour
     }
 
     public ShipController ship;
+    public Autopilot autopilot;
 
     public float fudgeDistance = 10f;
     public float targetRadius = 30f;
@@ -106,6 +107,7 @@ public class TransitComputer : MonoBehaviour
     public GameObject throttleDownLight;
     public GameObject targetLockLight;
     public GameObject stabilizerLight;
+    public GameObject autopilotLight;
 
     public ThrottleMeter portThrottleMeter;
     public ThrottleMeter stbdThrottleMeter;
@@ -123,6 +125,7 @@ public class TransitComputer : MonoBehaviour
         stage1Light.SetActive(state == TransitState.Stage1);
         targetLockLight.SetActive(ship.target != null);
         stabilizerLight.SetActive(ship.IsStabilizing);
+        autopilotLight.SetActive(autopilot.State != null);
 
         portThrottleMeter.value = ship.portEngine.throttle;
         stbdThrottleMeter.value = ship.stbdEngine.throttle;
@@ -211,7 +214,7 @@ public class TransitComputer : MonoBehaviour
         }
 
         string formatted = speed.ToString(speed < 1000f ? "0.0" : "0");
-        speedText.text = $"{formatted}m/s";
+        speedText.text = $"{formatted}";
     }
 
     private void UpdateAcc()
