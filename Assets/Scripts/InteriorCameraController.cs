@@ -7,9 +7,11 @@ public class InteriorCameraController : MonoBehaviour
 {
     public PlayerController target;
     public int maskLayer;
+    public Camera camera;
     public bool isVisible = true;
 
     private BoxCollider2D[] compartments;
+    private int? tempMaskLayer;
 
     void Start()
     {
@@ -19,6 +21,12 @@ public class InteriorCameraController : MonoBehaviour
 
     void Update()
     {
+        if (tempMaskLayer != null)
+        {
+            camera.cullingMask = camera.cullingMask & (~(1 << tempMaskLayer.Value));
+            tempMaskLayer = null;
+        }
+
         foreach (var compartment in compartments)
         {
             compartment.GetComponent<SpriteMask>().enabled = false;
@@ -37,11 +45,18 @@ public class InteriorCameraController : MonoBehaviour
             {
                 if (compartment.bounds.Contains(target.transform.position))
                 {
-                    compartment.GetComponent<SpriteMask>().enabled = true;
+                    var spriteMask = compartment.GetComponent<SpriteMask>();
 
-                    if (isVisible)
+                    if (spriteMask.enabled)
                     {
-                        compartment.gameObject.layer = maskLayer;
+                        tempMaskLayer = spriteMask.gameObject.layer;
+                        Debug.Log(tempMaskLayer);
+                        camera.cullingMask = camera.cullingMask | (1 << tempMaskLayer.Value);
+                    }
+                    else
+                    {
+                        spriteMask.enabled = true;
+                        spriteMask.gameObject.layer = maskLayer;
                     }
 
                     CenterCamera(compartment.bounds.center);
