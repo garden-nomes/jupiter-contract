@@ -5,19 +5,19 @@ public class Autobrake : MonoBehaviour
 {
     enum BrakingStage
     {
-        Disengaged,
-        ThrottleDown,
+        Idle,
         Flip,
         Decelerating,
+        Disengage,
     }
 
-    public bool IsEngaged => stage != BrakingStage.Disengaged;
+    public bool IsEngaged => stage != BrakingStage.Idle;
     public float BrakingDistance => estimatedDistance;
 
     public ShipController ship;
     public Helm helm;
 
-    private BrakingStage stage = BrakingStage.Disengaged;
+    private BrakingStage stage = BrakingStage.Idle;
     private float estimatedDistance = 0f;
 
     void Start()
@@ -27,26 +27,17 @@ public class Autobrake : MonoBehaviour
 
     public void Engage()
     {
-        stage = BrakingStage.ThrottleDown;
+        stage = BrakingStage.Flip;
     }
 
     public void Disengage()
     {
-        stage = BrakingStage.Disengaged;
+        stage = BrakingStage.Disengage;
     }
 
     private void FixedUpdate()
     {
-        if (stage == BrakingStage.ThrottleDown)
-        {
-            ship.throttle -= helm.throttleSpeed * Time.deltaTime;
-            if (ship.throttle <= 0f)
-            {
-                ship.throttle = 0f;
-                stage = BrakingStage.Flip;
-            }
-        }
-        else if (stage == BrakingStage.Flip)
+        if (stage == BrakingStage.Flip)
         {
             var targetDirection = ship.Velocity.normalized * -1f;
 
@@ -62,27 +53,30 @@ public class Autobrake : MonoBehaviour
             float a = ship.throttle * ship.moveSpeed;
             float beginThrottleDownSpeed = a * a / (2f * deltaA);
 
-            if (IsFacing(ship.Velocity.normalized) && ship.throttle < 0.1f)
+            if (!IsFacing(ship.Velocity.normalized * -1f) || ship.Velocity.magnitude <= beginThrottleDownSpeed)
             {
-                ship.throttle = 0f;
-                ship.KillVelocity();
-                stage = BrakingStage.Disengaged;
-            }
-            else if (!IsFacing(ship.Velocity.normalized * -1f))
-            {
-                stage = BrakingStage.ThrottleDown;
-            }
-            else if (ship.Velocity.magnitude <= beginThrottleDownSpeed)
-            {
-                ship.throttle -= helm.throttleSpeed * Time.deltaTime;
-                if (ship.throttle <= 0f) ship.throttle = 0f;
+                stage = BrakingStage.Disengage;
             }
             else if (ship.throttle < 1f)
             {
                 ship.throttle += helm.throttleSpeed * Time.deltaTime;
                 if (ship.throttle > 1f) ship.throttle = 1f;
             }
+        }
+        else if (stage == BrakingStage.Disengage)
+        {
+            ship.throttle -= helm.throttleSpeed * Time.deltaTime;
 
+            if (ship.throttle <= 0f)
+            {
+                if (ship.Velocity.magnitude < 0.1f)
+                {
+                    ship.KillVelocity();
+                }
+
+                ship.throttle = 0f;
+                stage = BrakingStage.Idle;
+            }
         }
     }
 
