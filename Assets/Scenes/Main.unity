@@ -908,10 +908,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 186628061}
-  - component: {fileID: 186628060}
   - component: {fileID: 186628062}
   - component: {fileID: 186628063}
   - component: {fileID: 186628064}
+  - component: {fileID: 186628065}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -919,21 +919,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &186628060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186628059}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421c67db6617542708fd4276e3733f0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnSpeed: 90
-  throttle: 0
-  throttleSpeed: 1
 --- !u!4 &186628061
 Transform:
   m_ObjectHideFlags: 0
@@ -1001,6 +986,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &186628065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186628059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb6cfaf725df497782da2e69340560f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shake: {fileID: 545220656}
+  time: 2
+  amplitude: 25
 --- !u!1 &199477961
 GameObject:
   m_ObjectHideFlags: 0
