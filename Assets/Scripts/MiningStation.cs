@@ -11,6 +11,7 @@ public class MiningStation : StationBehaviour
     public float miningDistance = 50f;
     public float miningSpeed = 100f;
     public LayerMask asteroidLayerMask;
+    public MiningLaser laser;
 
     public Text oreReadout;
     public Text capacityReadout;
@@ -18,6 +19,7 @@ public class MiningStation : StationBehaviour
     public GameObject holdFullLight;
 
     private Quaternion initialRotation;
+    private bool isInRange = false;
 
     void Start()
     {
@@ -36,14 +38,14 @@ public class MiningStation : StationBehaviour
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
         // raycast asteroids
-        var isInRange = Physics.Raycast(
+        isInRange = Physics.Raycast(
             miningCamera.position,
             miningCamera.forward, out RaycastHit hit,
             miningDistance,
             asteroidLayerMask);
 
         // activate laser
-        if (player.input.GetBtnDown(0) && isInRange && ship.ore < ship.capacity)
+        if (player.input.GetBtn(0) && isInRange && ship.ore < ship.capacity)
         {
             var asteroid = hit.collider.GetComponent<Asteroid>();
 
@@ -52,6 +54,13 @@ public class MiningStation : StationBehaviour
 
             ship.ore += miningSpeed * Time.deltaTime;
             if (ship.ore > ship.capacity) ship.ore = ship.capacity;
+
+            laser.gameObject.SetActive(true);
+            laser.target = hit.point;
+        }
+        else
+        {
+            laser.gameObject.SetActive(false);
         }
 
         // update readouts
@@ -66,7 +75,7 @@ public class MiningStation : StationBehaviour
         var scheme = player.input.inputScheme;
 
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} target laser\n" +
-            $"{Icons.IconText(scheme.btn0)} (hold) activate laser" +
+            (isInRange ? $"{Icons.IconText(scheme.btn0)} (hold) activate laser\n" : "") +
             $"{Icons.IconText(scheme.btn2)} cancel";
     }
 
