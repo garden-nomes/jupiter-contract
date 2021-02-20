@@ -7,6 +7,7 @@ public class ShipController : MonoBehaviour
     public float throttle = 0;
     public float moveSpeed;
     public Vector3? target;
+    public Vector3? hoveredTarget;
 
     public float ore = 0f;
     public float capacity = 1000f;

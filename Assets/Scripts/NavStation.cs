@@ -7,6 +7,8 @@ public class NavStation : StationBehaviour
     public NavigationMarkers overlay;
     public ShipController ship;
 
+    public DistanceText distanceText;
+
     private Quaternion initialRotation;
 
     void Start()
@@ -27,9 +29,15 @@ public class NavStation : StationBehaviour
         {
             ship.target = null;
         }
-        else if (overlay.Target != null && player.input.GetBtnDown(0))
+        else if (overlay.HoveredTarget != null && player.input.GetBtnDown(0))
         {
-            ship.target = overlay.Target;
+            ship.target = overlay.HoveredTarget;
+        }
+
+        if (overlay.Target != null)
+        {
+            var distance = (ship.Position - overlay.Target.Value).magnitude;
+            distanceText.SetDistance(distance);
         }
     }
 
@@ -38,41 +46,12 @@ public class NavStation : StationBehaviour
         return "check nav array";
     }
 
-    Vector3? FindHoveredNavTarget()
-    {
-        var targets = GameObject.FindGameObjectsWithTag("nav target");
-
-        var forward = scopesCamera.transform.forward;
-        var from = scopesCamera.transform.position;
-
-        GameObject currentTarget = null;
-
-        foreach (var target in targets)
-        {
-            if (currentTarget == null)
-            {
-                currentTarget = target;
-                continue;
-            }
-
-            var currentDot = Vector3.Dot(forward, (currentTarget.transform.position - from).normalized);
-            var targetDot = Vector3.Dot(forward, (target.transform.position - from).normalized);
-
-            if (targetDot > currentDot)
-            {
-                currentTarget = target;
-            }
-        }
-
-        return currentTarget == null ? (Vector3?) null : currentTarget.transform.position;
-    }
-
     public override string GetInstructionText(PlayerController player)
     {
         var scheme = player.input.inputScheme;
 
         var lockInstructions = "";
-        if (ship.target == null && overlay.Target != null)
+        if (ship.target == null && overlay.HoveredTarget != null)
         {
             lockInstructions += $"{Icons.IconText(scheme.btn0)} lock target\n";
         }
@@ -109,5 +88,17 @@ public class NavStation : StationBehaviour
             scopesCamera.transform.localRotation = Quaternion.RotateTowards(
                 currentRotation, initialRotation, rotationSpeed * Time.deltaTime);
         }
+    }
+
+    protected override void OnLock(PlayerController player)
+    {
+        distanceText.gameObject.SetActive(true);
+        overlay.hoverTargets = true;
+    }
+
+    protected override void OnRelease(PlayerController player)
+    {
+        distanceText.gameObject.SetActive(false);
+        overlay.hoverTargets = false;
     }
 }

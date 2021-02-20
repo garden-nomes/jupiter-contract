@@ -1,42 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DistanceText : MonoBehaviour
 {
-    public NavigationMarkers overlay;
-    public ShipController ship;
+    public Text text;
 
-    private TextMeshProUGUI text;
-
-    void Start()
+    public void SetDistance(float distance)
     {
-        text = GetComponent<TextMeshProUGUI>();
-    }
-
-    void Update()
-    {
-        if (overlay.Target != null)
-        {
-            var distance = (ship.transform.position - overlay.Target.Value).magnitude;
-            text.text = FormatDistance(distance);
-        }
-        else
-        {
-            text.text = "";
-        }
+        text.text = FormatDistance(distance);
     }
 
     private string FormatDistance(float distance)
     {
         if (distance < 1000)
         {
-            return $"{Mathf.Round(distance)}m";
+            return $"{distance.ToString("0")}m";
         }
         else
         {
-            return $"{Mathf.Round(distance / 100f) * 0.1f}km";
+            return $"{(distance / 1000f).ToString("0.00")}km";
         }
     }
 }

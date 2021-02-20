@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NavigationMarkers : MonoBehaviour
 {
-    public bool isNavCamera = false;
+    public bool hoverTargets = false;
 
     public ShipController ship;
     public new Camera camera;
@@ -14,9 +14,10 @@ public class NavigationMarkers : MonoBehaviour
 
     private Canvas canvas;
     private RectTransform canvasRect;
-    private Vector3? target;
 
-    public Vector3? Target => target;
+    private Vector3? hoveredTarget;
+    public Vector3? HoveredTarget => hoveredTarget;
+    public Vector3? Target => ship.target != null ? ship.target : hoveredTarget;
 
     private void Start()
     {
@@ -30,16 +31,8 @@ public class NavigationMarkers : MonoBehaviour
         PlaceMarker(attitudeMarker, camera.transform.position + ship.Heading);
 
         // mark target
-        target = null;
-        if (ship.target != null)
-        {
-            target = ship.target;
-        }
-        else if (isNavCamera)
-        {
-            target = FindHoveredNavTarget();
-        }
-        PlaceMarker(targetMarker, target);
+        hoveredTarget = hoverTargets ? FindHoveredNavTarget() : null;
+        PlaceMarker(targetMarker, Target);
 
         // mark velocity
         if (ship.Velocity.sqrMagnitude > 0f)
