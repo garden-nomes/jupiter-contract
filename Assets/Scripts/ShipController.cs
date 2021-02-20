@@ -7,8 +7,11 @@ public class ShipController : MonoBehaviour
     public float throttle = 0;
     public float moveSpeed;
     public Vector3? target;
+
     public float miningDistance;
     public float miningSpeed;
+    public float ore = 0f;
+    public float capacity = 1000f;
 
     public EngineController portEngine;
     public EngineController stbdEngine;
@@ -63,7 +66,8 @@ public class ShipController : MonoBehaviour
     {
         // mine asteroids
         isMining = false;
-        if (rigidbody.velocity.sqrMagnitude == 0f)
+
+        if (ore < capacity && rigidbody.velocity.sqrMagnitude == 0f)
         {
             var asteroids = GameObject.FindObjectsOfType<Asteroid>();
             foreach (var asteroid in asteroids)
@@ -73,6 +77,9 @@ public class ShipController : MonoBehaviour
                 {
                     isMining = true;
                     asteroid.ore -= miningSpeed * Time.deltaTime;
+
+                    ore += miningSpeed * Time.deltaTime;
+                    if (ore > capacity) ore = capacity;
 
                     if (asteroid.ore <= 0f)
                     {
