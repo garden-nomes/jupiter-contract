@@ -14,7 +14,7 @@ public class EngineController : MonoBehaviour
     private bool isBroken;
     public bool IsBroken => isBroken;
 
-    public float Thrust => IsBroken ? throttle : throttle;
+    public float Thrust => IsBroken ? 0f : throttle;
 
     private float breakTimer;
 

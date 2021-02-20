@@ -105,28 +105,38 @@ public class TransitComputer : MonoBehaviour
     public GameObject throttleOkLight;
     public GameObject throttleDownLight;
     public GameObject targetLockLight;
+    public GameObject stabilizerLight;
+
+    public ThrottleMeter portThrottleMeter;
+    public ThrottleMeter stbdThrottleMeter;
 
     private void Update()
     {
+        var state = State;
+
         UpdateDist();
         UpdateAlignment();
         UpdateAcc();
         UpdateSpeed();
 
-        stage0Light.SetActive(State == TransitState.Stage0);
-        stage1Light.SetActive(State == TransitState.Stage1);
+        stage0Light.SetActive(state == TransitState.Stage0);
+        stage1Light.SetActive(state == TransitState.Stage1);
         targetLockLight.SetActive(ship.target != null);
+        stabilizerLight.SetActive(ship.IsStabilizing);
+
+        portThrottleMeter.value = ship.portEngine.throttle;
+        stbdThrottleMeter.value = ship.stbdEngine.throttle;
 
         throttleUpLight.SetActive(false);
         throttleDownLight.SetActive(false);
         throttleOkLight.SetActive(false);
         tBrkText.text = "";
 
-        if (State == TransitState.Stage0)
+        if (state == TransitState.Stage0)
         {
             UpdateStage0Text();
         }
-        else if (State == TransitState.Stage1)
+        else if (state == TransitState.Stage1)
         {
             UpdateStage1Lights();
         }
