@@ -2269,9 +2269,6 @@ MonoBehaviour:
   target: {fileID: 2001721678}
   maskLayer: 27
   isVisible: 1
-  shake: 0
-  shakeFrequency: 10
-  shakeAmplitude: 0.1
 --- !u!20 &496664073
 Camera:
   m_ObjectHideFlags: 0
@@ -2800,7 +2797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb77fa5a22c30457e8fba528685f8a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 0.1
+  frequency: 10
   amplitude: 10
 --- !u!1 &559539703
 GameObject:
@@ -4931,9 +4928,6 @@ MonoBehaviour:
   target: {fileID: 7711021}
   maskLayer: 28
   isVisible: 1
-  shake: 0
-  shakeFrequency: 10
-  shakeAmplitude: 0.1
 --- !u!4 &854279896
 Transform:
   m_ObjectHideFlags: 0

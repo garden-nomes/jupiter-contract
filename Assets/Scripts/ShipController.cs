@@ -14,6 +14,8 @@ public class ShipController : MonoBehaviour
     public EngineController portEngine;
     public EngineController stbdEngine;
 
+    public Shake shake;
+
     public float stabilizerMaxSpeed = 1f;
     public float stabilizerForce = 1f;
 
@@ -32,6 +34,11 @@ public class ShipController : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        shake.Add(Acceleration);
     }
 
     void FixedUpdate()
