@@ -27,8 +27,8 @@ public class Helm : StationBehaviour
                 Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
             // throttle up/down
-            if (player.input.GetBtn(1)) ship.throttle -= throttleSpeed * Time.deltaTime;
             if (player.input.GetBtn(0)) ship.throttle += throttleSpeed * Time.deltaTime;
+            else ship.throttle -= throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
 
             if (ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f && player.input.GetBtnDown(1))
@@ -57,8 +57,7 @@ public class Helm : StationBehaviour
             bool canEngageAutobrake = ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f;
 
             return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate ship\n" +
-                (ship.throttle > 0f ? $"{Icons.IconText(scheme.btn1)} (hold) throttle down\n" : "") +
-                (ship.throttle < 1f ? $"{Icons.IconText(scheme.btn0)} (hold) throttle up\n" : "") +
+                $"{Icons.IconText(scheme.btn0)} (hold) throttle\n" +
                 (canEngageAutobrake ? $"{Icons.IconText(scheme.btn1)} engage autobrake\n" : "") +
                 $"{Icons.IconText(scheme.btn2)} back";
         }
