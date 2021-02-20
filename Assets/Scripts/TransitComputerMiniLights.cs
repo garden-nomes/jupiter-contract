@@ -8,8 +8,8 @@ public class TransitComputerMiniLights : MonoBehaviour
 
     public GameObject distAlignLight;
     public GameObject speedAccLight;
-    public GameObject stage0Light;
-    public GameObject stage1Light;
+    public GameObject autobrakeLight;
+    public GameObject engFailureLight;
 
     void LateUpdate()
     {
@@ -17,7 +17,7 @@ public class TransitComputerMiniLights : MonoBehaviour
             transitComputer.distText.text != "" || transitComputer.alignText.text != "");
         speedAccLight.SetActive(
             transitComputer.speedText.text != "" || transitComputer.accText.text != "");
-        stage0Light.SetActive(transitComputer.stage0Light.gameObject.activeSelf);
-        stage1Light.SetActive(transitComputer.stage1Light.gameObject.activeSelf);
+        autobrakeLight.SetActive(transitComputer.autobrakeEngagedLight.gameObject.activeSelf);
+        engFailureLight.SetActive(transitComputer.engFailureLight.gameObject.activeSelf);
     }
 }

@@ -3,45 +3,38 @@
 public class Helm : StationBehaviour
 {
     public ShipController ship;
-    public Autopilot autopilot;
+    public Autobrake autobrake;
     public float rotationSpeed = 90f;
     public float throttleSpeed = .5f;
 
     protected override void UseStation(PlayerController player)
     {
-        var horizontal = player.input.horizontal;
-        ship.transform.rotation *=
-            Quaternion.AngleAxis(horizontal * Time.deltaTime * rotationSpeed, Vector3.back);
-        var vertical = player.input.vertical;
-        ship.transform.rotation *=
-            Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
-
-        if (horizontal != 0f || vertical != 0f)
+        if (autobrake.IsEngaged)
         {
-            autopilot.Disengage();
+            if (player.input.GetBtnDown(1))
+            {
+                autobrake.Disengage();
+            }
         }
-
-        if (player.input.GetBtn(1))
+        else
         {
-            ship.throttle -= throttleSpeed * Time.deltaTime;
+            // rotate ship
+            var horizontal = player.input.horizontal;
+            ship.transform.rotation *=
+                Quaternion.AngleAxis(horizontal * Time.deltaTime * rotationSpeed, Vector3.back);
+            var vertical = player.input.vertical;
+            ship.transform.rotation *=
+                Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
+
+            // throttle up/down
+            if (player.input.GetBtn(1)) ship.throttle -= throttleSpeed * Time.deltaTime;
+            if (player.input.GetBtn(0)) ship.throttle += throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
-            autopilot.Disengage();
-        }
 
-        if (player.input.GetBtn(0))
-        {
-            ship.throttle += throttleSpeed * Time.deltaTime;
-            ship.throttle = Mathf.Clamp01(ship.throttle);
-            autopilot.Disengage();
-        }
-
-        if (ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f && player.input.GetBtnDown(1))
-        {
-            autopilot.Disengage();
-            if (ship.IsStabilizing)
-                ship.DeactivateStabilizers();
-            else
-                ship.ActivateStabilizers();
+            if (ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f && player.input.GetBtnDown(1))
+            {
+                autobrake.Engage();
+            }
         }
     }
 
@@ -54,21 +47,20 @@ public class Helm : StationBehaviour
     {
         var scheme = player.input.inputScheme;
 
-        bool canActivateStabilizers =
-            ship.throttle == 0f &&
-            ship.Velocity.sqrMagnitude > 0f &&
-            !ship.IsStabilizing;
+        if (autobrake.IsEngaged)
+        {
+            return $"{Icons.IconText(scheme.btn1)} disengage autobrake\n" +
+                $"{Icons.IconText(scheme.btn2)} back";
+        }
+        else
+        {
+            bool canEngageAutobrake = ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f;
 
-        bool canDeactivateStabilizers =
-            ship.throttle == 0f &&
-            ship.Velocity.sqrMagnitude > 0f &&
-            ship.IsStabilizing;
-
-        return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate ship\n" +
-            (ship.throttle > 0 ? $"{Icons.IconText(scheme.btn1)} (hold) throttle down\n" : "") +
-            (ship.throttle < 1 ? $"{Icons.IconText(scheme.btn0)} (hold) throttle up\n" : "") +
-            (canActivateStabilizers ? $"{Icons.IconText(scheme.btn1)} activate stabilizers\n" : "") +
-            (canDeactivateStabilizers ? $"{Icons.IconText(scheme.btn1)} deactivate stabilizers\n" : "") +
-            $"{Icons.IconText(scheme.btn2)} cancel";
+            return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate ship\n" +
+                (ship.throttle > 0f ? $"{Icons.IconText(scheme.btn1)} (hold) throttle down\n" : "") +
+                (ship.throttle < 1f ? $"{Icons.IconText(scheme.btn0)} (hold) throttle up\n" : "") +
+                (canEngageAutobrake ? $"{Icons.IconText(scheme.btn1)} engage autobrake\n" : "") +
+                $"{Icons.IconText(scheme.btn2)} back";
+        }
     }
 }

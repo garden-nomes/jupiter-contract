@@ -92,7 +92,11 @@ public class TransitComputer : MonoBehaviour
     private void UpdateBrakingDistance()
     {
         var dist = autobrake.BrakingDistance;
-        brakingDistText.text = dist < 100f ? dist.ToString("0.0") : dist.ToString("0");
+
+        if (dist < 0.1f)
+            brakingDistText.text = "";
+        else
+            brakingDistText.text = dist < 100f ? dist.ToString("0.0") : dist.ToString("0");
     }
 
     // this is important because we want to navigate the player close, but not TOO close, to their target

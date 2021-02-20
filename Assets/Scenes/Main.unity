@@ -1030,23 +1030,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 186628063}
-  autopilot: {fileID: 1822057737}
-  fudgeDistance: 10
-  targetRadius: 30
+  autobrake: {fileID: 745094468}
   alignText: {fileID: 1177417143}
   distText: {fileID: 1571831170}
   speedText: {fileID: 1008383110}
   accText: {fileID: 932912221}
-  tBrkText: {fileID: 0}
-  estDistText: {fileID: 0}
-  stage0Light: {fileID: 0}
-  stage1Light: {fileID: 0}
-  throttleUpLight: {fileID: 0}
-  throttleOkLight: {fileID: 0}
-  throttleDownLight: {fileID: 0}
+  brakingDistText: {fileID: 13525314}
   targetLockLight: {fileID: 1173955951}
-  stabilizerLight: {fileID: 389282684}
-  autopilotLight: {fileID: 0}
+  autobrakeEngagedLight: {fileID: 389282684}
+  engFailureLight: {fileID: 2059462258}
   portThrottleMeter: {fileID: 1086418012}
   stbdThrottleMeter: {fileID: 1564475793}
 --- !u!114 &173520947
@@ -4428,6 +4420,7 @@ GameObject:
   - component: {fileID: 745094466}
   - component: {fileID: 745094465}
   - component: {fileID: 745094467}
+  - component: {fileID: 745094468}
   m_Layer: 0
   m_Name: Helm
   m_TagString: Untagged
@@ -4464,7 +4457,7 @@ MonoBehaviour:
   cameraPositionOverride: {fileID: 406995996}
   actionText: 
   ship: {fileID: 186628063}
-  autopilot: {fileID: 1822057737}
+  autobrake: {fileID: 745094468}
   rotationSpeed: 15
   throttleSpeed: 0.5
 --- !u!61 &745094466
@@ -4508,6 +4501,20 @@ MonoBehaviour:
   a: {x: 3.0625, y: -1.1875}
   b: {x: 5.0625, y: 1.1875}
   pixelsPerUnit: 8
+--- !u!114 &745094468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745094463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccc80261e587479982b0270a961133b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 186628063}
+  helm: {fileID: 745094465}
 --- !u!1 &769373685
 GameObject:
   m_ObjectHideFlags: 0
@@ -5236,8 +5243,8 @@ MonoBehaviour:
   transitComputer: {fileID: 173520946}
   distAlignLight: {fileID: 1798116639}
   speedAccLight: {fileID: 1966914516}
-  stage0Light: {fileID: 1406477691}
-  stage1Light: {fileID: 1485094318}
+  autobrakeLight: {fileID: 1406477691}
+  engFailureLight: {fileID: 1485094318}
 --- !u!1 &862082565
 GameObject:
   m_ObjectHideFlags: 0
@@ -9254,7 +9261,7 @@ GameObject:
   - component: {fileID: 1406477694}
   - component: {fileID: 1406477693}
   m_Layer: 0
-  m_Name: STAGE 0
+  m_Name: AUTOBRAKE ENGAGED
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9727,7 +9734,7 @@ GameObject:
   - component: {fileID: 1485094321}
   - component: {fileID: 1485094320}
   m_Layer: 0
-  m_Name: STAGE 1
+  m_Name: ENG FAILURE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20871,6 +20878,8 @@ MonoBehaviour:
   helm: {fileID: 745094465}
   defaultThrottle: 0.5
   targetDistance: 15
+  accelerationTimer: 0
+  target: {x: 0, y: 0, z: 0}
   transitTimer: 0
 --- !u!114 &1822057738
 MonoBehaviour:
@@ -20886,7 +20895,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPositionOverride: {fileID: 977574098}
   actionText: check autopilot
+  controllingPlayer: {fileID: 0}
   autopilot: {fileID: 1822057737}
+  autobrake: {fileID: 745094468}
   shipController: {fileID: 186628063}
   estimatedTime: {fileID: 801020130}
   orientationLight: {fileID: 1013446}
