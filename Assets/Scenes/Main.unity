@@ -1119,8 +1119,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throttle: 0
   moveSpeed: 1
-  miningDistance: 30
-  miningSpeed: 100
   ore: 0
   capacity: 1000
   portEngine: {fileID: 1265160016}
@@ -2075,6 +2073,63 @@ MonoBehaviour:
   rate: 0.33333334
   color1: {r: 0.7960785, g: 0.8588236, b: 0.98823535, a: 1}
   color2: {r: 0.13333334, g: 0.1254902, b: 0.20392159, a: 1}
+--- !u!1001 &446862921
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 471742664}
+    m_Modifications:
+    - target: {fileID: 2281165582528691505, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_Name
+      value: Asteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
 --- !u!1 &448037713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,6 +2233,7 @@ Transform:
   - {fileID: 246950687}
   - {fileID: 186628061}
   - {fileID: 199477963}
+  - {fileID: 1765380747}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2583,7 +2639,7 @@ Camera:
   m_Depth: -10
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 17408
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -6046,7 +6102,7 @@ Camera:
   m_Depth: -10
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 21504
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 11f8543b315a34a0990fb8cb2bd70437, type: 2}
   m_TargetDisplay: 0
@@ -8292,6 +8348,11 @@ MonoBehaviour:
   ship: {fileID: 186628063}
   miningCamera: {fileID: 947957021}
   rotationSpeed: 45
+  miningDistance: 50
+  miningSpeed: 100
+  asteroidLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   oreReadout: {fileID: 1346117497}
   capacityReadout: {fileID: 1953792253}
   targetInRangeLight: {fileID: 873920105}
@@ -9422,7 +9483,7 @@ Camera:
   m_Depth: -10
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 21504
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 36062cf690ab24193a3513d984a8096e, type: 2}
   m_TargetDisplay: 0
@@ -20507,6 +20568,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 932728212935728708, guid: ca0893f48cb7545dba75f7e17a244a16, type: 3}
   m_PrefabInstance: {fileID: 1763950141}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1765380747 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2281165582528691509, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
+  m_PrefabInstance: {fileID: 446862921}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1798116639
 GameObject:
   m_ObjectHideFlags: 0
@@ -21619,7 +21685,6 @@ GameObject:
   - component: {fileID: 2024065027}
   - component: {fileID: 2024065030}
   - component: {fileID: 2024065029}
-  - component: {fileID: 2024065028}
   m_Layer: 12
   m_Name: Reticle
   m_TagString: Untagged
@@ -21646,21 +21711,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.5, y: -0.5}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2024065028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2024065026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b8ff028cb9442b5a5c1c0d0cf65e65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rate: 0.33333334
-  color1: {r: 0.7960785, g: 0.8588236, b: 0.98823535, a: 1}
-  color2: {r: 0.13333334, g: 0.1254902, b: 0.20392159, a: 1}
 --- !u!114 &2024065029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21674,7 +21724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.13333334, g: 0.1254902, b: 0.20392159, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

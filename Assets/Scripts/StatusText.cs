@@ -26,7 +26,7 @@ public class StatusText : MonoBehaviour
     void Update()
     {
         var newState = State.Default;
-        if (ship.IsMining) newState = State.Mining;
+        // if (ship.IsMining) newState = State.Mining;
         if (ship.IsStabilizing) newState = State.Stabilizing;
 
         if (newState != state)

@@ -8,8 +8,6 @@ public class ShipController : MonoBehaviour
     public float moveSpeed;
     public Vector3? target;
 
-    public float miningDistance;
-    public float miningSpeed;
     public float ore = 0f;
     public float capacity = 1000f;
 
@@ -27,9 +25,6 @@ public class ShipController : MonoBehaviour
 
     private bool isStabilizing = false;
     public bool IsStabilizing => isStabilizing;
-
-    private bool isMining = false;
-    public bool IsMining => isMining;
 
     private float acceleration = 0f;
     public float Acceleration => acceleration;
@@ -59,34 +54,6 @@ public class ShipController : MonoBehaviour
                 rigidbody.velocity = Vector3.zero;
             else
                 rigidbody.velocity -= rigidbody.velocity.normalized * force;
-        }
-    }
-
-    void Update()
-    {
-        // mine asteroids
-        isMining = false;
-
-        if (ore < capacity && rigidbody.velocity.sqrMagnitude == 0f)
-        {
-            var asteroids = GameObject.FindObjectsOfType<Asteroid>();
-            foreach (var asteroid in asteroids)
-            {
-                var distance = (asteroid.transform.position - transform.position).magnitude;
-                if (distance <= miningDistance)
-                {
-                    isMining = true;
-                    asteroid.ore -= miningSpeed * Time.deltaTime;
-
-                    ore += miningSpeed * Time.deltaTime;
-                    if (ore > capacity) ore = capacity;
-
-                    if (asteroid.ore <= 0f)
-                    {
-                        GameObject.Destroy(asteroid.gameObject);
-                    }
-                }
-            }
         }
     }
 }

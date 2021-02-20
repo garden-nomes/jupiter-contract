@@ -8,6 +8,9 @@ public class MiningStation : StationBehaviour
     public ShipController ship;
     public Transform miningCamera;
     public float rotationSpeed = 90f;
+    public float miningDistance = 50f;
+    public float miningSpeed = 100f;
+    public LayerMask asteroidLayerMask;
 
     public Text oreReadout;
     public Text capacityReadout;
@@ -23,6 +26,7 @@ public class MiningStation : StationBehaviour
 
     protected override void UseStation(PlayerController player)
     {
+        // rotate camera
         var horizontal = player.input.horizontal;
         miningCamera.transform.rotation *=
             Quaternion.AngleAxis(horizontal * Time.deltaTime * rotationSpeed, Vector3.up);
@@ -31,9 +35,29 @@ public class MiningStation : StationBehaviour
         miningCamera.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
+        // raycast asteroids
+        var isInRange = Physics.Raycast(
+            miningCamera.position,
+            miningCamera.forward, out RaycastHit hit,
+            miningDistance,
+            asteroidLayerMask);
+
+        // activate laser
+        if (player.input.GetBtnDown(0) && isInRange && ship.ore < ship.capacity)
+        {
+            var asteroid = hit.collider.GetComponent<Asteroid>();
+
+            asteroid.ore -= miningSpeed * Time.deltaTime;
+            if (asteroid.ore <= 0f) GameObject.Destroy(asteroid.gameObject);
+
+            ship.ore += miningSpeed * Time.deltaTime;
+            if (ship.ore > ship.capacity) ship.ore = ship.capacity;
+        }
+
+        // update readouts
         oreReadout.text = ship.ore.ToString("0.0");
         capacityReadout.text = ship.capacity.ToString("0.0");
-        targetInRangeLight.gameObject.SetActive(ship.IsMining);
+        targetInRangeLight.gameObject.SetActive(isInRange);
         holdFullLight.gameObject.SetActive(ship.ore >= ship.capacity);
     }
 
