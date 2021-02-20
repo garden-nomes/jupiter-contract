@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Autobrake : MonoBehaviour
@@ -11,12 +12,18 @@ public class Autobrake : MonoBehaviour
     }
 
     public bool IsEngaged => stage != BrakingStage.Disengaged;
-    public float BrakingDistance => 100f;
+    public float BrakingDistance => estimatedDistance;
 
     public ShipController ship;
     public Helm helm;
 
     private BrakingStage stage = BrakingStage.Disengaged;
+    private float estimatedDistance = 0f;
+
+    void Start()
+    {
+        StartCoroutine(EstimateDistanceCoroutine());
+    }
 
     public void Engage()
     {
@@ -90,6 +97,69 @@ public class Autobrake : MonoBehaviour
 
     private bool IsFacing(Vector3 direction)
     {
-        return 1f - Vector3.Dot(ship.Heading, direction) < float.Epsilon;
+        return Vector3.Angle(ship.Heading, direction) < 0.01f;
+    }
+
+    private float EstimateDistance()
+    {
+        float velocity = ship.Velocity.magnitude;
+
+        if (velocity == 0f)
+        {
+            return 0f;
+        }
+
+        float deltaAcceleration = helm.throttleSpeed * ship.moveSpeed;
+        float maxAcceleration = ship.moveSpeed;
+        return FlipDistance(velocity) + DecelerationDistance(velocity, deltaAcceleration, maxAcceleration);
+    }
+
+    private float FlipDistance(float velocity)
+    {
+        var targetDirection = ship.Velocity.normalized * -1;
+        float angle = Vector3.Angle(ship.Heading, targetDirection);
+        var flipTime = angle / helm.rotationSpeed;
+        return velocity * flipTime;
+    }
+
+    private float DecelerationDistance(float velocity, float deltaA, float maxA)
+    {
+        // Is this the most efficient way to calculate this? Hell no. Is it the last day of a game
+        // jam and I don't have time to pull out my calculus textbook? You guessed it.
+
+        float a = 0f;
+        float v = velocity;
+        float d = 0f;
+        float step = 1f / 60f;
+
+        while (v > 0f)
+        {
+            float beginThrottleDownSpeed = a * a / (2f * deltaA);
+
+            if (v > beginThrottleDownSpeed)
+            {
+                a += deltaA * step;
+                if (a > maxA) a = maxA;
+            }
+            else
+            {
+                a -= deltaA * step;
+                if (a < 0f) a = 0f;
+            }
+
+            v -= a * step;
+            d += v * step;
+        }
+
+        return d;
+    }
+
+    private IEnumerator EstimateDistanceCoroutine()
+    {
+        for (;;)
+        {
+            yield return new WaitForSeconds(0.25f);
+            estimatedDistance = EstimateDistance();
+        }
     }
 }
