@@ -15,13 +15,13 @@ public class Helm : StationBehaviour
         ship.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
-        if (player.input.GetBtn(0))
+        if (player.input.GetBtn(1))
         {
             ship.throttle -= throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
         }
 
-        if (player.input.GetBtn(1))
+        if (player.input.GetBtn(0))
         {
             ship.throttle += throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
@@ -37,8 +37,8 @@ public class Helm : StationBehaviour
     {
         var scheme = player.input.inputScheme;
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate ship\n" +
-            (ship.throttle > 0 ? $"{Icons.IconText(scheme.btn0)} throttle down\n" : "") +
-            (ship.throttle < 1 ? $"{Icons.IconText(scheme.btn1)} throttle up\n" : "") +
+            (ship.throttle > 0 ? $"{Icons.IconText(scheme.btn1)} throttle down\n" : "") +
+            (ship.throttle < 1 ? $"{Icons.IconText(scheme.btn0)} throttle up\n" : "") +
             $"{Icons.IconText(scheme.btn2)} cancel";
     }
 }
