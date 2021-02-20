@@ -2022,7 +2022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5175daf3bb545758c380ecd8c5262f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rate: 1
+  rate: 0.5
   ratio: 0.6666667
 --- !u!212 &389282687
 SpriteRenderer:
@@ -4458,8 +4458,8 @@ MonoBehaviour:
   actionText: 
   ship: {fileID: 186628063}
   autobrake: {fileID: 745094468}
-  rotationSpeed: 15
-  throttleSpeed: 0.5
+  rotationSpeed: 20
+  throttleSpeed: 1
 --- !u!61 &745094466
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6370,7 +6370,6 @@ Transform:
   - {fileID: 826197503}
   - {fileID: 1623022452}
   - {fileID: 1312014771}
-  - {fileID: 1822057736}
   m_Father: {fileID: 1988618450}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8647,8 +8646,8 @@ MonoBehaviour:
   ship: {fileID: 186628063}
   miningCamera: {fileID: 947957021}
   rotationSpeed: 45
-  miningDistance: 50
-  miningSpeed: 100
+  miningDistance: 100
+  miningSpeed: 20
   asteroidLayerMask:
     serializedVersion: 2
     m_Bits: 16384
@@ -9293,7 +9292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5175daf3bb545758c380ecd8c5262f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rate: 2
+  rate: 0.5
   ratio: 0.6666667
 --- !u!212 &1406477694
 SpriteRenderer:
@@ -9766,7 +9765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5175daf3bb545758c380ecd8c5262f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rate: 2
+  rate: 0.5
   ratio: 0.6666667
 --- !u!212 &1485094321
 SpriteRenderer:
@@ -20828,124 +20827,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1822057735
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1822057736}
-  - component: {fileID: 1822057740}
-  - component: {fileID: 1822057739}
-  - component: {fileID: 1822057737}
-  - component: {fileID: 1822057738}
-  m_Layer: 0
-  m_Name: Autopilot Station
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1822057736
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822057735}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.375, y: -0.25, z: 0}
-  m_LocalScale: {x: 1.25, y: 2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 989848925}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1822057737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822057735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae15b081ccad542f7994a0818ded0f96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ship: {fileID: 186628063}
-  helm: {fileID: 745094465}
-  defaultThrottle: 0.5
-  targetDistance: 15
-  accelerationTimer: 0
-  target: {x: 0, y: 0, z: 0}
-  transitTimer: 0
---- !u!114 &1822057738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822057735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7485b4a9dbecc4980b5dd363df6dbd21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraPositionOverride: {fileID: 977574098}
-  actionText: check autopilot
-  controllingPlayer: {fileID: 0}
-  autopilot: {fileID: 1822057737}
-  autobrake: {fileID: 745094468}
-  shipController: {fileID: 186628063}
-  estimatedTime: {fileID: 801020130}
-  orientationLight: {fileID: 1013446}
-  acceleratingLight: {fileID: 248544203}
-  flipLight: {fileID: 1453874827}
-  deceleratingLight: {fileID: 1979140298}
-  arrivedLight: {fileID: 1038857412}
---- !u!114 &1822057739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822057735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29ce44489854e44f78018c26fb1843f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  a: {x: 1.8125, y: -1.1875}
-  b: {x: 2.9375, y: 0.6875}
-  pixelsPerUnit: 8
---- !u!61 &1822057740
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822057735}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &1851010081
 GameObject:
   m_ObjectHideFlags: 0
