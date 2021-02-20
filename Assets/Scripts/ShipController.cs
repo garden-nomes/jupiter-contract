@@ -51,17 +51,34 @@ public class ShipController : MonoBehaviour
         acceleration = thrust * moveSpeed;
         rigidbody.velocity += transform.up * acceleration * Time.deltaTime;
 
+        // turn off stabilizers on throttle-up
+        if (throttle > 0f) isStabilizing = false;
+
         // apply stabilizers
-        var speed = Velocity.magnitude;
-        isStabilizing = Acceleration == 0f && speed > 0f && speed <= stabilizerMaxSpeed;
         if (isStabilizing)
         {
             var force = stabilizerForce * Time.deltaTime;
+            var speed = Velocity.magnitude;
 
             if (force >= speed)
+            {
                 rigidbody.velocity = Vector3.zero;
+                isStabilizing = false;
+            }
             else
+            {
                 rigidbody.velocity -= rigidbody.velocity.normalized * force;
+            }
         }
+    }
+
+    public void ActivateStabilizers()
+    {
+        isStabilizing = true;
+    }
+
+    public void DeactivateStabilizers()
+    {
+        isStabilizing = false;
     }
 }

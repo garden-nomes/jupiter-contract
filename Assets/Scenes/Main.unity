@@ -1022,8 +1022,8 @@ MonoBehaviour:
   portEngine: {fileID: 1265160016}
   stbdEngine: {fileID: 769373687}
   shake: {fileID: 545220656}
-  stabilizerMaxSpeed: 0.5
-  stabilizerForce: 0.1
+  stabilizerMaxSpeed: 3
+  stabilizerForce: 0.25
 --- !u!135 &186628064
 SphereCollider:
   m_ObjectHideFlags: 0

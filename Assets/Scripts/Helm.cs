@@ -26,6 +26,14 @@ public class Helm : StationBehaviour
             ship.throttle += throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
         }
+
+        if (ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f && player.input.GetBtnDown(1))
+        {
+            if (ship.IsStabilizing)
+                ship.DeactivateStabilizers();
+            else
+                ship.ActivateStabilizers();
+        }
     }
 
     public override string GetActionText(PlayerController player)
@@ -36,9 +44,22 @@ public class Helm : StationBehaviour
     public override string GetInstructionText(PlayerController player)
     {
         var scheme = player.input.inputScheme;
+
+        bool canActivateStabilizers =
+            ship.throttle == 0f &&
+            ship.Velocity.sqrMagnitude > 0f &&
+            !ship.IsStabilizing;
+
+        bool canDeactivateStabilizers =
+            ship.throttle == 0f &&
+            ship.Velocity.sqrMagnitude > 0f &&
+            ship.IsStabilizing;
+
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate ship\n" +
-            (ship.throttle > 0 ? $"{Icons.IconText(scheme.btn1)} throttle down\n" : "") +
-            (ship.throttle < 1 ? $"{Icons.IconText(scheme.btn0)} throttle up\n" : "") +
+            (ship.throttle > 0 ? $"{Icons.IconText(scheme.btn1)} (hold) throttle down\n" : "") +
+            (ship.throttle < 1 ? $"{Icons.IconText(scheme.btn0)} (hold) throttle up\n" : "") +
+            (canActivateStabilizers ? $"{Icons.IconText(scheme.btn1)} activate stabilizers\n" : "") +
+            (canDeactivateStabilizers ? $"{Icons.IconText(scheme.btn1)} deactivate stabilizers\n" : "") +
             $"{Icons.IconText(scheme.btn2)} cancel";
     }
 }
