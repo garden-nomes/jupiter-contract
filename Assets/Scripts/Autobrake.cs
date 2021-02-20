@@ -19,6 +19,8 @@ public class Autobrake : MonoBehaviour
 
     private BrakingStage stage = BrakingStage.Idle;
     private float estimatedDistance = 0f;
+    private float currentEngagementEstimate = 0f;
+    private Vector3 currentEngagementStart;
 
     void Start()
     {
@@ -28,6 +30,8 @@ public class Autobrake : MonoBehaviour
     public void Engage()
     {
         stage = BrakingStage.Flip;
+        currentEngagementEstimate = EstimateDistance();
+        currentEngagementStart = ship.Position;
     }
 
     public void Disengage()
@@ -72,6 +76,9 @@ public class Autobrake : MonoBehaviour
                 if (ship.Velocity.magnitude < 0.1f)
                 {
                     ship.KillVelocity();
+                    var travelled = (currentEngagementStart - ship.Position).magnitude;
+                    Debug.Log($"estimate: {currentEngagementEstimate.ToString("0.00")}");
+                    Debug.Log($"travelled: {currentEngagementEstimate.ToString("0.00")}");
                 }
 
                 ship.throttle = 0f;
