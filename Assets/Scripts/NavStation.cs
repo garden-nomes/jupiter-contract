@@ -9,9 +9,6 @@ public class NavStation : StationBehaviour
 
     private Quaternion initialRotation;
 
-    private Quaternion releaseRotation;
-    private float resetTimer = 0f;
-
     void Start()
     {
         initialRotation = scopesCamera.transform.localRotation;
