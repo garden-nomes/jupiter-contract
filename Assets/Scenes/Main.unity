@@ -10186,7 +10186,7 @@ MonoBehaviour:
     m_LineSpacing: 1.125
   m_Text: 'hold full
 
-    station targeted'
+    depot targeted'
 --- !u!222 &1148714564
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12577,7 +12577,7 @@ GameObject:
   - component: {fileID: 1361883370}
   - component: {fileID: 1361883369}
   m_Layer: 10
-  m_Name: Space Station
+  m_Name: Depot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26271,7 +26271,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.125
-  m_Text: 'station
+  m_Text: 'depot
 
     in range'
 --- !u!222 &1929190805
