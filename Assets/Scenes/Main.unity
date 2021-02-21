@@ -1923,7 +1923,7 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 2281165582528691508, guid: 0db8fbc622e9f4b018ea07b7b0f5dd86, type: 3}
   radius: 3000
   count: 100
-  minOre: 100
+  minOre: 300
   maxOre: 500
 --- !u!1 &248544203
 GameObject:
@@ -7952,7 +7952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &947957021
 Transform:
   m_ObjectHideFlags: 0
@@ -8079,6 +8079,10 @@ PrefabInstance:
       propertyPath: instructionText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7220488927478576526, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 884552216}
     - target: {fileID: 7220488927478576527, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: inputScheme.up
       value: 273
@@ -12536,7 +12540,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumShowTime: 4
-  waitForCancel: 1
 --- !u!1 &1361883368
 GameObject:
   m_ObjectHideFlags: 0
@@ -12547,8 +12550,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1361883370}
   - component: {fileID: 1361883369}
-  m_Layer: 0
-  m_Name: SpaceStation
+  m_Layer: 10
+  m_Name: Space Station
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12575,7 +12578,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361883368}
   m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 60, z: 0}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_Children:
   - {fileID: 668139766}
@@ -28682,6 +28685,10 @@ PrefabInstance:
       propertyPath: instructionText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7220488927478576526, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 884552216}
     - target: {fileID: 7828210232494838385, guid: 189ab3ea897b04cf2aeeba8a20000217, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
       value: 0.79215693

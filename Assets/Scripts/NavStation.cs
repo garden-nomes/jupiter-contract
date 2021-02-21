@@ -6,6 +6,9 @@ public class NavStation : StationBehaviour
     public Camera scopesCamera;
     public NavigationMarkers overlay;
     public ShipController ship;
+    public float minFov = 15f;
+    public float maxFov = 60f;
+    public float zoomSpeed = 30f;
 
     public DistanceText distanceText;
 
@@ -29,6 +32,10 @@ public class NavStation : StationBehaviour
         {
             ship.CancelPopup();
         }
+
+        if (player.input.GetBtn(1)) scopesCamera.fieldOfView -= zoomSpeed * Time.deltaTime;
+        else scopesCamera.fieldOfView += zoomSpeed * Time.deltaTime;
+        scopesCamera.fieldOfView = Mathf.Clamp(scopesCamera.fieldOfView, minFov, maxFov);
 
         if (ship.ore < ship.capacity) // disable changing targets when station is targeted
         {
@@ -112,6 +119,7 @@ public class NavStation : StationBehaviour
 
     protected override void OnRelease(PlayerController player)
     {
+        scopesCamera.fieldOfView = maxFov;
         distanceText.gameObject.SetActive(false);
         overlay.hoverTargets = false;
     }
