@@ -6262,8 +6262,8 @@ MonoBehaviour:
   shake: {fileID: 545220656}
   sfx: {fileID: 884552216}
   throttle: 0
-  minBreakTime: 60
-  maxBreakTime: 120
+  minBreakTime: 20
+  maxBreakTime: 90
   explosionTime: 1
   explosionAmplitude: 20
 --- !u!198 &810772730 stripped
@@ -11306,8 +11306,8 @@ MonoBehaviour:
   shake: {fileID: 545220656}
   sfx: {fileID: 884552216}
   throttle: 0
-  minBreakTime: 60
-  maxBreakTime: 120
+  minBreakTime: 20
+  maxBreakTime: 90
   explosionTime: 1
   explosionAmplitude: 20
 --- !u!1001 &1272794472
@@ -13760,7 +13760,7 @@ GameObject:
   - component: {fileID: 1537104097}
   - component: {fileID: 1537104096}
   - component: {fileID: 1537104095}
-  m_Layer: 29
+  m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
