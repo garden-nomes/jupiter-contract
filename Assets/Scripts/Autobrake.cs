@@ -57,7 +57,8 @@ public class Autobrake : MonoBehaviour
             float a = ship.throttle * ship.moveSpeed;
             float beginThrottleDownSpeed = a * a / (2f * deltaA);
 
-            if (!IsFacing(ship.Velocity.normalized * -1f) || ship.Velocity.magnitude <= beginThrottleDownSpeed)
+            if (Vector3.Dot(ship.Velocity.normalized * -1f, ship.Heading) < 0.5f ||
+                ship.Velocity.magnitude <= beginThrottleDownSpeed)
             {
                 stage = BrakingStage.Disengage;
             }
@@ -98,7 +99,7 @@ public class Autobrake : MonoBehaviour
 
     private bool IsFacing(Vector3 direction)
     {
-        return Vector3.Angle(ship.Heading, direction) < 0.01f;
+        return Vector3.Angle(ship.Heading, direction) < 0.1f;
     }
 
     private float EstimateDistance()
