@@ -65,6 +65,10 @@ public class EngineController : MonoBehaviour
             sfx.Crash();
             wasBorken = true;
         }
+        else if (!isBroken)
+        {
+            wasBorken = false;
+        }
 
         if (explosionTimer > 0f)
         {
