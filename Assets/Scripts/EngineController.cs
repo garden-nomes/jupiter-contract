@@ -6,6 +6,8 @@ using UnityEngine;
 public class EngineController : MonoBehaviour
 {
     public EngineBreakPoint[] breakPoints;
+    public Shake shake;
+    public SfxController sfx;
 
     public float throttle = 0f;
     public float minBreakTime = 30f;
@@ -18,7 +20,12 @@ public class EngineController : MonoBehaviour
 
     public float Thrust => IsBroken ? 0f : throttle;
 
-    private float breakTimer;
+    public float explosionTime = 1f;
+    public float explosionAmplitude = 1f;
+
+    private float breakTimer = 0f;
+    private bool wasBorken = false; // deal with it
+    private float explosionTimer = 0f;
 
     void Start()
     {
@@ -50,6 +57,20 @@ public class EngineController : MonoBehaviour
             Break();
             ResetBreakTimer();
         }
+
+        // assplodey
+        if (!wasBorken && isBroken)
+        {
+            explosionTimer = explosionTime;
+            sfx.Crash();
+            wasBorken = true;
+        }
+
+        if (explosionTimer > 0f)
+        {
+            shake.Add((explosionTimer / explosionTime) * explosionAmplitude);
+            explosionTimer -= Time.deltaTime;
+        }
     }
 
     void ResetBreakTimer()
@@ -70,5 +91,4 @@ public class EngineController : MonoBehaviour
         breakPoint.gameObject.SetActive(true);
         breakPoint.Reset();
     }
-
 }

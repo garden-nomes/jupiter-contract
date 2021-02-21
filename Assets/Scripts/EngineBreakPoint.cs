@@ -29,12 +29,12 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
 
             if (fixedTimer >= timeToFix)
             {
+                fixingPlayer.sfx.Blip();
                 fixingPlayer.hasControl = true;
                 fixingPlayer.progress = null;
                 fixingPlayer.actionText = null;
                 fixingPlayer = null;
                 gameObject.SetActive(false);
-                fixingPlayer.sfx.Blip();
             }
             else if (fixingPlayer.input.GetBtnUp(2))
             {
@@ -46,6 +46,7 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
         }
 
         criticalTimer += Time.deltaTime;
+
         var emission = particleSystem.emission;
         emission.rateOverTime = IsCritical ? criticalParticleRate : nonCriticalParticleRate;
     }
