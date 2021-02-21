@@ -13,6 +13,8 @@ public class EngineController : MonoBehaviour
 
     private bool isBroken;
     public bool IsBroken => isBroken;
+    private bool isFaulty;
+    public bool IsFaulty => isFaulty;
 
     public float Thrust => IsBroken ? 0f : throttle;
 
@@ -30,13 +32,15 @@ public class EngineController : MonoBehaviour
 
     void Update()
     {
-        // update isBroken
+        // update isBroken/isFaulty
         isBroken = false;
+        isFaulty = false;
         foreach (var breakPoint in breakPoints)
         {
-            if (breakPoint.gameObject.activeSelf && breakPoint.IsCritical)
+            if (breakPoint.gameObject.activeSelf)
             {
-                isBroken = true;
+                isFaulty = true;
+                if (breakPoint.IsCritical) isBroken = true;
             }
         }
 
@@ -53,6 +57,7 @@ public class EngineController : MonoBehaviour
         breakTimer = Random.Range(minBreakTime, maxBreakTime);
     }
 
+    [ContextMenu("Break")]
     public void Break()
     {
         var availableBreakpoints = breakPoints.Where(bp => !bp.gameObject.activeSelf).ToArray();

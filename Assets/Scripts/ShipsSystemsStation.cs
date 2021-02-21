@@ -18,8 +18,8 @@ public class ShipsSystemsStation : StationBehaviour
 
     protected override void Update()
     {
-        portEngineIndicator.isOk = !ship.portEngine.IsBroken;
-        stbdEngineIndicator.isOk = !ship.stbdEngine.IsBroken;
+        portEngineIndicator.isOk = !ship.portEngine.IsFaulty;
+        stbdEngineIndicator.isOk = !ship.stbdEngine.IsFaulty;
         bridgeLightBlinker.enabled = !portEngineIndicator.isOk || !stbdEngineIndicator.isOk;
         base.Update();
     }
