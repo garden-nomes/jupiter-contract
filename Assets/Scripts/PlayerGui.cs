@@ -28,11 +28,11 @@ public class PlayerGui : MonoBehaviour
 
         tirednessMeter.value = 1f - player.tiredness;
 
-        if (player.Progress != null)
+        if (player.progress != null)
         {
             needMeterContainer.SetActive(false);
             progressMeter.gameObject.SetActive(true);
-            progressMeter.value = player.Progress.Value;
+            progressMeter.value = player.progress.Value;
         }
         else
         {

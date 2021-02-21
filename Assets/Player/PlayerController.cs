@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public Sprite[] frames;
     public bool hasControl = true;
     public PlayerInput input => _input;
-    public ProgressBar progressBar;
     public StationBehaviour station;
     public SfxController sfx;
 
@@ -18,23 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public string instructionText = "";
     [HideInInspector] public string actionText = null;
-
-    public float? Progress
-    {
-        get => progressBar.gameObject.activeSelf ? progressBar.progress : (float?) null;
-        set
-        {
-            if (value == null)
-            {
-                progressBar.gameObject.SetActive(false);
-            }
-            else
-            {
-                progressBar.gameObject.SetActive(true);
-                progressBar.progress = value.Value;
-            }
-        }
-    }
+    [HideInInspector] public float? progress = null;
 
     private MovementController movementController;
     private SpriteRenderer spriteRenderer;

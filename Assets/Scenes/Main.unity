@@ -11941,6 +11941,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.1875
       objectReference: {fileID: 0}
+    - target: {fileID: 3899009066897339205, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: timeToFix
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: b.x
       value: 4.3125
@@ -28729,6 +28733,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2001721678}
+    - target: {fileID: 2520141774159742137, guid: d004078b3d82745249150176706476d4, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071880626579398251, guid: d004078b3d82745249150176706476d4, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448846, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_Name
       value: Player 1 GUI
@@ -28816,6 +28828,14 @@ PrefabInstance:
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071880628002487479, guid: d004078b3d82745249150176706476d4, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582010888386854390, guid: d004078b3d82745249150176706476d4, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d004078b3d82745249150176706476d4, type: 3}

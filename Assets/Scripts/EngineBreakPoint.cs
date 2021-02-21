@@ -24,13 +24,13 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
         if (fixingPlayer != null)
         {
             fixedTimer += Time.deltaTime;
-            fixingPlayer.Progress = fixedTimer / timeToFix;
+            fixingPlayer.progress = fixedTimer / timeToFix;
             fixingPlayer.actionText = "fixing...";
 
             if (fixedTimer >= timeToFix)
             {
                 fixingPlayer.hasControl = true;
-                fixingPlayer.Progress = null;
+                fixingPlayer.progress = null;
                 fixingPlayer.actionText = null;
                 fixingPlayer = null;
                 gameObject.SetActive(false);
@@ -38,7 +38,7 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
             else if (fixingPlayer.input.GetBtnUp(2))
             {
                 fixingPlayer.hasControl = true;
-                fixingPlayer.Progress = null;
+                fixingPlayer.progress = null;
                 fixingPlayer.actionText = null;
                 fixingPlayer = null;
             }

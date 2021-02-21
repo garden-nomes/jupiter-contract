@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fixingPlayer: {fileID: 0}
-  timeToFix: 1
+  timeToFix: 2
   timeUntilCritical: 60
   nonCriticalParticleRate: 5
   criticalParticleRate: 50
