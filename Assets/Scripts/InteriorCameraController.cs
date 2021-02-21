@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public class InteriorCameraController : MonoBehaviour
 {
     public PlayerController target;
     public int maskLayer;
-    public Camera camera;
+    public new Camera camera;
     public bool isVisible = true;
 
     private BoxCollider2D[] compartments;
@@ -50,7 +48,6 @@ public class InteriorCameraController : MonoBehaviour
                     if (spriteMask.enabled)
                     {
                         tempMaskLayer = spriteMask.gameObject.layer;
-                        Debug.Log(tempMaskLayer);
                         camera.cullingMask = camera.cullingMask | (1 << tempMaskLayer.Value);
                     }
                     else

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class StationBehaviour : MonoBehaviour, IInteractible
 {
+    public SfxController sfx;
     public Transform cameraPositionOverride;
     public string actionText;
 
@@ -43,6 +44,7 @@ public class StationBehaviour : MonoBehaviour, IInteractible
     private void LockPlayer(PlayerController player)
     {
         OnLock(player);
+        sfx.Blip();
 
         player.hasControl = false;
         // delay a frame to avoid releasing control if this Update() happens afterwards in same frame
@@ -56,6 +58,7 @@ public class StationBehaviour : MonoBehaviour, IInteractible
     private void ReleasePlayer()
     {
         OnRelease(controllingPlayer);
+        sfx.Blip();
 
         // delay a frame to avoid taking control back if this Update() happens afterwards in same frame
         var player = controllingPlayer;

@@ -6,6 +6,8 @@ public class BunksController : MonoBehaviour, IInteractible
 {
     public float restingTime = 10f;
 
+    public SfxController sfx;
+
     public PlayerController topBunkOwner;
     public PlayerController bottomBunkOwner;
 
@@ -53,12 +55,14 @@ public class BunksController : MonoBehaviour, IInteractible
 
         if (isTopBunkOccupied && topBunkOwner.input.GetBtnDown(2))
         {
+            sfx.Blip();
             isTopBunkOccupied = false;
             topBunkOwner.gameObject.SetActive(true);
         }
 
         if (isBottomBunkOccupied && bottomBunkOwner.input.GetBtnDown(2))
         {
+            sfx.Blip();
             isBottomBunkOccupied = false;
             bottomBunkOwner.gameObject.SetActive(true);
         }

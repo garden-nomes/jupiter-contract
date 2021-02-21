@@ -13,6 +13,7 @@ public class Helm : StationBehaviour
         {
             if (player.input.GetBtnDown(1))
             {
+                sfx.Blip();
                 autobrake.Disengage();
             }
         }
@@ -33,9 +34,21 @@ public class Helm : StationBehaviour
 
             if (ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f && player.input.GetBtnDown(1))
             {
+                sfx.Blip();
                 autobrake.Engage();
             }
         }
+    }
+
+    protected override void Update()
+    {
+        if (!HasControl && !autobrake.IsEngaged)
+        {
+            ship.throttle -= throttleSpeed * Time.deltaTime;
+            ship.throttle = Mathf.Clamp01(ship.throttle);
+        }
+
+        base.Update();
     }
 
     public override string GetActionText(PlayerController player)

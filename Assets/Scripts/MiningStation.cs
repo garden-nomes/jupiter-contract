@@ -57,10 +57,13 @@ public class MiningStation : StationBehaviour
 
             laser.gameObject.SetActive(true);
             laser.target = hit.point;
+
+            sfx.SetLaserActive(true);
         }
         else
         {
             laser.gameObject.SetActive(false);
+            sfx.SetLaserActive(false);
         }
 
         // update readouts

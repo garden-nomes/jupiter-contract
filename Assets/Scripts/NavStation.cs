@@ -27,10 +27,12 @@ public class NavStation : StationBehaviour
 
         if (ship.target != null && player.input.GetBtnDown(0))
         {
+            sfx.Blip();
             ship.target = null;
         }
         else if (overlay.HoveredTarget != null && player.input.GetBtnDown(0))
         {
+            sfx.Blip();
             ship.target = overlay.HoveredTarget;
         }
 

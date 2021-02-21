@@ -16,6 +16,7 @@ public class ShipController : MonoBehaviour
     public EngineController stbdEngine;
 
     public Shake shake;
+    public SfxController sfx;
 
     public float stabilizerMaxSpeed = 1f;
     public float stabilizerForce = 1f;
@@ -25,9 +26,6 @@ public class ShipController : MonoBehaviour
     public Vector3 Velocity => rigidbody.velocity;
 
     private new Rigidbody rigidbody;
-
-    private bool isStabilizing = false;
-    public bool IsStabilizing => isStabilizing;
 
     private float acceleration = 0f;
     public float Acceleration => acceleration;
@@ -40,6 +38,7 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         shake.Add(Acceleration);
+        sfx.SetEngineRumble(Acceleration / moveSpeed);
     }
 
     void FixedUpdate()
@@ -50,40 +49,10 @@ public class ShipController : MonoBehaviour
         var thrust = (portEngine.Thrust + stbdEngine.Thrust) / 2f;
         acceleration = thrust * moveSpeed;
         rigidbody.velocity += transform.up * acceleration * Time.deltaTime;
-
-        // turn off stabilizers on throttle-up
-        if (throttle > 0f) isStabilizing = false;
-
-        // apply stabilizers
-        if (isStabilizing)
-        {
-            var force = stabilizerForce * Time.deltaTime;
-            var speed = Velocity.magnitude;
-
-            if (force >= speed)
-            {
-                rigidbody.velocity = Vector3.zero;
-                isStabilizing = false;
-            }
-            else
-            {
-                rigidbody.velocity -= rigidbody.velocity.normalized * force;
-            }
-        }
     }
 
-    public void KillVelocity()
+    public void Stop()
     {
         rigidbody.velocity = Vector3.zero;
-    }
-
-    public void ActivateStabilizers()
-    {
-        isStabilizing = true;
-    }
-
-    public void DeactivateStabilizers()
-    {
-        isStabilizing = false;
     }
 }

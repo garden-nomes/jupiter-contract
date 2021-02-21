@@ -75,7 +75,7 @@ public class Autobrake : MonoBehaviour
             {
                 if (ship.Velocity.magnitude < 0.1f)
                 {
-                    ship.KillVelocity();
+                    ship.Stop();
                     var travelled = (currentEngagementStart - ship.Position).magnitude;
                     Debug.Log($"estimate: {currentEngagementEstimate.ToString("0.00")}");
                     Debug.Log($"travelled: {currentEngagementEstimate.ToString("0.00")}");

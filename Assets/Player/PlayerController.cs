@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInput input => _input;
     public ProgressBar progressBar;
     public StationBehaviour station;
+    public SfxController sfx;
 
     public float tiredness = 0f;
     public float tirednessTime = 60f;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
             if (input.GetBtnDown(0))
             {
+                sfx.Blip();
                 isMagBootsOn = !isMagBootsOn;
             }
 
