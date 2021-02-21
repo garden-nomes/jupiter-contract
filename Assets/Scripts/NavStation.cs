@@ -30,15 +30,18 @@ public class NavStation : StationBehaviour
             ship.CancelPopup();
         }
 
-        if (ship.target != null && player.input.GetBtnDown(0))
+        if (ship.ore < ship.capacity) // disable changing targets when station is targeted
         {
-            sfx.Blip();
-            ship.target = null;
-        }
-        else if (overlay.HoveredTarget != null && player.input.GetBtnDown(0))
-        {
-            sfx.Blip();
-            ship.target = overlay.HoveredTarget;
+            if (ship.target != null && player.input.GetBtnDown(0))
+            {
+                sfx.Blip();
+                ship.target = null;
+            }
+            else if (overlay.HoveredTarget != null && player.input.GetBtnDown(0))
+            {
+                sfx.Blip();
+                ship.target = overlay.HoveredTarget;
+            }
         }
 
         if (overlay.Target != null)
@@ -58,13 +61,17 @@ public class NavStation : StationBehaviour
         var scheme = player.input.inputScheme;
 
         var lockInstructions = "";
-        if (ship.target == null && overlay.HoveredTarget != null)
+
+        if (ship.ore < ship.capacity)
         {
-            lockInstructions += $"{Icons.IconText(scheme.btn0)} lock target\n";
-        }
-        else if (ship.target != null)
-        {
-            lockInstructions += $"{Icons.IconText(scheme.btn0)} release target\n";
+            if (ship.target == null && overlay.HoveredTarget != null)
+            {
+                lockInstructions += $"{Icons.IconText(scheme.btn0)} lock target\n";
+            }
+            else if (ship.target != null)
+            {
+                lockInstructions += $"{Icons.IconText(scheme.btn0)} release target\n";
+            }
         }
 
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate array\n" +
