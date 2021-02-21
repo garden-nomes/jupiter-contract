@@ -32,10 +32,17 @@ public class Helm : StationBehaviour
             else ship.throttle -= throttleSpeed * Time.deltaTime;
             ship.throttle = Mathf.Clamp01(ship.throttle);
 
+            // engage autobrake
             if (ship.throttle == 0f && ship.Velocity.sqrMagnitude > 0f && player.input.GetBtnDown(1))
             {
                 sfx.Blip();
                 autobrake.Engage();
+            }
+
+            // clear popups on movement
+            if (horizontal != 0f || vertical != 0f || player.input.GetBtn(0))
+            {
+                ship.CancelPopup();
             }
         }
     }

@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class HoldFullMessage : MonoBehaviour
 {
-    public float minimumShowTime = 4f;
-    public bool waitForCancel = true;
+    public float minimumShowTime = 2f;
 
     private float showTimer = 0f;
-    private bool isCanceled = false;
 
     void Update()
     {
         showTimer += Time.deltaTime;
-
-        if (showTimer > minimumShowTime && (isCanceled || !waitForCancel))
-        {
-            gameObject.SetActive(false);
-        }
     }
 
     [ContextMenu("Show")]
@@ -25,12 +18,14 @@ public class HoldFullMessage : MonoBehaviour
     {
         gameObject.SetActive(true);
         showTimer = 0f;
-        isCanceled = false;
     }
 
     [ContextMenu("Cancel")]
     public void Cancel()
     {
-        isCanceled = true;
+        if (showTimer > minimumShowTime)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

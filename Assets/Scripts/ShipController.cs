@@ -37,6 +37,8 @@ public class ShipController : MonoBehaviour
     private float contractTime = 0f;
     private bool isContractTimerRunning = false;
     public float ContactTime => contractTime;
+    private bool wasHoldFull;
+    public bool IsInContractCompleteSequence => oreTransferSequence.IsRunning;
 
     void Start()
     {
@@ -56,10 +58,20 @@ public class ShipController : MonoBehaviour
         // check if station in range
         if (ore == capacity &&
             !oreTransferSequence.IsRunning &&
-            Velocity.sqrMagnitude < 0.1f &&
+            Velocity.sqrMagnitude < 0.01f &&
             (station.position - Position).sqrMagnitude < stationRange * stationRange)
         {
+            isContractTimerRunning = false;
             oreTransferSequence.StartSequence();
+            target = null;
+        }
+
+        // flash "hold full" message
+        if (!oreTransferSequence.IsRunning && !wasHoldFull && ore >= capacity)
+        {
+            holdFullMessage.Show();
+            wasHoldFull = true;
+            target = station.position;
         }
     }
 
@@ -78,14 +90,16 @@ public class ShipController : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
-    public void StopContractTimer()
-    {
-        isContractTimerRunning = false;
-    }
-
     public void ResetContract()
     {
         contractTime = 0f;
         isContractTimerRunning = false;
+        wasHoldFull = false;
+    }
+
+    public void CancelPopup()
+    {
+        holdFullMessage.Cancel();
+        oreTransferSequence.Cancel();
     }
 }

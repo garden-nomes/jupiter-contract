@@ -25,6 +25,11 @@ public class NavStation : StationBehaviour
         scopesCamera.transform.rotation *=
             Quaternion.AngleAxis(vertical * Time.deltaTime * rotationSpeed, Vector3.left);
 
+        if (horizontal != 0f || vertical != 0f)
+        {
+            ship.CancelPopup();
+        }
+
         if (ship.target != null && player.input.GetBtnDown(0))
         {
             sfx.Blip();

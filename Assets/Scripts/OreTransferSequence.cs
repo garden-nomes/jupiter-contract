@@ -76,13 +76,6 @@ public class OreTransferSequence : MonoBehaviour
         else if (state == OreTransferState.Time)
         {
             timer += Time.deltaTime;
-
-            if (timer > minimumTimeDuration)
-            {
-                state = OreTransferState.Idle;
-                ship.ResetContract();
-                time.SetActive(false);
-            }
         }
     }
 
@@ -91,5 +84,15 @@ public class OreTransferSequence : MonoBehaviour
         state = OreTransferState.StationInRange;
         timer = 0f;
         stationInRange.SetActive(true);
+    }
+
+    public void Cancel()
+    {
+        if (state == OreTransferState.Time && timer > minimumTimeDuration)
+        {
+            state = OreTransferState.Idle;
+            ship.ResetContract();
+            time.SetActive(false);
+        }
     }
 }
