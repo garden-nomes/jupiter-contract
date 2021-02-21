@@ -38,7 +38,14 @@ public class NeedMeter : MonoBehaviour
         rect.sizeDelta = size;
 
         image.enabled = value > startBlinking || (Time.time % 0.5f < 2f / 6f);
-        icon.enabled = value > startBlinking || (Time.time % 0.5f < 2f / 6f);
-        emptyText.enabled = value == 0f && (Time.time % 0.5f < 2f / 6f);
+        if (icon != null)
+        {
+            icon.enabled = value > startBlinking || (Time.time % 0.5f < 2f / 6f);
+        }
+
+        if (emptyText != null)
+        {
+            emptyText.enabled = value == 0f && (Time.time % 0.5f < 2f / 6f);
+        }
     }
 }

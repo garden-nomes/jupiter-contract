@@ -7,11 +7,17 @@ public class PlayerGui : MonoBehaviour
     public PlayerController player;
 
     public TMPro.TextMeshProUGUI instructions;
+    public GameObject needMeterContainer;
+    public NeedMeter progressMeter;
     public NeedMeter tirednessMeter;
 
     void Update()
     {
-        if (player.station != null)
+        if (player.actionText != null && player.actionText.Length > 0)
+        {
+            instructions.text = player.actionText;
+        }
+        else if (player.station != null)
         {
             instructions.text = player.station.GetInstructionText(player);
         }
@@ -21,5 +27,17 @@ public class PlayerGui : MonoBehaviour
         }
 
         tirednessMeter.value = 1f - player.tiredness;
+
+        if (player.Progress != null)
+        {
+            needMeterContainer.SetActive(false);
+            progressMeter.gameObject.SetActive(true);
+            progressMeter.value = player.Progress.Value;
+        }
+        else
+        {
+            progressMeter.gameObject.SetActive(false);
+            needMeterContainer.SetActive(true);
+        }
     }
 }

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool IsExhausted => tiredness >= 1f;
 
     [HideInInspector] public string instructionText = "";
+    [HideInInspector] public string actionText = null;
 
     public float? Progress
     {
