@@ -8,6 +8,7 @@ public class MovementController : MonoBehaviour
     public float moveSpeed = 8f;
     public float floatingMoveSpeed = 2f;
     public float floatingMoveSmoothing = .75f;
+    public float floatingBounciness = 0.2f;
     public float pushOffSpeed = 1f;
     public LayerMask groundMask;
     public Transform groundCheckMarker;
@@ -34,7 +35,7 @@ public class MovementController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         bouncyMaterial = new PhysicsMaterial2D();
-        bouncyMaterial.bounciness = 1f;
+        bouncyMaterial.bounciness = floatingBounciness;
         bouncyMaterial.friction = 0f;
 
         nonBouncyMaterial = new PhysicsMaterial2D();
