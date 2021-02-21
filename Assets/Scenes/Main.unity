@@ -346,6 +346,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 769373686}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (4)
@@ -430,6 +438,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: 0.1875
@@ -1723,6 +1735,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199477961}
   m_Mesh: {fileID: 0}
+--- !u!1 &220328968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4240319187834994937, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+  m_PrefabInstance: {fileID: 1724189449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &220328971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220328968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a699c781d57d34524a01a1344daefc87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerA: {fileID: 0}
+  playerB: {fileID: 0}
+  audioSource: {fileID: 0}
+  radius: 4
 --- !u!198 &225479775 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3214072592018249488, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
@@ -1834,6 +1867,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265160015}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point
@@ -1902,6 +1943,10 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: -3.0625
@@ -3374,6 +3419,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 769373686}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point
@@ -3442,6 +3495,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.1875
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: 2.8125
@@ -4432,6 +4489,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 769373686}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (3)
@@ -4516,6 +4581,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: 0.1875
@@ -5081,6 +5150,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265160015}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (5)
@@ -5165,6 +5242,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: -0.8125
@@ -5812,6 +5893,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 769373686}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (1)
@@ -5896,6 +5985,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: 4.6875
@@ -6429,9 +6522,13 @@ MonoBehaviour:
   - {fileID: 580077785}
   - {fileID: 10469646}
   - {fileID: 2029573568}
+  shake: {fileID: 545220656}
+  sfx: {fileID: 884552216}
   throttle: 0
   minBreakTime: 60
   maxBreakTime: 120
+  explosionTime: 1
+  explosionAmplitude: 20
 --- !u!1 &801020128
 GameObject:
   m_ObjectHideFlags: 0
@@ -7655,6 +7752,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blip: {fileID: 8300000, guid: f537381ae1dcd4038a3873c0e2729436, type: 3}
+  blipVolume: 1
+  crash: {fileID: 8300000, guid: 0bae9c339b1594197a85f48e1a347bc0, type: 3}
+  crashVolume: 1
   laserSound: {fileID: 1726124929}
   engineRumble: {fileID: 1075227150}
 --- !u!4 &884552217
@@ -8554,7 +8654,6 @@ Transform:
   - {fileID: 1273657619}
   - {fileID: 675288229}
   - {fileID: 826197503}
-  - {fileID: 1623022452}
   - {fileID: 1312014771}
   m_Father: {fileID: 1988618450}
   m_RootOrder: 4
@@ -11616,9 +11715,13 @@ MonoBehaviour:
   - {fileID: 161471460}
   - {fileID: 814211155}
   - {fileID: 1559078645}
+  shake: {fileID: 545220656}
+  sfx: {fileID: 884552216}
   throttle: 0
   minBreakTime: 60
   maxBreakTime: 120
+  explosionTime: 1
+  explosionAmplitude: 20
 --- !u!1001 &1272794472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11877,6 +11980,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 769373686}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point
@@ -11945,6 +12056,10 @@ PrefabInstance:
       propertyPath: timeToFix
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: b.x
       value: 4.3125
@@ -11953,7 +12068,8 @@ PrefabInstance:
       propertyPath: a.x
       value: 3.6875
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
 --- !u!4 &1284639112 stripped
 Transform:
@@ -12281,7 +12397,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 989848925}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1312014772
 MonoBehaviour:
@@ -12513,6 +12629,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 769373686}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (2)
@@ -12597,6 +12721,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: 4.6875
@@ -19374,6 +19502,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265160015}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (3)
@@ -19458,6 +19594,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: -0.8125
@@ -19557,95 +19697,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1612161545}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1623022451
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1623022452}
-  - component: {fileID: 1623022455}
-  - component: {fileID: 1623022454}
-  - component: {fileID: 1623022453}
-  m_Layer: 0
-  m_Name: Nav Manual
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1623022452
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623022451}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6875, y: -4.375, z: 0}
-  m_LocalScale: {x: 1.625, y: 2.5, z: 1}
-  m_Children: []
-  m_Father: {fileID: 989848925}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1623022453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623022451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 704715496fe2c46bcbdd7eabc306998f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sfx: {fileID: 884552216}
-  cameraPositionOverride: {fileID: 1514779523}
-  actionText: check open book
---- !u!114 &1623022454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623022451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29ce44489854e44f78018c26fb1843f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  a: {x: -1.4375, y: -5.5625}
-  b: {x: 0.0625, y: -3.1875}
-  pixelsPerUnit: 8
---- !u!61 &1623022455
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623022451}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &1623786930
 GameObject:
   m_ObjectHideFlags: 0
@@ -19888,6 +19939,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265160015}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (2)
@@ -19972,6 +20031,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: -5.3125
@@ -19988,7 +20051,8 @@ PrefabInstance:
       propertyPath: b.y
       value: -10.0625
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
 --- !u!1 &1726124928
 GameObject:
@@ -26070,6 +26134,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265160015}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (4)
@@ -26154,6 +26226,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: -0.8125
@@ -27377,6 +27453,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 769373686}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (5)
@@ -27461,6 +27545,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: 0.1875
@@ -27755,6 +27843,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265160015}
     m_Modifications:
+    - target: {fileID: 1490733044246205929, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: m_Volume
+      value: 0.151
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point (1)
@@ -27839,6 +27939,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0625
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     - target: {fileID: 8624298017244665593, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: a.x
       value: -5.3125
@@ -28656,6 +28760,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265160015}
     m_Modifications:
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerA
+      value: 
+      objectReference: {fileID: 2001721678}
+    - target: {fileID: 1524437506008461531, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: playerB
+      value: 
+      objectReference: {fileID: 7711021}
     - target: {fileID: 3214072591696108282, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
       propertyPath: m_Name
       value: Engine Break Point
@@ -28720,6 +28832,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.1875
       objectReference: {fileID: 0}
+    - target: {fileID: 6603368586303631554, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
+      propertyPath: compartment
+      value: 
+      objectReference: {fileID: 907848374}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e87cc193dd91d4c928e00ad5a7139464, type: 3}
 --- !u!1001 &4071880627831773974

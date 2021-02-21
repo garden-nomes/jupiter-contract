@@ -208,11 +208,12 @@ MonoBehaviour:
   - {fileID: 1620872261708521079, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
   - {fileID: -1520331889683971644, guid: d9db01e32d51f4dfeac31d399bde8a31, type: 3}
   hasControl: 1
-  progressBar: {fileID: 0}
   station: {fileID: 0}
   sfx: {fileID: 0}
   tiredness: 0
   tirednessTime: 240
+  hunger: 0
+  hungerTime: 180
   instructionText: 
   actionText: 
 --- !u!114 &7220488927478576527

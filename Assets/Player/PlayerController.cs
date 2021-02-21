@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour
 
     public float tiredness = 0f;
     public float tirednessTime = 60f;
+    public float hunger = 0f;
+    public float hungerTime = 40f;
 
-    public bool IsExhausted => tiredness >= 1f;
+    public bool IsExhausted => tiredness >= 1f || hunger >= 1f;
 
     [HideInInspector] public string instructionText = "";
     [HideInInspector] public string actionText = null;
@@ -36,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
         tiredness += Time.deltaTime / tirednessTime;
         tiredness = Mathf.Clamp01(tiredness);
+        hunger += Time.deltaTime / hungerTime;
+        hunger = Mathf.Clamp01(hunger);
 
         if (hasControl)
         {

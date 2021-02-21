@@ -10,6 +10,7 @@ public class PlayerGui : MonoBehaviour
     public GameObject needMeterContainer;
     public NeedMeter progressMeter;
     public NeedMeter tirednessMeter;
+    public NeedMeter hungyMeter;
 
     void Update()
     {
@@ -27,6 +28,7 @@ public class PlayerGui : MonoBehaviour
         }
 
         tirednessMeter.value = 1f - player.tiredness;
+        hungyMeter.value = 1f - player.hunger;
 
         if (player.progress != null)
         {
