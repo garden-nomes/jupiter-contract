@@ -5484,8 +5484,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675288228}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.625, y: -4.3125, z: 0}
-  m_LocalScale: {x: 1.25, y: 2.625, z: 1}
+  m_LocalPosition: {x: 2.35, y: -0.28, z: 0}
+  m_LocalScale: {x: 1.25, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 989848925}
   m_RootOrder: 2
@@ -9826,9 +9826,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373d9634e89b74959ae9b4c8ef0e50f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engine: {fileID: 0}
   squareSprite: {fileID: 21300000, guid: 89f3e300c19d44cc0922d959c66c8abf, type: 3}
-  color: {r: 0.7960785, g: 0.8588236, b: 0.98823535, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   sortingOrder: 5
   width: 6
   value: 0
@@ -11538,8 +11537,8 @@ MonoBehaviour:
   - {fileID: 814211155}
   - {fileID: 1559078645}
   throttle: 0
-  minBreakTime: 0
-  maxBreakTime: 5
+  minBreakTime: 60
+  maxBreakTime: 120
 --- !u!1001 &1272794472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19090,9 +19089,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373d9634e89b74959ae9b4c8ef0e50f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engine: {fileID: 0}
   squareSprite: {fileID: 21300000, guid: 89f3e300c19d44cc0922d959c66c8abf, type: 3}
-  color: {r: 0.7960785, g: 0.8588236, b: 0.98823535, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
   sortingOrder: 5
   width: 6
   value: 0
