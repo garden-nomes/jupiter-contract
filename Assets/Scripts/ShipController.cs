@@ -8,9 +8,13 @@ public class ShipController : MonoBehaviour
     public float moveSpeed;
     public Vector3? target;
     public Vector3? hoveredTarget;
+    public Transform station;
+    public OreTransferSequence oreTransferSequence;
+    public HoldFullMessage holdFullMessage;
 
     public float ore = 0f;
     public float capacity = 1000f;
+    public float stationRange = 80f;
 
     public EngineController portEngine;
     public EngineController stbdEngine;
@@ -30,6 +34,10 @@ public class ShipController : MonoBehaviour
     private float acceleration = 0f;
     public float Acceleration => acceleration;
 
+    private float contractTime = 0f;
+    private bool isContractTimerRunning = false;
+    public float ContactTime => contractTime;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -37,8 +45,22 @@ public class ShipController : MonoBehaviour
 
     void Update()
     {
+        // engine rumble
         shake.Add(Acceleration);
         sfx.SetEngineRumble(Acceleration / moveSpeed);
+
+        // track contract time
+        if (contractTime == 0f && throttle > 0f) isContractTimerRunning = true;
+        if (isContractTimerRunning) contractTime += Time.deltaTime;
+
+        // check if station in range
+        if (ore == capacity &&
+            !oreTransferSequence.IsRunning &&
+            Velocity.sqrMagnitude < 0.1f &&
+            (station.position - Position).sqrMagnitude < stationRange * stationRange)
+        {
+            oreTransferSequence.StartSequence();
+        }
     }
 
     void FixedUpdate()
@@ -54,5 +76,16 @@ public class ShipController : MonoBehaviour
     public void Stop()
     {
         rigidbody.velocity = Vector3.zero;
+    }
+
+    public void StopContractTimer()
+    {
+        isContractTimerRunning = false;
+    }
+
+    public void ResetContract()
+    {
+        contractTime = 0f;
+        isContractTimerRunning = false;
     }
 }
