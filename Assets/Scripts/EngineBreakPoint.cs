@@ -34,6 +34,7 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
                 fixingPlayer.actionText = null;
                 fixingPlayer = null;
                 gameObject.SetActive(false);
+                fixingPlayer.sfx.Blip();
             }
             else if (fixingPlayer.input.GetBtnUp(2))
             {
@@ -59,5 +60,6 @@ public class EngineBreakPoint : MonoBehaviour, IInteractible
         fixingPlayer = player;
         player.hasControl = false;
         fixedTimer = 0f;
+        fixingPlayer.sfx.Blip();
     }
 }
