@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ThrottleMeter : MonoBehaviour
 {
-    public EngineController engine;
     public Sprite squareSprite;
     public Color color = Color.white;
     public int sortingOrder = 5;

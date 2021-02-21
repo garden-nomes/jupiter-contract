@@ -32,8 +32,8 @@ public class TransitComputer : MonoBehaviour
         autobrakeEngagedLight.SetActive(autobrake.IsEngaged);
         engFailureLight.SetActive(ship.portEngine.IsBroken || ship.stbdEngine.IsBroken);
 
-        portThrottleMeter.value = ship.portEngine.throttle;
-        stbdThrottleMeter.value = ship.stbdEngine.throttle;
+        portThrottleMeter.value = ship.portEngine.IsBroken ? 0f : ship.portEngine.throttle;
+        stbdThrottleMeter.value = ship.stbdEngine.IsBroken ? 0f : ship.stbdEngine.throttle;
     }
 
     private void UpdateDist()
