@@ -5793,7 +5793,7 @@ RectTransform:
   m_Father: {fileID: 545220655}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.33333334, y: 0.3333}
+  m_AnchorMin: {x: 0.375, y: 0.375}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -5821,10 +5821,10 @@ MonoBehaviour:
   m_Texture: {fileID: 8600000, guid: 9f92d4b7d5b404feea71b4484d3f6e86, type: 2}
   m_UVRect:
     serializedVersion: 2
-    x: 0.16666666
-    y: 0.055555552
-    width: 0.6666667
-    height: 0.8888889
+    x: 0.1875
+    y: 0.08333334
+    width: 0.625
+    height: 0.8333333
 --- !u!222 &731533275
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6531,7 +6531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_AnchorMin.y
@@ -6543,7 +6543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0.625
       objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_Pivot.x
@@ -7414,7 +7414,7 @@ MonoBehaviour:
   blipVolume: 1
   crash: {fileID: 8300000, guid: 0bae9c339b1594197a85f48e1a347bc0, type: 3}
   crashVolume: 1
-  startupSound: {fileID: 0}
+  startupSound: {fileID: 8300000, guid: ce04c0651037d469a8befdcb71b710ed, type: 3}
   startupSoundVolume: 1
   laserSound: {fileID: 1726124929}
   engineRumble: {fileID: 1075227150}
@@ -11189,7 +11189,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.6666667, y: 0.6666667}
+  m_AnchorMax: {x: 0.625, y: 0.625}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
@@ -11232,10 +11232,10 @@ MonoBehaviour:
   m_Texture: {fileID: 8600000, guid: 3fd9022d1ec674990ae74b81cad10701, type: 2}
   m_UVRect:
     serializedVersion: 2
-    x: 0.16666666
-    y: 0.055555552
-    width: 0.6666667
-    height: 0.8888889
+    x: 0.1875
+    y: 0.08333334
+    width: 0.625
+    height: 0.8333333
 --- !u!222 &1264937115
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28357,11 +28357,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0.625
       objectReference: {fileID: 0}
     - target: {fileID: 4071880626917448847, guid: d004078b3d82745249150176706476d4, type: 3}
       propertyPath: m_AnchorMax.y
