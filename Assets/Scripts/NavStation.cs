@@ -84,7 +84,7 @@ public class NavStation : StationBehaviour
         return $"{Icons.VerticalAxis(scheme)}{Icons.HorizontalAxis(scheme)} rotate array\n" +
             lockInstructions +
             $"{Icons.IconText(scheme.btn1)} (hold) zoom array\n" +
-            $"{Icons.IconText(scheme.btn2)} cancel";
+            $"{Icons.IconText(scheme.btn2)} back";
     }
 
     protected override void Update()

@@ -14,7 +14,7 @@ public class StationBehaviour : MonoBehaviour, IInteractible
     public virtual string GetActionText(PlayerController player) => actionText;
     public virtual string GetInstructionText(PlayerController player)
     {
-        return $"{Icons.IconText(player.input.inputScheme.btn2)} cancel";
+        return $"{Icons.IconText(player.input.inputScheme.btn2)} back";
     }
 
     protected virtual bool CanUseStation() => true;

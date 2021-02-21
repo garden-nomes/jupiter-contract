@@ -32,7 +32,7 @@ public class BunksController : MonoBehaviour, IInteractible
             isBottomBunkOccupied = true;
         }
 
-        player.instructionText = $"{Icons.IconText(player.input.inputScheme.btn2)} cancel";
+        player.instructionText = $"{Icons.IconText(player.input.inputScheme.btn2)} wake";
         player.gameObject.SetActive(false);
     }
 
