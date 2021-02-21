@@ -16,7 +16,7 @@ public class CollisionShake : MonoBehaviour
 
         if (collisionTimer > 0f)
         {
-            shake.Add((collisionTimer / time) * amplitude);
+            shake.ShakeItBabyyyy((collisionTimer / time) * amplitude);
             collisionTimer -= Time.deltaTime;
         }
     }

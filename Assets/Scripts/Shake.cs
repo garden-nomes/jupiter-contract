@@ -17,7 +17,7 @@ public class Shake : MonoBehaviour
         defaultPosition = rect.anchoredPosition;
     }
 
-    public void Add(float amount)
+    public void ShakeItBabyyyy(float amount)
     {
         shakeAmount += amount;
     }

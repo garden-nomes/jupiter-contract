@@ -72,7 +72,7 @@ public class EngineController : MonoBehaviour
 
         if (explosionTimer > 0f)
         {
-            shake.Add((explosionTimer / explosionTime) * explosionAmplitude);
+            shake.ShakeItBabyyyy((explosionTimer / explosionTime) * explosionAmplitude);
             explosionTimer -= Time.deltaTime;
         }
     }

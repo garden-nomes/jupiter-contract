@@ -48,7 +48,7 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         // engine rumble
-        shake.Add(Acceleration);
+        shake.ShakeItBabyyyy(Acceleration);
         sfx.SetEngineRumble(Acceleration / moveSpeed);
 
         // track contract time
