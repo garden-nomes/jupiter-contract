@@ -13,7 +13,7 @@ public class MiningLaser : MonoBehaviour
         // set endpoints of all LineRenderers to the given target in world space
         foreach (var line in lineRenderers)
         {
-            line.SetPosition(1, transform.InverseTransformPoint(target) - line.transform.position);
+            line.SetPosition(1, line.transform.InverseTransformPoint(target));
         }
     }
 }
