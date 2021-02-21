@@ -8,19 +8,27 @@ public class SfxController : MonoBehaviour
     public float blipVolume = 1f;
     public AudioClip crash;
     public float crashVolume = 1f;
+    public AudioClip startupSound;
+    public float startupSoundVolume = 1f;
     public AudioSource laserSound;
     public AudioSource engineRumble;
+    public AudioSource oneShotSource;
+
+    void Start()
+    {
+        oneShotSource.PlayOneShot(startupSound, startupSoundVolume);
+    }
 
     [ContextMenu("Blip")]
     public void Blip()
     {
-        AudioSource.PlayClipAtPoint(blip, transform.position, blipVolume);
+        oneShotSource.PlayOneShot(blip, blipVolume);
     }
 
     [ContextMenu("Crash")]
     public void Crash()
     {
-        AudioSource.PlayClipAtPoint(crash, transform.position, crashVolume);
+        oneShotSource.PlayOneShot(crash, blipVolume);
     }
 
     public void SetEngineRumble(float value)
